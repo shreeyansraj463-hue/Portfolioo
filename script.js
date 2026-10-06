@@ -1,293 +1,109 @@
-/* =====================================================
+/* =========================================================
    SHREEYANS RAJ
-   PORTFOLIO + MIRA ENGINE
-===================================================== */
+   Premium Portfolio
+========================================================= */
 
 
-/* =====================================================
+/* =========================================================
    YEAR
-===================================================== */
+========================================================= */
 
 document.getElementById("year").textContent =
     new Date().getFullYear();
 
 
-
-/* =====================================================
-   MOBILE NAV
-===================================================== */
-
-const mobileMenu =
-    document.getElementById("mobileMenu");
-
-const mobileNav =
-    document.getElementById("mobileNav");
-
-
-mobileMenu.addEventListener("click", () => {
-
-    mobileNav.classList.toggle("active");
-
-});
-
-
-mobileNav.querySelectorAll("a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        mobileNav.classList.remove("active");
-
-    });
-
-});
-
-
-
-/* =====================================================
-   CURSOR
-===================================================== */
-
-const cursorGlow =
-    document.querySelector(".cursor-glow");
-
-
-if (
-    window.matchMedia("(pointer:fine)").matches
-) {
-
-    window.addEventListener("mousemove", e => {
-
-        cursorGlow.style.left =
-            `${e.clientX}px`;
-
-        cursorGlow.style.top =
-            `${e.clientY}px`;
-
-    });
-
-}
-
-
-
-/* =====================================================
-   SCROLL REVEAL
-===================================================== */
-
-const revealObserver =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (
-                    entry.isIntersecting
-                ) {
-
-                    entry.target.classList.add(
-                        "visible"
-                    );
-
-                    revealObserver.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold: .08
-        }
-    );
-
-
-document.querySelectorAll(".reveal")
-    .forEach(element => {
-
-        revealObserver.observe(element);
-
-    });
-
-
-
-/* =====================================================
-   GOLD ATMOSPHERE
-===================================================== */
+/* =========================================================
+   BACKGROUND ATMOSPHERE
+========================================================= */
 
 const canvas =
-    document.getElementById("goldCanvas");
+    document.getElementById("atmosphere");
 
 const ctx =
     canvas.getContext("2d");
 
+let width = 0;
+let height = 0;
 
-let width;
-let height;
-let animationTime = 0;
+let particles = [];
 
 
 function resizeCanvas() {
 
-    width =
-        window.innerWidth;
+    width = window.innerWidth;
+    height = window.innerHeight;
 
-    height =
-        window.innerHeight;
-
-    const dpr =
+    const ratio =
         Math.min(
             window.devicePixelRatio || 1,
             2
         );
 
     canvas.width =
-        width * dpr;
+        width * ratio;
 
     canvas.height =
-        height * dpr;
+        height * ratio;
 
     canvas.style.width =
-        width + "px";
+        `${width}px`;
 
     canvas.style.height =
-        height + "px";
+        `${height}px`;
 
     ctx.setTransform(
-        dpr,
+        ratio,
         0,
         0,
-        dpr,
+        ratio,
         0,
         0
     );
 
+    createParticles();
 }
 
 
-resizeCanvas();
+function createParticles() {
 
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+    const count =
+        width < 700 ? 22 : 50;
 
-
-
-/* GOLD PARTICLES */
-
-const particles = [];
-
-const particleCount =
-    window.innerWidth < 700
-        ? 35
-        : 75;
-
-
-for (
-    let i = 0;
-    i < particleCount;
-    i++
-) {
-
-    particles.push({
-
-        x:
-            Math.random() * window.innerWidth,
-
-        y:
-            Math.random() * window.innerHeight,
-
-        size:
-            Math.random() * 1.5 + .2,
-
-        speed:
-            Math.random() * .15 + .02,
-
-        alpha:
-            Math.random() * .4 + .05,
-
-        phase:
-            Math.random() * Math.PI * 2
-
-    });
-
-}
-
-
-
-function liquidLine(
-    offset,
-    amplitude,
-    opacity,
-    lineWidth
-) {
-
-    ctx.beginPath();
-
-
-    const points = 80;
-
+    particles = [];
 
     for (
         let i = 0;
-        i <= points;
+        i < count;
         i++
     ) {
 
-        const x =
-            i / points * width;
+        particles.push({
 
+            x:
+                Math.random() * width,
 
-        const y =
-            height * .48 +
+            y:
+                Math.random() * height,
 
-            Math.sin(
-                i * .11 +
-                animationTime * .0003 +
-                offset
-            ) *
-            amplitude +
+            radius:
+                Math.random() * 1.5 + 0.3,
 
-            Math.sin(
-                i * .037 -
-                animationTime * .00018
-            ) *
-            amplitude * .55 +
+            vx:
+                (Math.random() - 0.5) * 0.15,
 
-            Math.sin(
-                i * .017 +
-                animationTime * .0001
-            ) *
-            amplitude * .3;
+            vy:
+                (Math.random() - 0.5) * 0.15,
 
+            alpha:
+                Math.random() * 0.14 + 0.03
 
-        if (i === 0) {
-
-            ctx.moveTo(x,y);
-
-        } else {
-
-            ctx.lineTo(x,y);
-
-        }
+        });
 
     }
-
-
-    ctx.strokeStyle =
-        `rgba(184,154,90,${opacity})`;
-
-    ctx.lineWidth =
-        lineWidth;
-
-    ctx.stroke();
-
 }
 
 
-
-function drawGoldBackground() {
+function drawAtmosphere() {
 
     ctx.clearRect(
         0,
@@ -297,79 +113,35 @@ function drawGoldBackground() {
     );
 
 
-    /* black base */
-
-    const background =
-        ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            height
-        );
-
-
-    background.addColorStop(
-        0,
-        "#020202"
-    );
-
-    background.addColorStop(
-        .5,
-        "#080807"
-    );
-
-    background.addColorStop(
-        1,
-        "#020202"
-    );
-
-
-    ctx.fillStyle =
-        background;
-
-
-    ctx.fillRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    /* gold atmosphere */
-
-    const glow =
+    const gradient =
         ctx.createRadialGradient(
-            width * .58,
-            height * .38,
+            width * 0.72,
+            height * 0.22,
             0,
-            width * .58,
-            height * .38,
-            width * .65
+            width * 0.72,
+            height * 0.22,
+            Math.max(width, height) * 0.65
         );
 
 
-    glow.addColorStop(
+    gradient.addColorStop(
         0,
-        "rgba(184,154,90,.09)"
+        "rgba(184,154,90,0.10)"
     );
 
-
-    glow.addColorStop(
-        .5,
-        "rgba(184,154,90,.025)"
+    gradient.addColorStop(
+        0.45,
+        "rgba(184,154,90,0.025)"
     );
 
-
-    glow.addColorStop(
+    gradient.addColorStop(
         1,
-        "transparent"
+        "rgba(184,154,90,0)"
     );
 
 
     ctx.fillStyle =
-        glow;
-
+        gradient;
 
     ctx.fillRect(
         0,
@@ -379,128 +151,223 @@ function drawGoldBackground() {
     );
 
 
-    /* fluid lines */
+    particles.forEach(
+        particle => {
 
-    liquidLine(
-        0,
-        height * .11,
-        .13,
-        1.2
-    );
+            particle.x +=
+                particle.vx;
 
-
-    liquidLine(
-        2.3,
-        height * .08,
-        .065,
-        .8
-    );
+            particle.y +=
+                particle.vy;
 
 
-    liquidLine(
-        4.8,
-        height * .14,
-        .045,
-        1
-    );
+            if (
+                particle.x < -10
+            ) {
+                particle.x =
+                    width + 10;
+            }
 
 
-    /* particles */
+            if (
+                particle.x > width + 10
+            ) {
+                particle.x = -10;
+            }
 
-    particles.forEach(p => {
 
-        p.y -= p.speed;
+            if (
+                particle.y < -10
+            ) {
+                particle.y =
+                    height + 10;
+            }
 
 
-        if (p.y < -10) {
+            if (
+                particle.y > height + 10
+            ) {
+                particle.y = -10;
+            }
 
-            p.y =
-                height + 10;
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                particle.x,
+                particle.y,
+                particle.radius,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                `rgba(
+                    184,
+                    154,
+                    90,
+                    ${particle.alpha}
+                )`;
+
+
+            ctx.fill();
 
         }
-
-
-        const flicker =
-            .5 +
-            Math.sin(
-                animationTime * .002 +
-                p.phase
-            ) *
-            .5;
-
-
-        ctx.beginPath();
-
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI * 2
-        );
-
-
-        ctx.fillStyle =
-            `rgba(214,181,105,${
-                p.alpha * flicker
-            })`;
-
-
-        ctx.fill();
-
-    });
-
-
-    animationTime += 16;
+    );
 
 
     requestAnimationFrame(
-        drawGoldBackground
+        drawAtmosphere
     );
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+drawAtmosphere();
+
+
+
+/* =========================================================
+   IMAGE PATH HANDLER
+========================================================= */
+
+/*
+   Important:
+
+   Some of your filenames contain spaces and special
+   characters such as "~".
+
+   This function safely creates the URL without
+   changing the actual filename in your repository.
+*/
+
+function imagePath(filename) {
+
+    return "./" +
+        filename
+            .split("/")
+            .map(
+                part =>
+                    encodeURIComponent(part)
+            )
+            .join("/");
 
 }
 
 
-drawGoldBackground();
+
+/* =========================================================
+   ART COLLECTION
+========================================================= */
+
+const artCollection = [
+
+    {
+        file: "20260126_150411.jpg",
+        title: "Visual Study 01"
+    },
+
+    {
+        file: "IMG-20250829-WA0008.jpg",
+        title: "Visual Study 02"
+    },
+
+    {
+        file: "IMG_20251019_003614078_HDR.jpg",
+        title: "Visual Study 03"
+    },
+
+    {
+        file: "IMG_20251019_003637605_HDR.jpg",
+        title: "Visual Study 04"
+    },
+
+    {
+        file: "IMG_20251019_004046619_HDR~2.jpg",
+        title: "Visual Study 05"
+    },
+
+    {
+        file: "IMG_20251117_032352_534.jpg",
+        title: "Visual Study 06"
+    },
+
+    {
+        file: "IMG_20251117_032354_002.jpg",
+        title: "Visual Study 07"
+    },
+
+    {
+        file: "IMG_20251117_032357_284.jpg",
+        title: "Visual Study 08"
+    },
+
+    {
+        file: "IMG_20251117_032405_870.jpg",
+        title: "Visual Study 09"
+    },
+
+    {
+        file: "IMG_20260607_184756768.jpg",
+        title: "Visual Study 10"
+    }
+
+];
 
 
 
-/* =====================================================
-   ACTUAL UPLOADED IMAGES
-===================================================== */
+/* =========================================================
+   POETRY COLLECTION
+========================================================= */
 
-/*
-   These filenames come directly from the files you
-   uploaded to your GitHub repository.
-
-   They are in the ROOT of the repository, NOT assets/art/.
-*/
-
-const uploadedImages = [
+const poetryCollection = [
 
     {
         file:
-            "IMG_20261006_194615_425.jpg",
+            "Screenshot_20261007-045758_Files by Google.png",
 
         title:
-            "Visual Study 01"
+            "Written Page 01"
     },
 
     {
         file:
-            "IMG_20261005_012646332_HDR~2.jpg",
+            "Screenshot_20261007-045745_Files by Google.png",
 
         title:
-            "Visual Study 02"
+            "Written Page 02"
     },
 
     {
         file:
-            "IMG_20261006_193516_352.webp",
+            "Screenshot_20261007-045733_Files by Google.png",
 
         title:
-            "Visual Study 03"
+            "Written Page 03"
+    },
+
+    {
+        file:
+            "Screenshot_20261007-045720_Files by Google.png",
+
+        title:
+            "Written Page 04"
+    },
+
+    {
+        file:
+            "Screenshot_20261007-045706_Files by Google.png",
+
+        title:
+            "Written Page 05"
     },
 
     {
@@ -508,7 +375,15 @@ const uploadedImages = [
             "IMG_20261006_193525_532.webp",
 
         title:
-            "Visual Study 04"
+            "Written Page 06"
+    },
+
+    {
+        file:
+            "IMG_20261006_193516_352.webp",
+
+        title:
+            "Written Page 07"
     },
 
     {
@@ -516,23 +391,15 @@ const uploadedImages = [
             "IMG_20261006_193503_673.webp",
 
         title:
-            "Visual Study 05"
+            "Written Page 08"
     },
 
     {
         file:
-            "IMG_20261001_002001_409.jpg",
+            "IMG_20261005_012646332_HDR~2.jpg",
 
         title:
-            "Visual Study 06"
-    },
-
-    {
-        file:
-            "IMG_20261001_002001_361.jpg",
-
-        title:
-            "Visual Study 07"
+            "Written Page 09"
     },
 
     {
@@ -540,7 +407,7 @@ const uploadedImages = [
             "IMG_20260928_025833148_HDR~2.jpg",
 
         title:
-            "Visual Study 08"
+            "Written Page 10"
     },
 
     {
@@ -548,130 +415,122 @@ const uploadedImages = [
             "IMG_20260928_025657503_HDR.jpg",
 
         title:
-            "Visual Study 09"
-    },
-
-    {
-        file:
-            "IMG_20260918_200802_610.jpg",
-
-        title:
-            "Visual Study 10"
-    },
-
-    {
-        file:
-            "IMG_20260918_200802_712.jpg",
-
-        title:
-            "Visual Study 11"
+            "Written Page 11"
     }
 
 ];
 
 
 
-/* =====================================================
-   CREATE IMAGE GRID
-===================================================== */
+/* =========================================================
+   GALLERY ELEMENTS
+========================================================= */
 
-const artGrid =
-    document.getElementById("artGrid");
+const artGallery =
+    document.getElementById(
+        "artGallery"
+    );
 
-
-uploadedImages.forEach(
-    (image,index) => {
-
-        const card =
-            document.createElement("article");
-
-
-        card.className =
-            "art-card reveal";
-
-
-        card.innerHTML = `
-
-            <img
-                src="./${image.file}"
-                alt="${image.title}"
-                loading="lazy"
-            >
-
-            <div class="art-card-info">
-
-                <span>
-                    ${String(index + 1).padStart(2,"0")}
-                </span>
-
-                <span>
-                    ${image.title}
-                </span>
-
-            </div>
-
-        `;
-
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                openLightbox(
-                    `./${image.file}`,
-                    image.title
-                );
-
-            }
-        );
-
-
-        artGrid.appendChild(card);
-
-
-        revealObserver.observe(card);
-
-    }
-);
+const poetryGallery =
+    document.getElementById(
+        "poetryGallery"
+    );
 
 
 
-/* =====================================================
-   LIGHTBOX
-===================================================== */
+/* =========================================================
+   LIGHTBOX ELEMENTS
+========================================================= */
 
 const lightbox =
-    document.getElementById("lightbox");
+    document.getElementById(
+        "lightbox"
+    );
 
 const lightboxImage =
-    document.getElementById("lightboxImage");
+    document.getElementById(
+        "lightboxImage"
+    );
+
+const lightboxCaption =
+    document.getElementById(
+        "lightboxCaption"
+    );
 
 const lightboxClose =
-    document.getElementById("lightboxClose");
+    document.getElementById(
+        "lightboxClose"
+    );
 
+
+
+/* =========================================================
+   OPEN LIGHTBOX
+========================================================= */
 
 function openLightbox(
-    source,
+    filename,
     title
 ) {
 
     lightboxImage.src =
-        source;
+        imagePath(filename);
 
     lightboxImage.alt =
         title;
 
+    lightboxCaption.textContent =
+        title;
+
+
     lightbox.classList.add(
-        "active"
+        "open"
+    );
+
+
+    lightbox.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "no-scroll"
     );
 
 }
 
 
+
+/* =========================================================
+   CLOSE LIGHTBOX
+========================================================= */
+
 function closeLightbox() {
 
     lightbox.classList.remove(
-        "active"
+        "open"
+    );
+
+
+    lightbox.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+
+    setTimeout(
+        () => {
+
+            lightboxImage.src = "";
+
+        },
+        250
     );
 
 }
@@ -685,10 +544,27 @@ lightboxClose.addEventListener(
 
 lightbox.addEventListener(
     "click",
-    e => {
+    event => {
 
         if (
-            e.target === lightbox
+            event.target ===
+            lightbox
+        ) {
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
         ) {
 
             closeLightbox();
@@ -700,665 +576,216 @@ lightbox.addEventListener(
 
 
 
-/* =====================================================
-   MIRA KNOWLEDGE
-===================================================== */
+/* =========================================================
+   CREATE IMAGE CARD
+========================================================= */
 
-const miraKnowledge = {
+function createImageCard(
+    item,
+    index,
+    type
+) {
 
-    identity: {
+    const card =
+        document.createElement(
+            "article"
+        );
 
-        keywords: [
-            "who",
-            "shreeyans",
-            "about him",
-            "about shreeyans",
-            "person"
-        ],
 
-        section:
-            "#about",
+    card.className =
+        type === "art"
+            ? "art-card"
+            : "poetry-card";
 
-        sectionName:
-            "About",
 
-        answer:
-            "Shreeyans is an engineering aspirant and creative technologist. His main academic focus is JEE preparation, while outside academics he spends a lot of time exploring front-end development, creative coding, physics, visual design, sketching, writing and music."
+    const img =
+        document.createElement(
+            "img"
+        );
 
-    },
 
+    img.src =
+        imagePath(
+            item.file
+        );
 
-    education: {
 
-        keywords: [
-            "jee",
-            "education",
-            "study",
-            "studies",
-            "student",
-            "exam",
-            "college",
-            "academic"
-        ],
+    img.alt =
+        item.title;
 
-        section:
-            "#current",
 
-        sectionName:
-            "Current State",
+    img.loading =
+        index < 4
+            ? "eager"
+            : "lazy";
 
-        answer:
-            "Right now, JEE preparation is a major part of Shreeyans' life. He also likes learning beyond the exam syllabus, especially when a subject becomes interesting enough to explore deeply."
 
-    },
-
-
-    skills: {
-
-        keywords: [
-            "skill",
-            "skills",
-            "technology",
-            "technologies",
-            "tech stack",
-            "what can he code",
-            "coding"
-        ],
-
-        section:
-            "#about",
-
-        sectionName:
-            "About",
-
-        answer:
-            "He's comfortable with HTML, CSS, JavaScript and Python. He's also exploring Three.js, WebGL, GLSL, shaders, creative coding, web animation and UI/UX."
-
-    },
-
-
-    physics: {
-
-        keywords: [
-            "physics",
-            "mathematics",
-            "math",
-            "quantum",
-            "mechanics",
-            "science"
-        ],
-
-        section:
-            "#about",
-
-        sectionName:
-            "About",
-
-        answer:
-            "Physics and mathematics are important parts of his academic interests. What seems to matter most to him is understanding the underlying logic rather than simply memorising formulas."
-
-    },
-
-
-    particle: {
-
-        keywords: [
-            "particle",
-            "gesture",
-            "hand gesture",
-            "mediapipe",
-            "computer vision",
-            "three.js",
-            "threejs"
-        ],
-
-        section:
-            "#project-particle",
-
-        sectionName:
-            "Project 01 · Hand-Gesture 3D Particle System",
-
-        answer:
-            "The Hand-Gesture 3D Particle System is probably the project that represents him best. It combines Three.js, MediaPipe, JavaScript, WebGL and real-time hand interaction."
-
-    },
-
-
-    projects: {
-
-        keywords: [
-            "project",
-            "projects",
-            "work",
-            "built",
-            "build",
-            "portfolio project"
-        ],
-
-        section:
-            "#work",
-
-        sectionName:
-            "Selected Work",
-
-        answer:
-            "There are three main projects featured here: the Hand-Gesture 3D Particle System, Camlab and a foundational 3D Multiplayer Game project."
-
-    },
-
-
-    bestProject: {
-
-        keywords: [
-            "best project",
-            "favorite project",
-            "strongest project",
-            "most impressive project",
-            "project represents him"
-        ],
-
-        section:
-            "#project-particle",
-
-        sectionName:
-            "Project 01 · Hand-Gesture 3D Particle System",
-
-        answer:
-            "I'd point you toward the Hand-Gesture 3D Particle System. It brings together several things Shreeyans genuinely likes: 3D graphics, interaction, computer vision and creative coding."
-
-    },
-
-
-    camlab: {
-
-        keywords: [
-            "camlab",
-            "interface project",
-            "ui project"
-        ],
-
-        section:
-            "#project-camlab",
-
-        sectionName:
-            "Project 02 · Camlab",
-
-        answer:
-            "Camlab is an interface experiment focused on advanced UI, motion and interactive frontend concepts."
-
-    },
-
-
-    game: {
-
-        keywords: [
-            "unity",
-            "game",
-            "multiplayer",
-            "c#",
-            "game development"
-        ],
-
-        section:
-            "#project-game",
-
-        sectionName:
-            "Project 03 · 3D Multiplayer Game",
-
-        answer:
-            "The game project is a foundational Unity experiment involving player movement, health systems, weapon controls and game physics."
-
-    },
-
-
-    art: {
-
-        keywords: [
-            "art",
-            "drawing",
-            "draw",
-            "sketch",
-            "sketching",
-            "visual art"
-        ],
-
-        section:
-            "#creative",
-
-        sectionName:
-            "Creative Archive",
-
-        answer:
-            "There's a strong visual side to Shreeyans too. He sketches, draws and experiments with visual ideas. The portfolio keeps that side alongside the technical work rather than hiding it."
-
-    },
-
-
-    poetry: {
-
-        keywords: [
-            "poetry",
-            "poem",
-            "poems",
-            "writing",
-            "written",
-            "bloom",
-            "promise",
-            "plucked",
-            "mango"
-        ],
-
-        section:
-            "#poetry",
-
-        sectionName:
-            "Creative Archive · Writing",
-
-        answer:
-            "Three poems are featured here: From Bloom to Dusk, Uneven Promise and Before it was Plucked. They show a much quieter and more observational side of his personality."
-
-    },
-
-
-    bloom: {
-
-        keywords: [
-            "from bloom",
-            "bloom to dusk",
-            "flower poem"
-        ],
-
-        section:
-            "#poem-bloom",
-
-        sectionName:
-            "From Bloom to Dusk",
-
-        answer:
-            "From Bloom to Dusk follows a flower through budding, full bloom and withering, using the progression of a day as a parallel for its life."
-
-    },
-
-
-    promise: {
-
-        keywords: [
-            "uneven promise"
-        ],
-
-        section:
-            "#poem-promise",
-
-        sectionName:
-            "Uneven Promise",
-
-        answer:
-            "Uneven Promise is one of his shorter pieces. It takes a very small memory and deliberately leaves a lot of emotional space around it."
-
-    },
-
-
-    plucked: {
-
-        keywords: [
-            "before it was plucked",
-            "mango poem"
-        ],
-
-        section:
-            "#poem-plucked",
-
-        sectionName:
-            "Before it was Plucked",
-
-        answer:
-            "Before it was Plucked uses a gardener and a mango tree to explore attachment, expectation and the difficulty of letting something go."
-
-    },
-
-
-    thinking: {
-
-        keywords: [
-            "how does he think",
-            "thinking",
-            "approach",
-            "problem solving",
-            "logic",
-            "fundamentals",
-            "learn"
-        ],
-
-        section:
-            "#thinking",
-
-        sectionName:
-            "How I Think",
-
-        answer:
-            "His approach is to break complicated things down until the underlying logic makes sense. He prefers understanding fundamentals and experimenting over blindly brute-forcing a solution."
-
-    },
-
-
-    future: {
-
-        keywords: [
-            "future",
-            "goal",
-            "goals",
-            "career",
-            "dream",
-            "long term",
-            "three years",
-            "five years"
-        ],
-
-        section:
-            "#future",
-
-        sectionName:
-            "Future",
-
-        answer:
-            "Long term, he wants to work where engineering, software and creative technology overlap: interactive 3D, high-performance web experiences, complex systems and visually strong digital products."
-
-    },
-
-
-    music: {
-
-        keywords: [
-            "music",
-            "songs",
-            "artists",
-            "listen",
-            "kk",
-            "nusrat",
-            "john mayer",
-            "weeknd"
-        ],
-
-        section:
-            "#creative",
-
-        sectionName:
-            "Creative Archive",
-
-        answer:
-            "His music taste is pretty broad. Artists he's mentioned include KK, Nusrat Fateh Ali Khan, John Mayer and The Weeknd."
-
-    }
-
-};
-
-
-
-/* =====================================================
-   MIRA FALLBACKS
-===================================================== */
-
-const miraFallbacks = [
-
-    "I don't have enough information about that specific part of Shreeyans' life, so I don't want to make something up.",
-
-    "That's outside the information he's shared with me. I can tell you about his work, education, interests or creative side though.",
-
-    "I don't have a reliable answer for that yet. I'd rather be honest about that than invent an answer."
-
-];
-
-
-
-/* =====================================================
-   NORMALIZE
-===================================================== */
-
-function normalize(text) {
-
-    return text
-        .toLowerCase()
-        .replace(/[^\w\s.-]/g," ")
-        .replace(/\s+/g," ")
-        .trim();
-
-}
-
-
-
-/* =====================================================
-   SCORE KNOWLEDGE
-===================================================== */
-
-function findKnowledge(question) {
-
-    const text =
-        normalize(question);
-
-
-    const results = [];
-
-
-    Object.entries(
-        miraKnowledge
-    ).forEach(
-        ([key,item]) => {
-
-            let score = 0;
-
-
-            item.keywords.forEach(
-                keyword => {
-
-                    const k =
-                        normalize(keyword);
-
-
-                    if (
-                        text.includes(k)
-                    ) {
-
-                        score +=
-                            k.includes(" ")
-                                ? 5
-                                : 2;
-
-                    }
-
-                }
-            );
-
-
-            if (score > 0) {
-
-                results.push({
-
-                    key,
-
-                    score,
-
-                    item
-
-                });
-
-            }
-
-        }
-    );
-
-
-    results.sort(
-        (a,b) =>
-            b.score - a.score
-    );
-
-
-    return results;
-
-}
-
-
-
-/* =====================================================
-   SPECIAL CONTEXT
-===================================================== */
-
-function intelligentAnswer(question) {
-
-    const text =
-        normalize(question);
-
-
-    const matches =
-        findKnowledge(question);
-
-
-    if (!matches.length) {
-
-        return {
-
-            answer:
-                miraFallbacks[
-                    Math.floor(
-                        Math.random() *
-                        miraFallbacks.length
-                    )
-                ],
-
-            sources: []
-
-        };
-
-    }
-
-
-    /* BEST PROJECT */
-
-    if (
-        text.includes("best") &&
-        text.includes("project")
-    ) {
-
-        const item =
-            miraKnowledge.bestProject;
-
-
-        return {
-
-            answer:
-                item.answer,
-
-            sources: [
-                item
-            ]
-
-        };
-
-    }
-
-
-    /* COMBINED TOPICS */
-
-    const primary =
-        matches[0];
-
-
-    let answer =
-        primary.item.answer;
+    img.decoding =
+        "async";
 
 
     /*
-       If the visitor asks something that combines
-       two topics, Mira adds another useful thought.
+       If an image fails, show a clean
+       diagnostic card instead of a
+       broken image icon.
     */
 
-    if (
-        matches.length >= 2 &&
-        matches[1].score >= 2
-    ) {
+    img.onerror =
+        () => {
 
-        const secondary =
-            matches[1];
+            card.classList.add(
+                "image-error"
+            );
 
 
-        if (
-            primary.key === "education" &&
-            secondary.key === "future"
-        ) {
+            card.innerHTML = `
 
-            answer +=
-                " So the immediate goal is academic, while the longer-term direction is engineering combined with creative technology.";
+                <div style="
+                    width:100%;
+                    height:100%;
+                    min-height:260px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    padding:30px;
+                    text-align:center;
+                    background:#17161b;
+                    color:#aaa;
+                    font-family:monospace;
+                    font-size:10px;
+                    line-height:1.7;
+                    letter-spacing:.06em;
+                ">
+
+                    IMAGE COULD NOT BE LOADED<br><br>
+
+                    ${item.file}
+
+                </div>
+
+            `;
+
+        };
+
+
+    const info =
+        document.createElement(
+            "div"
+        );
+
+
+    info.className =
+        type === "art"
+            ? "art-card-info"
+            : "poetry-card-info";
+
+
+    const number =
+        String(index + 1)
+            .padStart(2, "0");
+
+
+    info.innerHTML = `
+
+        <div>
+
+            <span>
+                ${type === "art"
+                    ? "ART"
+                    : "POETRY"}
+                / ${number}
+            </span>
+
+            <span>
+                VIEW ↗
+            </span>
+
+        </div>
+
+    `;
+
+
+    card.appendChild(img);
+
+    card.appendChild(info);
+
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            openLightbox(
+                item.file,
+                item.title
+            );
 
         }
+    );
 
 
-        else if (
-            primary.key === "physics" &&
-            (
-                secondary.key === "particle" ||
-                secondary.key === "projects"
-            )
-        ) {
-
-            answer +=
-                " That connection also shows up in his projects, where technical ideas become interactive systems.";
-
-        }
-
-
-        else if (
-            primary.key === "art" &&
-            secondary.key === "poetry"
-        ) {
-
-            answer +=
-                " Together, those two sides show that his creative interests aren't limited to technology.";
-
-        }
-
-    }
-
-
-    return {
-
-        answer,
-
-        sources:
-            matches
-                .slice(0,2)
-                .map(
-                    match =>
-                        match.item
-                )
-
-    };
+    return card;
 
 }
 
 
 
-/* =====================================================
-   MIRA ELEMENTS
-===================================================== */
+/* =========================================================
+   RENDER ART
+========================================================= */
 
-const miraFloating =
+artCollection.forEach(
+    (item, index) => {
+
+        artGallery.appendChild(
+            createImageCard(
+                item,
+                index,
+                "art"
+            )
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   RENDER POETRY
+========================================================= */
+
+poetryCollection.forEach(
+    (item, index) => {
+
+        poetryGallery.appendChild(
+            createImageCard(
+                item,
+                index,
+                "poetry"
+            )
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   MIRA
+========================================================= */
+
+const miraButton =
     document.getElementById(
-        "miraFloating"
+        "miraButton"
     );
 
-const miraPopup =
+const miraPanel =
     document.getElementById(
-        "miraPopup"
+        "miraPanel"
     );
 
 const miraClose =
     document.getElementById(
         "miraClose"
-    );
-
-const miraChat =
-    document.getElementById(
-        "miraChat"
     );
 
 const miraForm =
@@ -1371,35 +798,21 @@ const miraInput =
         "miraInput"
     );
 
-const miraSource =
+const miraChat =
     document.getElementById(
-        "miraSource"
-    );
-
-const heroMiraButton =
-    document.getElementById(
-        "heroMiraButton"
+        "miraChat"
     );
 
 
 
-/* =====================================================
-   OPEN MIRA
-===================================================== */
+/* =========================================================
+   MIRA OPEN / CLOSE
+========================================================= */
 
 function openMira() {
 
-    miraPopup.classList.add(
+    miraPanel.classList.add(
         "open"
-    );
-
-    miraPopup.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.classList.add(
-        "mira-open"
     );
 
 
@@ -1417,25 +830,32 @@ function openMira() {
 
 function closeMira() {
 
-    miraPopup.classList.remove(
+    miraPanel.classList.remove(
         "open"
-    );
-
-    miraPopup.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.classList.remove(
-        "mira-open"
     );
 
 }
 
 
-miraFloating.addEventListener(
+miraButton.addEventListener(
     "click",
-    openMira
+    () => {
+
+        if (
+            miraPanel.classList.contains(
+                "open"
+            )
+        ) {
+
+            closeMira();
+
+        } else {
+
+            openMira();
+
+        }
+
+    }
 );
 
 
@@ -1445,63 +865,381 @@ miraClose.addEventListener(
 );
 
 
-heroMiraButton.addEventListener(
-    "click",
-    openMira
-);
+
+/* =========================================================
+   MIRA KNOWLEDGE
+========================================================= */
+
+const miraKnowledge = {
+
+    identity: {
+
+        keywords: [
+            "who",
+            "shreeyans",
+            "about him",
+            "about shreeyans",
+            "what does he do"
+        ],
+
+        answer:
+            "Shreeyans is an engineering aspirant and creative technologist interested in front-end development, creative coding, interactive 3D experiences, physics, mathematics, art and writing."
+
+    },
 
 
+    projects: {
 
-/* =====================================================
-   ESCAPE CLOSE
-===================================================== */
+        keywords: [
+            "project",
+            "projects",
+            "work",
+            "built",
+            "particle",
+            "camlab",
+            "unity",
+            "game"
+        ],
 
-document.addEventListener(
-    "keydown",
-    event => {
+        answer:
+            "His work includes a real-time hand-gesture 3D particle system, Camlab, and a Unity-based 3D game development experiment. The particle system is a strong example of his interest in combining technical logic with interactive visual experiences."
 
-        if (
-            event.key === "Escape"
-        ) {
+    },
 
-            closeMira();
 
-        }
+    skills: {
+
+        keywords: [
+            "skill",
+            "skills",
+            "technology",
+            "technologies",
+            "coding",
+            "code",
+            "programming",
+            "javascript",
+            "python",
+            "three",
+            "webgl"
+        ],
+
+        answer:
+            "His current skills include HTML, CSS, JavaScript and Python. He is also developing his abilities with Three.js, WebGL, creative coding, UI/UX and interactive web animation."
+
+    },
+
+
+    art: {
+
+        keywords: [
+            "art",
+            "arts",
+            "artwork",
+            "drawing",
+            "drawings",
+            "sketch",
+            "sketches",
+            "visual"
+        ],
+
+        answer:
+            "The Art collection contains 10 visual works, ranging from sketches and visual studies to personal experiments. They are presented separately from his poetry archive.",
+
+        target: "#art"
+
+    },
+
+
+    poetry: {
+
+        keywords: [
+            "poetry",
+            "poem",
+            "poems",
+            "writing",
+            "written",
+            "poetry pages",
+            "poetic"
+        ],
+
+        answer:
+            "The Poetry collection contains 11 pages of handwritten writing and observations. They are presented as a separate collection from the visual artwork.",
+
+        target: "#poetry"
+
+    },
+
+
+    creative: {
+
+        keywords: [
+            "creative",
+            "creative archive",
+            "archive"
+        ],
+
+        answer:
+            "The Creative Archive has two separate collections: Art, with 10 visual works, and Poetry, with 11 handwritten pages.",
+
+        target: "#archive"
+
+    },
+
+
+    thinking: {
+
+        keywords: [
+            "think",
+            "thinking",
+            "approach",
+            "problem",
+            "problem solving",
+            "logic",
+            "learn"
+        ],
+
+        answer:
+            "His approach is to break complicated things down to their fundamentals, understand the logic behind them, then rebuild and refine. He prefers understanding over blindly following shortcuts."
+
+    },
+
+
+    future: {
+
+        keywords: [
+            "future",
+            "goal",
+            "goals",
+            "dream",
+            "career",
+            "next"
+        ],
+
+        answer:
+            "His long-term direction is engineering combined with software and creative technology. He is particularly interested in advanced 3D web development, GLSL shaders, WebGL, browser simulations, performance and immersive interfaces.",
+
+        target: "#future"
+
+    },
+
+
+    physics: {
+
+        keywords: [
+            "physics",
+            "math",
+            "mathematics",
+            "jee",
+            "engineering"
+        ],
+
+        answer:
+            "Physics and mathematics form an important foundation for his engineering preparation and problem-solving approach."
+
+    },
+
+
+    contact: {
+
+        keywords: [
+            "contact",
+            "email",
+            "mail",
+            "reach"
+        ],
+
+        answer:
+            "You can reach Shreeyans at Shreeyansraj463@gmail.com. His GitHub and X profiles are also linked in the Contact section.",
+
+        target: "#contact"
 
     }
-);
+
+};
 
 
 
-/* =====================================================
-   ADD CHAT MESSAGE
-===================================================== */
+/* =========================================================
+   NORMALIZE
+========================================================= */
 
-function addMessage(
-    text,
-    type
+function normalize(text) {
+
+    return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+
+/* =========================================================
+   FIND MIRA RESPONSE
+========================================================= */
+
+function getMiraResponse(
+    question
 ) {
 
-    const message =
+    const text =
+        normalize(question);
+
+
+    let bestMatch = null;
+
+    let bestScore = 0;
+
+
+    Object.values(
+        miraKnowledge
+    ).forEach(
+        category => {
+
+            let score = 0;
+
+
+            category.keywords.forEach(
+                keyword => {
+
+                    const normalized =
+                        normalize(keyword);
+
+
+                    if (
+                        text.includes(
+                            normalized
+                        )
+                    ) {
+
+                        score +=
+                            normalized.split(" ").length;
+
+                    }
+
+                }
+            );
+
+
+            if (
+                score > bestScore
+            ) {
+
+                bestScore =
+                    score;
+
+                bestMatch =
+                    category;
+
+            }
+
+        }
+    );
+
+
+    if (bestMatch) {
+
+        return bestMatch;
+
+    }
+
+
+    return {
+
+        answer:
+            "I don't have a specific answer for that yet. Try asking me about his projects, skills, art, poetry, thinking style or future direction.",
+
+        target: null
+
+    };
+
+}
+
+
+
+/* =========================================================
+   MIRA MESSAGE
+========================================================= */
+
+function addMiraMessage(
+    text,
+    type,
+    target = null,
+    label = null
+) {
+
+    const bubble =
         document.createElement(
             "div"
         );
 
 
-    message.className =
-        `mira-message ${
-            type === "user"
-                ? "mira-message-user"
-                : "mira-message-ai"
-        }`;
+    bubble.className =
+        `mira-bubble ${type}`;
 
 
-    message.innerHTML =
-        `<p>${text}</p>`;
+    bubble.textContent =
+        text;
+
+
+    if (
+        target &&
+        type === "mira"
+    ) {
+
+        const source =
+            document.createElement(
+                "button"
+            );
+
+
+        source.className =
+            "mira-source";
+
+
+        source.textContent =
+            `View ${label || "section"} →`;
+
+
+        source.addEventListener(
+            "click",
+            () => {
+
+                closeMira();
+
+
+                const destination =
+                    document.querySelector(
+                        target
+                    );
+
+
+                if (
+                    !destination
+                ) return;
+
+
+                destination.scrollIntoView(
+                    {
+                        behavior: "smooth",
+                        block: "start"
+                    }
+                );
+
+            }
+        );
+
+
+        bubble.appendChild(
+            source
+        );
+
+    }
 
 
     miraChat.appendChild(
-        message
+        bubble
     );
 
 
@@ -1512,198 +1250,99 @@ function addMessage(
 
 
 
-/* =====================================================
-   SOURCE MARKER
-===================================================== */
-
-function showSources(
-    sources
-) {
-
-    miraSource.innerHTML =
-        "";
-
-
-    if (
-        !sources ||
-        !sources.length
-    ) {
-
-        return;
-
-    }
-
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-
-    card.className =
-        "mira-source-card";
-
-
-    const label =
-        document.createElement(
-            "span"
-        );
-
-
-    label.className =
-        "mira-source-label";
-
-
-    label.textContent =
-        "RELATED IN PORTFOLIO";
-
-
-    card.appendChild(
-        label
-    );
-
-
-    sources.forEach(
-        source => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "mira-source-link";
-
-
-            button.innerHTML =
-                `↗ ${source.sectionName}`;
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    closeMira();
-
-
-                    setTimeout(
-                        () => {
-
-                            const target =
-                                document.querySelector(
-                                    source.section
-                                );
-
-
-                            if (target) {
-
-                                target.scrollIntoView({
-                                    behavior:
-                                        "smooth",
-                                    block:
-                                        "start"
-                                });
-
-
-                                target.classList.add(
-                                    "mira-highlight"
-                                );
-
-
-                                setTimeout(
-                                    () => {
-
-                                        target.classList.remove(
-                                            "mira-highlight"
-                                        );
-
-                                    },
-                                    1800
-                                );
-
-                            }
-
-                        },
-                        250
-                    );
-
-                }
-            );
-
-
-            card.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    miraSource.appendChild(
-        card
-    );
-
-}
-
-
-
-/* =====================================================
+/* =========================================================
    ASK MIRA
-===================================================== */
+========================================================= */
 
 function askMira(
     question
 ) {
 
-    addMessage(
-        escapeHTML(question),
+    const clean =
+        question.trim();
+
+
+    if (!clean) return;
+
+
+    addMiraMessage(
+        clean,
         "user"
     );
 
 
-    miraInput.value =
-        "";
+    miraInput.value = "";
 
 
-    miraSource.innerHTML =
-        "";
+    const result =
+        getMiraResponse(
+            clean
+        );
 
 
-    /* thinking delay */
+    let label = null;
+
+
+    if (
+        result.target === "#art"
+    ) {
+
+        label = "Art";
+
+    } else if (
+        result.target === "#poetry"
+    ) {
+
+        label = "Poetry";
+
+    } else if (
+        result.target === "#archive"
+    ) {
+
+        label = "Creative Archive";
+
+    } else if (
+        result.target === "#work"
+    ) {
+
+        label = "Projects";
+
+    } else if (
+        result.target === "#future"
+    ) {
+
+        label = "Future";
+
+    } else if (
+        result.target === "#contact"
+    ) {
+
+        label = "Contact";
+
+    }
+
 
     setTimeout(
         () => {
 
-            const result =
-                intelligentAnswer(
-                    question
-                );
-
-
-            addMessage(
+            addMiraMessage(
                 result.answer,
-                "ai"
+                "mira",
+                result.target,
+                label
             );
-
-
-            showSources(
-                result.sources
-            );
-
 
         },
-        450 +
-        Math.random() * 500
+        300
     );
 
 }
 
 
 
-/* =====================================================
-   FORM
-===================================================== */
+/* =========================================================
+   MIRA FORM
+========================================================= */
 
 miraForm.addEventListener(
     "submit",
@@ -1711,20 +1350,8 @@ miraForm.addEventListener(
 
         event.preventDefault();
 
-
-        const question =
-            miraInput.value.trim();
-
-
-        if (!question) {
-
-            return;
-
-        }
-
-
         askMira(
-            question
+            miraInput.value
         );
 
     }
@@ -1732,13 +1359,13 @@ miraForm.addEventListener(
 
 
 
-/* =====================================================
-   SUGGESTIONS
-===================================================== */
+/* =========================================================
+   MIRA QUICK QUESTIONS
+========================================================= */
 
 document
     .querySelectorAll(
-        "[data-question]"
+        ".mira-quick button"
     )
     .forEach(
         button => {
@@ -1759,39 +1386,92 @@ document
 
 
 
-/* =====================================================
-   HTML ESCAPE
-===================================================== */
+/* =========================================================
+   ESCAPE
+========================================================= */
 
-function escapeHTML(
-    value
-) {
+document.addEventListener(
+    "keydown",
+    event => {
 
-    return value
+        if (
+            event.key === "Escape"
+        ) {
 
-        .replace(
-            /&/g,
-            "&amp;"
+            closeMira();
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-links a"
+    );
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        !entry.isIntersecting
+                    ) return;
+
+
+                    navLinks.forEach(
+                        link => {
+
+                            link.style.color =
+                                "";
+
+
+                            if (
+                                link.getAttribute(
+                                    "href"
+                                ) ===
+                                `#${entry.target.id}`
+                            ) {
+
+                                link.style.color =
+                                    "#b89a5a";
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+        },
+        {
+            rootMargin:
+                "-40% 0px -50% 0px"
+        }
+    );
+
+
+sections.forEach(
+    section =>
+        observer.observe(
+            section
         )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
+);

@@ -10,12 +10,12 @@
 
     <meta
         name="description"
-        content="Shreeyans Raj is an engineering aspirant and creative technologist exploring interactive web experiences, creative coding, and visual technology."
+        content="Shreeyans Raj — Engineering Aspirant and Creative Technologist building interactive digital experiences."
     >
 
     <meta name="theme-color" content="#08070B">
 
-    <title>Shreeyans Raj — Engineering Aspirant · Creative Technologist</title>
+    <title>Shreeyans Raj — Creative Technologist</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,70 +31,175 @@
 
 <body>
 
-    <!-- =========================================================
-         SITE HEADER
-    ========================================================== -->
+    <!-- =====================================================
+         AMBIENT BACKGROUND
+    ====================================================== -->
+
+    <div class="ambient-background" aria-hidden="true">
+
+        <canvas id="ambient-canvas"></canvas>
+
+        <div class="ambient-glow glow-one"></div>
+        <div class="ambient-glow glow-two"></div>
+        <div class="ambient-glow glow-three"></div>
+
+        <div class="ambient-grid"></div>
+
+        <div class="ambient-orbit orbit-one"></div>
+        <div class="ambient-orbit orbit-two"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
     <header class="site-header" id="site-header">
+
         <div class="container header-inner">
 
-            <a href="#top" class="brand" aria-label="Shreeyans Raj home">
-                <span class="brand-mark">SR</span>
-                <span class="brand-name">SHREEYANS RAJ</span>
+            <a
+                href="#top"
+                class="brand"
+                aria-label="Shreeyans Raj home"
+            >
+
+                <span class="brand-mark" aria-hidden="true">
+
+                    <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                    >
+
+                        <path
+                            class="mark-orbit"
+                            d="M8 24C8 13.8 15.2 7 25 7C33.3 7 40 11.8 40 18.4C40 23.8 35.7 26.8 28.5 28.5L18 31.2C12.3 32.7 10 35.5 10 38.8C10 43.2 16.3 46 24 46C33.2 46 40 40.8 40 32.8"
+                        />
+
+                        <path
+                            class="mark-core"
+                            d="M32.8 13.4C30.7 11.7 27.5 10.7 24 10.7C17.8 10.7 13.5 13.4 13.5 17.4C13.5 21.1 17.2 22.6 23.8 23.7C30.9 24.9 34.8 26.7 34.8 30.9C34.8 35.4 30.3 38.7 23.1 38.7"
+                        />
+
+                        <circle
+                            class="mark-dot"
+                            cx="39.5"
+                            cy="10"
+                            r="2.2"
+                        />
+
+                    </svg>
+
+                </span>
+
+                <span class="brand-name">
+                    SHREEYANS RAJ
+                </span>
+
             </a>
 
-            <nav class="desktop-nav" aria-label="Main navigation">
+
+            <nav
+                class="desktop-nav"
+                aria-label="Main navigation"
+            >
+
                 <a href="#about">About</a>
                 <a href="#work">Work</a>
                 <a href="#exploring">Exploring</a>
                 <a href="#contact">Contact</a>
+
             </nav>
 
-            <a href="#contact" class="header-contact">
-                Let's talk <span>↗</span>
+
+            <a
+                href="#contact"
+                class="header-contact"
+            >
+                Let's talk
+                <span>↗</span>
             </a>
+
 
             <button
                 class="menu-toggle"
                 type="button"
-                aria-label="Open navigation menu"
+                aria-label="Open navigation"
                 aria-expanded="false"
                 aria-controls="mobile-navigation"
             >
+
                 <span></span>
                 <span></span>
+
             </button>
 
         </div>
+
 
         <nav
             class="mobile-navigation"
             id="mobile-navigation"
             aria-label="Mobile navigation"
         >
-            <a href="#about">01 — About</a>
-            <a href="#work">02 — Selected Work</a>
-            <a href="#mindset">03 — How I Think</a>
-            <a href="#exploring">04 — Exploring</a>
-            <a href="#beyond">05 — Beyond the Screen</a>
-            <a href="#contact">06 — Contact</a>
+
+            <a href="#about">
+                01 — About
+            </a>
+
+            <a href="#work">
+                02 — Selected Work
+            </a>
+
+            <a href="#mindset">
+                03 — How I Think
+            </a>
+
+            <a href="#exploring">
+                04 — Exploring
+            </a>
+
+            <a href="#beyond">
+                05 — Beyond the Screen
+            </a>
+
+            <a href="#contact">
+                06 — Contact
+            </a>
+
         </nav>
+
     </header>
 
 
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
     <main id="top">
 
-        <!-- =====================================================
+
+        <!-- =================================================
              HERO
-        ====================================================== -->
+        ================================================== -->
 
         <section class="hero section">
-            <div class="hero-grid container">
+
+            <div class="container hero-container">
 
                 <div class="hero-meta reveal">
-                    <span>01 / 06</span>
-                    <span>ENGINEERING × CREATIVITY</span>
+
+                    <span>
+                        01 / 08
+                    </span>
+
+                    <span>
+                        ENGINEERING × CREATIVITY
+                    </span>
+
                 </div>
+
 
                 <div class="hero-content">
 
@@ -102,85 +207,142 @@
                         Engineering Aspirant · Creative Technologist
                     </p>
 
+
                     <h1 class="hero-title reveal">
-                        Building things<br>
-                        that feel <em>alive.</em>
+
+                        Building things
+                        <br>
+
+                        that feel
+                        <em>alive.</em>
+
                     </h1>
+
 
                     <div class="hero-bottom">
 
                         <p class="hero-description reveal">
-                            I'm Shreeyans Raj, an engineering aspirant exploring
-                            the intersection of code, interactive technology,
-                            visual design and creative problem-solving.
+
+                            I'm Shreeyans Raj, an engineering aspirant
+                            exploring the intersection of code,
+                            interactive technology, visual design
+                            and creative problem-solving.
+
                         </p>
 
+
                         <div class="hero-actions reveal">
-                            <a href="#work" class="button button-primary">
+
+                            <a
+                                href="#work"
+                                class="button button-primary"
+                            >
                                 Explore my work
                                 <span>↓</span>
                             </a>
 
-                            <a href="#about" class="text-link">
-                                More about me <span>↘</span>
+                            <a
+                                href="#about"
+                                class="text-link"
+                            >
+                                More about me
+                                <span>↘</span>
                             </a>
+
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="hero-index" aria-hidden="true">
+
+                <div class="hero-index">
+
                     <span>SR</span>
                     <span>2026</span>
+
                 </div>
 
             </div>
 
-            <div class="hero-line container"></div>
+
+            <div class="container hero-line"></div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              ABOUT
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section about-section" id="about">
+        <section
+            class="section about-section"
+            id="about"
+        >
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">01</span>
-                    <span class="section-label">ABOUT</span>
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    <span class="section-label">
+                        ABOUT
+                    </span>
+
                 </div>
+
 
                 <div class="about-grid">
 
                     <div class="about-title reveal">
+
                         <h2>
-                            Curious by nature.<br>
-                            <span>Analytical by instinct.</span>
+
+                            Curious by nature.
+                            <br>
+
+                            <span>
+                                Analytical by instinct.
+                            </span>
+
                         </h2>
+
                     </div>
+
 
                     <div class="about-copy">
 
                         <p class="large-copy reveal">
-                            I enjoy taking complicated things apart until
-                            the underlying logic becomes clear, then using
-                            that same mindset to build something of my own.
+
+                            I enjoy taking complicated things apart
+                            until the underlying logic becomes clear,
+                            then using that same mindset to build
+                            something of my own.
+
                         </p>
 
-                        <p class="reveal">
-                            Right now, I'm balancing engineering preparation
-                            with a growing obsession for front-end development,
-                            creative coding and interactive digital experiences.
-                        </p>
 
                         <p class="reveal">
-                            I don't see engineering and creativity as separate
-                            worlds. Physics teaches me to understand systems.
-                            Code gives me a way to build them. Art gives me
-                            another way to see them.
+
+                            Right now, I'm balancing engineering
+                            preparation with a growing obsession for
+                            front-end development, creative coding
+                            and interactive digital experiences.
+
+                        </p>
+
+
+                        <p class="reveal">
+
+                            I don't see engineering and creativity
+                            as separate worlds. Physics teaches me
+                            to understand systems. Code gives me a
+                            way to build them. Art gives me another
+                            way to see them.
+
                         </p>
 
                     </div>
@@ -188,126 +350,206 @@
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              WHAT I BUILD
-        ====================================================== -->
+        ================================================== -->
 
         <section class="section build-section">
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">02</span>
-                    <span class="section-label">WHAT I BUILD</span>
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+                    <span class="section-label">
+                        WHAT I BUILD
+                    </span>
+
                 </div>
+
 
                 <div class="build-list">
 
+
                     <article class="build-item reveal">
-                        <div class="build-number">01</div>
+
+                        <div class="build-number">
+                            01
+                        </div>
 
                         <div class="build-main">
-                            <h3>Interactive Web</h3>
+
+                            <h3>
+                                Interactive Web
+                            </h3>
+
                             <p>
-                                Front-end experiences, interfaces and
-                                interactions designed to feel responsive,
-                                intentional and alive.
+                                Front-end experiences, interfaces
+                                and interactions designed to feel
+                                responsive, intentional and alive.
                             </p>
+
                         </div>
 
                         <div class="build-tags">
+
                             <span>HTML</span>
                             <span>CSS</span>
                             <span>JavaScript</span>
+
                         </div>
+
                     </article>
 
 
                     <article class="build-item reveal">
-                        <div class="build-number">02</div>
+
+                        <div class="build-number">
+                            02
+                        </div>
 
                         <div class="build-main">
-                            <h3>Creative Coding</h3>
+
+                            <h3>
+                                Creative Coding
+                            </h3>
+
                             <p>
-                                Browser-based experiments with 3D graphics,
-                                particles, simulations and visual interaction.
+                                Browser-based experiments with
+                                3D graphics, particles, simulations
+                                and visual interaction.
                             </p>
+
                         </div>
 
                         <div class="build-tags">
+
                             <span>Three.js</span>
                             <span>WebGL</span>
                             <span>Creative Code</span>
+
                         </div>
+
                     </article>
 
 
                     <article class="build-item reveal">
-                        <div class="build-number">03</div>
+
+                        <div class="build-number">
+                            03
+                        </div>
 
                         <div class="build-main">
-                            <h3>Problem Solving</h3>
+
+                            <h3>
+                                Problem Solving
+                            </h3>
+
                             <p>
-                                Breaking difficult physics, mathematics and
-                                programming problems down to their fundamentals.
+                                Breaking difficult physics,
+                                mathematics and programming
+                                problems down to their fundamentals.
                             </p>
+
                         </div>
 
                         <div class="build-tags">
+
                             <span>Physics</span>
                             <span>Mathematics</span>
                             <span>Logic</span>
+
                         </div>
+
                     </article>
 
 
                     <article class="build-item reveal">
-                        <div class="build-number">04</div>
+
+                        <div class="build-number">
+                            04
+                        </div>
 
                         <div class="build-main">
-                            <h3>Visual Experiences</h3>
+
+                            <h3>
+                                Visual Experiences
+                            </h3>
+
                             <p>
-                                Sketching, writing and experimenting with visual
-                                storytelling outside the world of code.
+                                Sketching, writing and experimenting
+                                with visual storytelling outside
+                                the world of code.
                             </p>
+
                         </div>
 
                         <div class="build-tags">
+
                             <span>Sketching</span>
                             <span>Writing</span>
                             <span>Visual Design</span>
+
                         </div>
+
                     </article>
+
 
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              SELECTED WORK
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section work-section" id="work">
+        <section
+            class="section work-section"
+            id="work"
+        >
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">03</span>
-                    <span class="section-label">SELECTED WORK</span>
+
+                    <span class="section-number">
+                        03
+                    </span>
+
+                    <span class="section-label">
+                        SELECTED WORK
+                    </span>
+
                 </div>
+
 
                 <div class="work-intro reveal">
+
                     <h2>
-                        Things I've built<br>
-                        <span>to understand how they work.</span>
+
+                        Things I've built
+                        <br>
+
+                        <span>
+                            to understand how they work.
+                        </span>
+
                     </h2>
+
                 </div>
 
 
-                <!-- PROJECT 01 -->
+                <!-- PROJECT ONE -->
 
                 <article class="project project-featured reveal">
 
@@ -315,213 +557,411 @@
 
                         <div class="visual-grid"></div>
 
-                        <div class="particle-core">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                        <div class="particle-system">
+
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+
                         </div>
 
+
+                        <div class="particle-orbit"></div>
+                        <div class="particle-orbit orbit-inner"></div>
+
+
                         <div class="visual-label">
-                            <span>PROJECT / 01</span>
-                            <span>INTERACTIVE SYSTEM</span>
+
+                            <span>
+                                PROJECT / 01
+                            </span>
+
+                            <span>
+                                INTERACTIVE SYSTEM
+                            </span>
+
                         </div>
 
                     </div>
 
+
                     <div class="project-info">
 
                         <div class="project-topline">
+
                             <span>01</span>
                             <span>2026</span>
+
                         </div>
 
+
                         <h3>
-                            Hand-Gesture<br>
+
+                            Hand-Gesture
+                            <br>
                             3D Particle System
+
                         </h3>
 
-                        <p>
-                            A browser-based 3D particle environment controlled
-                            through real-time hand gestures.
-                        </p>
 
                         <p>
-                            Built as an experiment in combining computer vision
-                            with interactive graphics, translating physical
-                            movement into a dynamic visual system.
+
+                            A browser-based 3D particle environment
+                            controlled through real-time hand gestures.
+
                         </p>
+
+
+                        <p>
+
+                            Built as an experiment in combining
+                            computer vision with interactive graphics,
+                            translating physical movement into a
+                            dynamic visual system.
+
+                        </p>
+
 
                         <div class="project-tech">
+
                             <span>Three.js</span>
                             <span>MediaPipe</span>
                             <span>JavaScript</span>
                             <span>WebGL</span>
+
                         </div>
 
-                        <a
-                            href="https://github.com/shreeyansraj463-hue"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="project-link"
-                        >
-                            View project <span>↗</span>
-                        </a>
+
+                        <div class="project-actions">
+
+                            <a
+                                href="https://shreeyansraj463-hue.github.io/3D-Particle-Playground/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link"
+                            >
+                                Live project
+                                <span>↗</span>
+                            </a>
+
+                            <a
+                                href="https://github.com/shreeyansraj463-hue/3D-Particle-Playground"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-source"
+                            >
+                                Source
+                                <span>↗</span>
+                            </a>
+
+                        </div>
 
                     </div>
 
                 </article>
 
 
-                <!-- PROJECT GRID -->
+                <!-- PROJECT TWO -->
 
-                <div class="project-grid">
+                <article class="project project-featured project-reverse reveal">
 
-                    <article class="project project-small reveal">
+                    <div class="project-visual camlab-visual">
 
-                        <div class="project-visual portfolio-visual">
-                            <span class="visual-code">&lt;/&gt;</span>
+                        <div class="camlab-interface">
 
-                            <div class="visual-label">
-                                <span>PROJECT / 02</span>
-                                <span>WEB</span>
+                            <div class="interface-bar">
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
+
+                            <div class="interface-content">
+
+                                <div class="interface-line large"></div>
+                                <div class="interface-line medium"></div>
+                                <div class="interface-line small"></div>
+
+                                <div class="interface-box"></div>
+
+                            </div>
+
                         </div>
 
-                        <div class="project-small-content">
 
-                            <div class="project-topline">
-                                <span>02</span>
-                                <span>2026</span>
-                            </div>
+                        <div class="visual-label">
 
-                            <h3>Personal Portfolio</h3>
+                            <span>
+                                PROJECT / 02
+                            </span>
 
-                            <p>
-                                A living digital space built to explore
-                                interface design, interaction and the process
-                                of turning an idea into a live product.
-                            </p>
+                            <span>
+                                CREATIVE WEB
+                            </span>
 
-                            <div class="project-tech">
-                                <span>HTML</span>
-                                <span>CSS</span>
-                                <span>JavaScript</span>
-                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <div class="project-topline">
+
+                            <span>02</span>
+                            <span>CAMLAB</span>
+
+                        </div>
+
+
+                        <h3>
+                            Camlab
+                        </h3>
+
+
+                        <p>
+
+                            A front-end experiment focused on
+                            interface design, motion, visual
+                            interaction and creative web development.
+
+                        </p>
+
+
+                        <p>
+
+                            Built to explore how a web interface
+                            can become more expressive without
+                            sacrificing usability.
+
+                        </p>
+
+
+                        <div class="project-tech">
+
+                            <span>JavaScript</span>
+                            <span>DOM</span>
+                            <span>CSS</span>
+                            <span>UI / UX</span>
+
+                        </div>
+
+
+                        <div class="project-actions">
+
+                            <a
+                                href="https://shreeyansraj463-hue.github.io/camlab/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link"
+                            >
+                                Live project
+                                <span>↗</span>
+                            </a>
+
+                            <a
+                                href="https://github.com/shreeyansraj463-hue/camlab"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-source"
+                            >
+                                Source
+                                <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT THREE -->
+
+                <article class="project project-featured game-project reveal">
+
+                    <div class="project-visual game-visual">
+
+                        <div class="game-crosshair">
+                            +
+                        </div>
+
+                        <div class="game-ring"></div>
+
+                        <div class="visual-label">
+
+                            <span>
+                                PROJECT / 03
+                            </span>
+
+                            <span>
+                                GAME DEVELOPMENT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <div class="project-topline">
+
+                            <span>03</span>
+                            <span>EXPERIMENT</span>
+
+                        </div>
+
+
+                        <h3>
+                            3D Multiplayer
+                            <br>
+                            Game
+                        </h3>
+
+
+                        <p>
+
+                            An early exploration into 3D game
+                            development, player systems, controls,
+                            health mechanics and interactive environments.
+
+                        </p>
+
+
+                        <p>
+
+                            A project focused on understanding
+                            gameplay logic and the relationship
+                            between code, physics and interaction.
+
+                        </p>
+
+
+                        <div class="project-tech">
+
+                            <span>Unity</span>
+                            <span>C#</span>
+                            <span>3D</span>
+
+                        </div>
+
+
+                        <div class="project-actions">
 
                             <a
                                 href="https://github.com/shreeyansraj463-hue"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="project-link"
+                                class="project-source"
                             >
-                                View project <span>↗</span>
+                                GitHub
+                                <span>↗</span>
                             </a>
 
                         </div>
 
-                    </article>
+                    </div>
 
-
-                    <article class="project project-small reveal">
-
-                        <div class="project-visual game-visual">
-                            <div class="game-crosshair">+</div>
-
-                            <div class="visual-label">
-                                <span>PROJECT / 03</span>
-                                <span>GAME DEVELOPMENT</span>
-                            </div>
-                        </div>
-
-                        <div class="project-small-content">
-
-                            <div class="project-topline">
-                                <span>03</span>
-                                <span>EXPERIMENT</span>
-                            </div>
-
-                            <h3>3D Multiplayer Game</h3>
-
-                            <p>
-                                An early exploration into 3D game development,
-                                player systems, controls, health mechanics and
-                                interactive environments.
-                            </p>
-
-                            <div class="project-tech">
-                                <span>Unity</span>
-                                <span>C#</span>
-                                <span>3D</span>
-                            </div>
-
-                            <a
-                                href="https://github.com/shreeyansraj463-hue"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="project-link"
-                            >
-                                View project <span>↗</span>
-                            </a>
-
-                        </div>
-
-                    </article>
-
-                </div>
+                </article>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              HOW I THINK
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section mindset-section" id="mindset">
+        <section
+            class="section mindset-section"
+            id="mindset"
+        >
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">04</span>
-                    <span class="section-label">HOW I THINK</span>
+
+                    <span class="section-number">
+                        04
+                    </span>
+
+                    <span class="section-label">
+                        HOW I THINK
+                    </span>
+
                 </div>
+
 
                 <div class="mindset-grid">
 
                     <div class="mindset-title reveal">
+
                         <h2>
-                            Strip away<br>
+
+                            Strip away
+                            <br>
+
                             the noise.
+
                         </h2>
+
                     </div>
+
 
                     <div class="mindset-copy">
 
                         <p class="large-copy reveal">
-                            A difficult physics problem, a stubborn JavaScript
-                            bug or a complicated visual effect usually gets
-                            the same treatment.
+
+                            A difficult physics problem,
+                            a stubborn JavaScript bug or a
+                            complicated visual effect usually
+                            gets the same treatment.
+
                         </p>
 
-                        <p class="reveal">
-                            I break it down. Find the fundamentals. Understand
-                            what is actually happening. Then build back from
-                            there.
-                        </p>
 
                         <p class="reveal">
-                            I don't particularly enjoy memorising solutions.
-                            I want the moment when the logic finally clicks.
+
+                            I break it down. Find the fundamentals.
+                            Understand what is actually happening.
+                            Then build back from there.
+
                         </p>
+
+
+                        <p class="reveal">
+
+                            I don't particularly enjoy memorising
+                            solutions. I want the moment when the
+                            logic finally clicks.
+
+                        </p>
+
 
                         <div class="mindset-words reveal">
-                            <span>ANALYTICAL</span>
-                            <span>CREATIVE</span>
-                            <span>DRIVEN</span>
+
+                            <span>
+                                ANALYTICAL
+                            </span>
+
+                            <span>
+                                CREATIVE
+                            </span>
+
+                            <span>
+                                DRIVEN
+                            </span>
+
                         </div>
 
                     </div>
@@ -529,31 +969,54 @@
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              CURRENTLY EXPLORING
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section exploring-section" id="exploring">
+        <section
+            class="section exploring-section"
+            id="exploring"
+        >
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">05</span>
-                    <span class="section-label">CURRENTLY EXPLORING</span>
+
+                    <span class="section-number">
+                        05
+                    </span>
+
+                    <span class="section-label">
+                        CURRENTLY EXPLORING
+                    </span>
+
                 </div>
+
 
                 <div class="exploring-header reveal">
 
                     <h2>
-                        The things<br>
-                        <em>I'm chasing next.</em>
+
+                        The things
+                        <br>
+
+                        <em>
+                            I'm chasing next.
+                        </em>
+
                     </h2>
 
+
                     <p>
-                        I'm still learning. That's part of the point.
-                        These are the areas I'm actively pushing deeper into.
+
+                        I'm still learning. That's part of
+                        the point. These are the areas I'm
+                        actively pushing deeper into.
+
                     </p>
 
                 </div>
@@ -561,198 +1024,346 @@
 
                 <div class="exploring-list">
 
+
                     <article class="exploring-item reveal">
-                        <span class="exploring-index">01</span>
+
+                        <span class="exploring-index">
+                            01
+                        </span>
 
                         <div>
-                            <h3>GLSL &amp; Shaders</h3>
+
+                            <h3>
+                                GLSL &amp; Shaders
+                            </h3>
+
                             <p>
-                                Understanding how visual effects are constructed
-                                at the GPU level.
+                                Understanding how visual effects
+                                are constructed at the GPU level.
                             </p>
+
                         </div>
 
-                        <span class="exploring-arrow">↗</span>
+                        <span class="exploring-arrow">
+                            ↗
+                        </span>
+
                     </article>
 
 
                     <article class="exploring-item reveal">
-                        <span class="exploring-index">02</span>
+
+                        <span class="exploring-index">
+                            02
+                        </span>
 
                         <div>
-                            <h3>Advanced Three.js</h3>
+
+                            <h3>
+                                Advanced Three.js
+                            </h3>
+
                             <p>
-                                Moving beyond basic 3D scenes toward richer,
-                                more responsive environments.
+                                Moving beyond basic 3D scenes
+                                toward richer, more responsive
+                                environments.
                             </p>
+
                         </div>
 
-                        <span class="exploring-arrow">↗</span>
+                        <span class="exploring-arrow">
+                            ↗
+                        </span>
+
                     </article>
 
 
                     <article class="exploring-item reveal">
-                        <span class="exploring-index">03</span>
+
+                        <span class="exploring-index">
+                            03
+                        </span>
 
                         <div>
-                            <h3>Web Performance</h3>
+
+                            <h3>
+                                Web Performance
+                            </h3>
+
                             <p>
-                                Learning how to make visually ambitious
-                                experiences remain fast and efficient.
+                                Learning how to make visually
+                                ambitious experiences remain
+                                fast and efficient.
                             </p>
+
                         </div>
 
-                        <span class="exploring-arrow">↗</span>
+                        <span class="exploring-arrow">
+                            ↗
+                        </span>
+
                     </article>
 
 
                     <article class="exploring-item reveal">
-                        <span class="exploring-index">04</span>
+
+                        <span class="exploring-index">
+                            04
+                        </span>
 
                         <div>
-                            <h3>UI / UX</h3>
+
+                            <h3>
+                                UI / UX
+                            </h3>
+
                             <p>
-                                Sharpening my eye for typography, hierarchy,
-                                interaction and visual systems.
+                                Sharpening my eye for typography,
+                                hierarchy, interaction and
+                                visual systems.
                             </p>
+
                         </div>
 
-                        <span class="exploring-arrow">↗</span>
+                        <span class="exploring-arrow">
+                            ↗
+                        </span>
+
                     </article>
+
 
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              BEYOND THE SCREEN
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section beyond-section" id="beyond">
+        <section
+            class="section beyond-section"
+            id="beyond"
+        >
+
             <div class="container">
 
                 <div class="section-heading reveal">
-                    <span class="section-number">06</span>
-                    <span class="section-label">BEYOND THE SCREEN</span>
+
+                    <span class="section-number">
+                        06
+                    </span>
+
+                    <span class="section-label">
+                        BEYOND THE SCREEN
+                    </span>
+
                 </div>
 
+
                 <div class="beyond-intro reveal">
+
                     <h2>
-                        Code isn't<br>
-                        <span>the whole story.</span>
+
+                        Code isn't
+                        <br>
+
+                        <span>
+                            the whole story.
+                        </span>
+
                     </h2>
+
                 </div>
+
 
                 <div class="beyond-grid">
 
+
                     <article class="beyond-card reveal">
-                        <span class="beyond-number">01</span>
-                        <h3>Sketching</h3>
+
+                        <span class="beyond-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Sketching
+                        </h3>
+
                         <p>
-                            A slower kind of problem-solving. Working with
-                            proportions, shadows, lines and composition
-                            without a screen between the idea and the page.
+
+                            A slower kind of problem-solving.
+                            Working with proportions, shadows,
+                            lines and composition without a
+                            screen between the idea and the page.
+
                         </p>
+
                     </article>
 
 
                     <article class="beyond-card reveal">
-                        <span class="beyond-number">02</span>
-                        <h3>Music</h3>
+
+                        <span class="beyond-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Music
+                        </h3>
+
                         <p>
-                            A constant backdrop to studying, coding and
-                            sketching. From soulful classics to modern
-                            soundscapes, music shapes the atmosphere around
+
+                            A constant backdrop to studying,
+                            coding and sketching. From soulful
+                            classics to modern soundscapes,
+                            music shapes the atmosphere around
                             everything I do.
+
                         </p>
+
                     </article>
 
 
                     <article class="beyond-card reveal">
-                        <span class="beyond-number">03</span>
-                        <h3>Writing</h3>
+
+                        <span class="beyond-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Writing
+                        </h3>
+
                         <p>
-                            Stories, scripts and ideas. Another way of
-                            understanding people, situations and the worlds
-                            that exist outside technical logic.
+
+                            Stories, scripts and ideas.
+                            Another way of understanding people,
+                            situations and the worlds that exist
+                            outside technical logic.
+
                         </p>
+
                     </article>
+
 
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
-             ENGINEERING / JEE
-        ====================================================== -->
+        <!-- =================================================
+             ENGINEERING
+        ================================================== -->
 
         <section class="section engineering-section">
+
             <div class="container">
 
                 <div class="engineering-block reveal">
 
-                    <span class="section-label">ENGINEERING STARTS WITH CURIOSITY</span>
+                    <span class="section-label">
+                        ENGINEERING STARTS WITH CURIOSITY
+                    </span>
+
 
                     <h2>
-                        I don't just want<br>
+
+                        I don't just want
+                        <br>
+
                         to find the answer.
+
                     </h2>
 
+
                     <p>
-                        Preparing for JEE has taught me to approach difficult
-                        problems with patience, structure and persistence.
-                        But the part that keeps me interested is understanding
-                        why something works, not simply arriving at the answer.
+
+                        Preparing for JEE has taught me to approach
+                        difficult problems with patience, structure
+                        and persistence. But the part that keeps me
+                        interested is understanding why something
+                        works, not simply arriving at the answer.
+
                     </p>
 
+
                     <div class="engineering-tags">
+
                         <span>PHYSICS</span>
                         <span>MATHEMATICS</span>
                         <span>PROBLEM SOLVING</span>
+
                     </div>
 
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              FUTURE
-        ====================================================== -->
+        ================================================== -->
 
         <section class="section future-section">
+
             <div class="container">
 
                 <div class="future-grid">
 
                     <div class="section-heading reveal">
-                        <span class="section-number">07</span>
-                        <span class="section-label">WHERE I'M HEADED</span>
+
+                        <span class="section-number">
+                            07
+                        </span>
+
+                        <span class="section-label">
+                            WHERE I'M HEADED
+                        </span>
+
                     </div>
+
 
                     <div class="future-content reveal">
 
                         <h2>
-                            Engineering,<br>
-                            software &amp;<br>
-                            <em>creative technology.</em>
+
+                            Engineering,
+                            <br>
+
+                            software &amp;
+                            <br>
+
+                            <em>
+                                creative technology.
+                            </em>
+
                         </h2>
 
-                        <p>
-                            I want to work at the intersection of engineering,
-                            software and creative technology.
-                        </p>
 
                         <p>
+
+                            I want to work at the intersection
+                            of engineering, software and
+                            creative technology.
+
+                        </p>
+
+
+                        <p>
+
                             I'm particularly interested in building
-                            high-performance interactive systems, 3D web
-                            experiences and software where technical precision
-                            and visual design aren't treated as separate things.
+                            high-performance interactive systems,
+                            3D web experiences and software where
+                            technical precision and visual design
+                            aren't treated as separate things.
+
                         </p>
 
                     </div>
@@ -760,41 +1371,68 @@
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              CONTACT
-        ====================================================== -->
+        ================================================== -->
 
-        <section class="section contact-section" id="contact">
+        <section
+            class="section contact-section"
+            id="contact"
+        >
+
             <div class="container">
 
                 <div class="contact-top reveal">
-                    <span class="section-label">LET'S BUILD SOMETHING</span>
-                    <span>08 / 08</span>
+
+                    <span class="section-label">
+                        LET'S BUILD SOMETHING
+                    </span>
+
+                    <span>
+                        08 / 08
+                    </span>
+
                 </div>
+
 
                 <div class="contact-main reveal">
 
                     <h2>
-                        Have an idea?<br>
-                        <em>Let's talk.</em>
+
+                        Have an idea?
+                        <br>
+
+                        <em>
+                            Let's talk.
+                        </em>
+
                     </h2>
+
 
                     <a
                         href="mailto:Shreeyansraj463@gmail.com"
                         class="email-link"
                     >
+
                         Shreeyansraj463@gmail.com
-                        <span>↗</span>
+
+                        <span>
+                            ↗
+                        </span>
+
                     </a>
 
                 </div>
 
+
                 <div class="contact-footer">
 
                     <div class="social-links">
+
                         <a
                             href="https://github.com/shreeyansraj463-hue"
                             target="_blank"
@@ -803,6 +1441,7 @@
                             GitHub ↗
                         </a>
 
+
                         <a
                             href="https://x.com/Mainhushreeyans"
                             target="_blank"
@@ -810,36 +1449,51 @@
                         >
                             X ↗
                         </a>
+
                     </div>
 
-                    <span class="contact-location">
-                        Open to interesting ideas &amp; collaborations.
+
+                    <span class="contact-note">
+
+                        Open to interesting ideas &amp;
+                        collaborations.
+
                     </span>
 
                 </div>
 
             </div>
+
         </section>
 
     </main>
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          FOOTER
-    ========================================================== -->
+    ====================================================== -->
 
     <footer class="site-footer">
+
         <div class="container footer-inner">
 
-            <span>© 2026 SHREEYANS RAJ</span>
+            <span>
+                © 2026 SHREEYANS RAJ
+            </span>
 
-            <span>ENGINEERING × CREATIVITY</span>
+            <span>
+                ENGINEERING × CREATIVITY
+            </span>
 
-            <a href="#top" class="back-top">
+            <a
+                href="#top"
+                class="back-top"
+            >
                 Back to top ↑
             </a>
 
         </div>
+
     </footer>
 
 

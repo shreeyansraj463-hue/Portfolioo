@@ -2,20 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Shreeyans Raj — Engineering Aspirant · Creative Technologist</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="The personal portfolio of Shreeyans Raj, an engineering aspirant and creative technologist exploring code, interactive experiences, art and writing."
+        content="Shreeyans Raj — Engineering Aspirant and Creative Technologist."
     >
+
+    <meta name="theme-color" content="#050505">
+
+    <title>Shreeyans Raj — Engineering × Creativity</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
         rel="stylesheet"
     >
 
@@ -25,65 +31,62 @@
 <body>
 
 <!-- =========================================================
-     LOADER
+     BACKGROUND
 ========================================================= -->
 
-<div class="page-loader">
-    <div class="loader-box">
-        <div class="loader-top">
-            <span>SR / 2026</span>
-            <span>PORTFOLIO</span>
-        </div>
+<canvas id="goldCanvas"></canvas>
 
-        <div class="loader-line">
-            <span></span>
-        </div>
+<div class="grain"></div>
 
-        <div class="loader-bottom">
-            <span>INITIALISING</span>
-            <span>CREATIVE SYSTEM</span>
-        </div>
-    </div>
-</div>
+<div class="cursor-glow"></div>
 
 
 <!-- =========================================================
-     HEADER
+     NAVIGATION
 ========================================================= -->
 
 <header class="site-header">
 
-    <a href="#home" class="brand">
+    <a href="#top" class="brand">
 
-        <!-- Previous-style custom S/R monogram -->
         <svg
-            class="brand-logo"
-            viewBox="0 0 80 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            class="brand-mark"
+            viewBox="0 0 180 130"
             aria-label="SR"
         >
             <path
-                d="M58 17C53 12 45 9 36 9C22 9 13 16 13 26C13 37 23 40 36 43C48 46 57 49 57 58C57 67 48 72 37 72C27 72 19 69 13 62"
+                d="M26 43
+                   C35 21 69 17 89 30
+                   C105 40 101 58 85 65
+                   C70 72 46 68 38 80
+                   C29 93 44 108 62 108
+                   C84 108 102 95 108 80"
+                fill="none"
                 stroke="currentColor"
-                stroke-width="4"
+                stroke-width="5"
                 stroke-linecap="round"
             />
 
             <path
-                d="M39 43H48L62 70"
+                d="M76 30
+                   C98 24 126 28 139 40
+                   C148 48 144 61 133 66
+                   C122 71 108 69 97 66
+                   C111 72 119 84 127 96
+                   C134 107 143 112 155 111"
+                fill="none"
                 stroke="currentColor"
-                stroke-width="4"
+                stroke-width="5"
                 stroke-linecap="round"
-                stroke-linejoin="round"
             />
 
             <path
-                d="M39 43V12H51C60 12 66 18 66 27C66 36 60 43 51 43H39"
+                d="M86 64
+                   C105 68 117 82 127 96"
+                fill="none"
                 stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                stroke-width="2"
+                opacity=".65"
             />
         </svg>
 
@@ -98,113 +101,154 @@
         <a href="#work">Work</a>
         <a href="#creative">Creative</a>
         <a href="#thinking">Thinking</a>
-        <a href="#contact">Contact</a>
+
+        <button
+            class="nav-mira"
+            data-open-mira
+        >
+            MIRA
+            <span></span>
+        </button>
 
     </nav>
 
 
-    <div class="header-actions">
-
-        <button
-            class="assistant-trigger"
-            aria-label="Open personal assistant"
-        >
-            <span class="assistant-dot"></span>
-            ASK SR
-        </button>
-
-        <button class="menu-button" aria-label="Open menu">
-            <span></span>
-            <span></span>
-        </button>
-
-    </div>
+    <button
+        class="mobile-menu"
+        id="mobileMenu"
+        aria-label="Open menu"
+    >
+        <span></span>
+        <span></span>
+    </button>
 
 </header>
 
 
-<!-- =========================================================
-     MOBILE MENU
-========================================================= -->
+<div class="mobile-nav" id="mobileNav">
 
-<div class="mobile-menu">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#creative">Creative</a>
+    <a href="#thinking">Thinking</a>
 
-    <nav>
-        <a href="#about">01 — About</a>
-        <a href="#work">02 — Work</a>
-        <a href="#creative">03 — Creative</a>
-        <a href="#thinking">04 — Thinking</a>
-        <a href="#contact">05 — Contact</a>
-    </nav>
-
-    <button class="mobile-assistant">
-        ASK THE ASSISTANT →
+    <button data-open-mira>
+        Talk to Mira
     </button>
 
-    <div class="mobile-menu-footer">
-        ENGINEERING × CREATIVITY
-    </div>
-
 </div>
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main>
 
 
 <!-- =========================================================
      HERO
 ========================================================= -->
 
-<section id="home" class="hero">
+<main id="top">
 
-    <div class="hero-grid"></div>
+<section class="hero section">
 
-    <div class="hero-orbit"></div>
-
-    <div class="hero-top">
-        <span>PORTFOLIO / 2026</span>
-        <span>ENGINEERING × CREATIVE TECHNOLOGY</span>
+    <div class="hero-index">
+        <span>01</span>
+        <span>PERSONAL SYSTEM</span>
     </div>
 
 
     <div class="hero-content">
 
-        <div class="hero-index">01</div>
+        <p class="eyebrow reveal">
+            ENGINEERING ASPIRANT · CREATIVE TECHNOLOGIST
+        </p>
 
-        <h1>
-            Engineering
-            <span>Aspirant</span>
 
-            <em>
-                Creative Technologist
-            </em>
+        <h1 class="hero-title reveal">
+
+            Building things
+            <br>
+
+            <em>that feel alive.</em>
+
         </h1>
 
 
-        <div class="hero-description">
+        <div class="hero-bottom reveal">
 
-            <p>
-                I build digital experiences where engineering,
-                interaction and visual creativity meet.
+            <p class="hero-description">
+
+                I like understanding how things work,
+                breaking them down to fundamentals,
+                and rebuilding them into something
+                interactive, visual and meaningful.
+
             </p>
+
+
+            <a
+                href="#work"
+                class="gold-button"
+            >
+                Explore the work
+                <span>↗</span>
+            </a>
 
         </div>
 
     </div>
 
 
-    <div class="hero-bottom">
+    <!-- HERO MIRA -->
 
-        <span>INDIA</span>
+    <aside class="hero-mira reveal">
 
-        <span class="scroll-indicator">
-            SCROLL TO EXPLORE
-            <i>↓</i>
-        </span>
+        <div class="mira-mini-top">
+
+            <span>
+                <i></i>
+                MIRA
+            </span>
+
+            <small>
+                PORTFOLIO GUIDE
+            </small>
+
+        </div>
+
+
+        <div class="mini-orb">
+
+            <div class="mini-orb-core"></div>
+
+            <div class="mini-orbit"></div>
+
+        </div>
+
+
+        <p class="mira-mini-intro">
+            Not sure where to start?
+        </p>
+
+        <h3>
+            Ask me about
+            <br>
+            <em>Shreeyans.</em>
+        </h3>
+
+
+        <button
+            class="mira-mini-button"
+            data-open-mira
+        >
+            Talk to Mira
+            <span>→</span>
+        </button>
+
+    </aside>
+
+
+    <div class="hero-scroll">
+
+        <span>SCROLL TO EXPLORE</span>
+
+        <i></i>
 
     </div>
 
@@ -215,50 +259,81 @@
      ABOUT
 ========================================================= -->
 
-<section id="about" class="section about-section">
+<section
+    class="section about-section"
+    id="about"
+>
 
     <div class="section-label">
+
         <span>02</span>
-        ABOUT
+
+        <span>ABOUT</span>
+
     </div>
 
 
     <div class="about-layout">
 
-        <div class="about-heading">
+        <div class="about-heading reveal">
 
             <p class="eyebrow">
                 THE PERSON BEHIND THE CODE
             </p>
 
             <h2>
-                Building things
-                <i>that feel alive.</i>
+                Engineering
+                <br>
+                with a
+                <em>creative mind.</em>
             </h2>
 
         </div>
 
 
-        <div class="about-copy">
+        <div class="about-copy reveal">
 
             <p class="large-copy">
+
                 I am Shreeyans Raj, an engineering aspirant
-                with a strong interest in front-end development,
-                coding and interactive digital experiences.
+                currently focused on JEE preparation while
+                exploring the intersection of software,
+                physics, design and creative technology.
+
             </p>
 
-            <p>
-                I enjoy breaking complex problems down to their
-                fundamentals and then finding creative ways to
-                bring those ideas to life.
-            </p>
 
             <p>
-                Outside technology, I spend time sketching,
-                writing and discovering music. These creative
-                interests influence the way I approach design,
-                interaction and problem-solving.
+
+                Front-end development became more than
+                simply making websites for me. I became
+                interested in what happens when code starts
+                behaving visually: particles responding to
+                movement, interfaces reacting to people,
+                geometry becoming interactive and ideas
+                turning into experiences.
+
             </p>
+
+
+            <p>
+
+                Outside technology, I sketch, write poetry,
+                listen to a wide range of music and explore
+                ideas simply because I want to understand them.
+
+            </p>
+
+
+            <div class="about-tags">
+
+                <span>ENGINEERING</span>
+                <span>CREATIVE CODING</span>
+                <span>PHYSICS</span>
+                <span>VISUAL DESIGN</span>
+                <span>WRITING</span>
+
+            </div>
 
         </div>
 
@@ -271,67 +346,83 @@
      CURRENT STATE
 ========================================================= -->
 
-<section class="state-section">
+<section class="section state-section">
 
-    <div class="state-card">
+    <div class="section-label">
 
-        <div class="state-header">
-            <span>CURRENT STATE</span>
-            <span>SYSTEM / 2026</span>
-        </div>
+        <span>03</span>
 
+        <span>CURRENT STATE</span>
 
-        <div class="state-main">
-
-            <div class="state-title">
-                Currently exploring
-            </div>
+    </div>
 
 
-            <div class="state-items">
+    <div class="state-card reveal">
 
-                <div>
-                    <span>01</span>
-                    JEE PREPARATION
-                </div>
+        <div class="state-heading">
 
-                <div>
-                    <span>02</span>
-                    THREE.JS
-                </div>
-
-                <div>
-                    <span>03</span>
-                    GLSL / SHADERS
-                </div>
-
-                <div>
-                    <span>04</span>
-                    UI / UX
-                </div>
-
-                <div>
-                    <span>05</span>
-                    CREATIVE CODING
-                </div>
-
-                <div>
-                    <span>06</span>
-                    VISUAL STORYTELLING
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="state-footer">
-            <span>STATUS</span>
+            <span class="mono-label">
+                SHREEYANS / NOW
+            </span>
 
             <span class="status">
                 <i></i>
                 EXPLORING
             </span>
+
+        </div>
+
+
+        <div class="state-grid">
+
+            <div>
+
+                <small>PRIMARY FOCUS</small>
+
+                <h3>
+                    JEE
+                    <br>
+                    PREPARATION
+                </h3>
+
+            </div>
+
+
+            <div>
+
+                <small>BUILDING</small>
+
+                <p>
+                    Interactive web experiences,
+                    creative coding and experimental
+                    interfaces.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <small>EXPLORING</small>
+
+                <p>
+                    Three.js · WebGL · GLSL ·
+                    Shaders · UI/UX
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <small>CREATIVE SIDE</small>
+
+                <p>
+                    Sketching · Writing · Poetry · Music
+                </p>
+
+            </div>
+
         </div>
 
     </div>
@@ -343,651 +434,538 @@
      WORK
 ========================================================= -->
 
-<section id="work" class="section work-section">
+<section
+    class="section work-section"
+    id="work"
+>
 
     <div class="section-label">
-        <span>03</span>
-        SELECTED WORK
+
+        <span>04</span>
+
+        <span>SELECTED WORK</span>
+
     </div>
 
 
-    <div class="section-intro">
+    <div class="section-heading reveal">
 
         <p class="eyebrow">
-            DIGITAL EXPERIMENTS
+            PROJECTS
         </p>
 
         <h2>
-            Things I have
-            <i>built.</i>
+            Where the
+            <em>logic</em>
+            becomes visible.
         </h2>
 
     </div>
 
 
-    <!-- PROJECT 01 -->
-
-    <article class="project">
-
-        <div class="project-number">
-            01
-        </div>
+    <div class="projects">
 
 
-        <div class="project-info">
+        <!-- PROJECT 01 -->
 
-            <span class="project-type">
-                WEBGL / COMPUTER VISION
-            </span>
+        <article class="project project-feature reveal">
 
-            <h3>
-                Hand-Gesture
-                <br>
-                3D Particle System
-            </h3>
-
-            <p>
-                A real-time interactive 3D particle environment
-                controlled through webcam hand gestures.
-            </p>
-
-
-            <div class="project-tech">
-                <span>THREE.JS</span>
-                <span>MEDIAPIPE</span>
-                <span>JAVASCRIPT</span>
-                <span>WEBGL</span>
+            <div class="project-number">
+                01
             </div>
 
 
-            <div class="project-links">
+            <div class="project-visual particle-visual">
 
-                <a
-                    href="https://shreeyansraj463-hue.github.io/3D-Particle-Playground/"
-                    target="_blank"
-                >
-                    LIVE EXPERIENCE ↗
-                </a>
+                <div class="visual-grid"></div>
 
-                <a
-                    href="https://github.com/shreeyansraj463-hue/3D-Particle-Playground"
-                    target="_blank"
-                >
-                    SOURCE ↗
-                </a>
+                <div class="particle-ring">
 
-            </div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
 
-        </div>
+                </div>
 
-
-        <div class="project-visual particle-visual">
-
-            <div class="visual-grid"></div>
-
-            <div class="visual-orbit orbit-one"></div>
-            <div class="visual-orbit orbit-two"></div>
-
-            <div class="visual-core">
-                <span></span>
-            </div>
-
-            <div class="visual-label">
-                INTERACTIVE / 01
-            </div>
-
-        </div>
-
-    </article>
-
-
-    <!-- PROJECT 02 -->
-
-    <article class="project">
-
-        <div class="project-number">
-            02
-        </div>
-
-
-        <div class="project-info">
-
-            <span class="project-type">
-                FRONT-END / UI
-            </span>
-
-            <h3>
-                Camlab
-            </h3>
-
-            <p>
-                An experimental interface exploring interaction,
-                motion and futuristic visual systems.
-            </p>
-
-
-            <div class="project-tech">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JAVASCRIPT</span>
-            </div>
-
-
-            <div class="project-links">
-
-                <a
-                    href="https://shreeyansraj463-hue.github.io/camlab/"
-                    target="_blank"
-                >
-                    LIVE EXPERIENCE ↗
-                </a>
-
-                <a
-                    href="https://github.com/shreeyansraj463-hue/camlab"
-                    target="_blank"
-                >
-                    SOURCE ↗
-                </a>
+                <div class="visual-caption">
+                    THREE.JS / MEDIAPIPE / WEBGL
+                </div>
 
             </div>
 
-        </div>
+
+            <div class="project-info">
+
+                <p class="project-type">
+                    INTERACTIVE SYSTEM
+                </p>
+
+                <h3>
+                    Hand-Gesture
+                    <br>
+                    3D Particle System
+                </h3>
+
+                <p>
+
+                    A real-time 3D particle environment
+                    controlled through webcam hand gestures.
+                    The project combines computer vision,
+                    JavaScript logic and graphics into a
+                    responsive visual system.
+
+                </p>
 
 
-        <div class="project-visual camlab-visual">
+                <div class="project-meta">
 
-            <span>CAMLAB</span>
+                    <span>
+                        Three.js
+                    </span>
 
-            <div></div>
+                    <span>
+                        MediaPipe
+                    </span>
 
-        </div>
+                    <span>
+                        JavaScript
+                    </span>
 
-    </article>
-
-
-    <!-- PROJECT 03 -->
-
-    <article class="project">
-
-        <div class="project-number">
-            03
-        </div>
+                </div>
 
 
-        <div class="project-info">
+                <div class="project-links">
 
-            <span class="project-type">
-                UNITY / C#
-            </span>
+                    <a
+                        href="https://shreeyansraj463-hue.github.io/3D-Particle-Playground/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Live experience ↗
+                    </a>
 
-            <h3>
-                3D Multiplayer
-                <br>
-                Game Starter
-            </h3>
+                    <a
+                        href="https://github.com/shreeyansraj463-hue/3D-Particle-Playground"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Source ↗
+                    </a>
 
-            <p>
-                A foundational 3D game project exploring player
-                movement, health systems, weapon mechanics and
-                game physics.
-            </p>
+                </div>
 
-
-            <div class="project-tech">
-                <span>UNITY</span>
-                <span>C#</span>
-                <span>GAME PHYSICS</span>
             </div>
 
-        </div>
+        </article>
 
 
-        <div class="project-visual game-visual">
+        <!-- PROJECT 02 -->
 
-            <span>03D</span>
+        <article class="project reveal">
 
-            <div></div>
+            <div class="project-number">
+                02
+            </div>
 
-        </div>
 
-    </article>
+            <div class="project-visual camlab-visual">
+
+                <div class="camlab-lines"></div>
+
+                <span class="camlab-word">
+                    CAMLAB
+                </span>
+
+                <div class="visual-caption">
+                    UI / MOTION / EXPERIMENT
+                </div>
+
+            </div>
+
+
+            <div class="project-info">
+
+                <p class="project-type">
+                    INTERFACE EXPERIMENT
+                </p>
+
+                <h3>
+                    Camlab
+                </h3>
+
+                <p>
+
+                    An exploration of advanced UI,
+                    smooth motion and futuristic
+                    interaction patterns.
+
+                </p>
+
+
+                <div class="project-meta">
+
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+
+                </div>
+
+
+                <div class="project-links">
+
+                    <a
+                        href="https://shreeyansraj463-hue.github.io/camlab/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Live experience ↗
+                    </a>
+
+                    <a
+                        href="https://github.com/shreeyansraj463-hue/camlab"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Source ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 03 -->
+
+        <article class="project reveal">
+
+            <div class="project-number">
+                03
+            </div>
+
+
+            <div class="project-visual game-visual">
+
+                <div class="game-crosshair">
+                    +
+                </div>
+
+                <div class="game-hud">
+                    UNITY / C#
+                </div>
+
+            </div>
+
+
+            <div class="project-info">
+
+                <p class="project-type">
+                    GAME DEVELOPMENT
+                </p>
+
+                <h3>
+                    3D Multiplayer
+                    <br>
+                    Game Starter
+                </h3>
+
+                <p>
+
+                    A foundational 3D game project exploring
+                    player movement, health systems,
+                    weapon controls and game physics.
+
+                </p>
+
+
+                <div class="project-meta">
+
+                    <span>Unity</span>
+                    <span>C#</span>
+                    <span>Game Physics</span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
 
 </section>
 
 
 <!-- =========================================================
-     STATEMENT
+     SIGNATURE STATEMENT
 ========================================================= -->
 
 <section class="statement-section">
 
-    <div class="statement-number">
-        04
-    </div>
+    <div class="statement-inner reveal">
 
-    <h2>
-        I like understanding
-        <span>how things work.</span>
+        <span class="statement-small">
+            A SIMPLE RULE
+        </span>
 
-        <i>
+        <h2>
+            I like understanding
+            <br>
+            <em>how things work.</em>
+        </h2>
+
+        <div class="statement-arrow">
+            ↓
+        </div>
+
+        <h3>
             So I build them.
-        </i>
-    </h2>
+        </h3>
+
+    </div>
 
 </section>
 
 
 <!-- =========================================================
-     CREATIVE ARCHIVE
+     CREATIVE
 ========================================================= -->
 
-<section id="creative" class="section creative-section">
+<section
+    class="section creative-section"
+    id="creative"
+>
 
     <div class="section-label">
+
         <span>05</span>
-        BEYOND THE LOGIC
+
+        <span>CREATIVE ARCHIVE</span>
+
     </div>
 
 
-    <div class="creative-intro">
+    <div class="creative-intro reveal">
 
-        <div>
+        <p class="eyebrow">
+            BEYOND THE LOGIC
+        </p>
 
-            <p class="eyebrow">
-                CREATIVE ARCHIVE
-            </p>
-
-            <h2>
-                Not everything
-                <br>
-                I make starts
-                <i>with code.</i>
-            </h2>
-
-        </div>
-
+        <h2>
+            There is a quieter
+            <br>
+            side to the work.
+        </h2>
 
         <p>
-            Sketches, fragments, observations and words.
-            A quieter side of the same curiosity.
+            Sketching, visual experiments and writing
+            are not separate from the technical side.
+            They are another way of thinking.
         </p>
 
     </div>
 
 
-    <!-- =====================================================
-         ART
-    ====================================================== -->
+    <!-- ART -->
 
-    <div class="archive-heading">
+    <div class="creative-block">
 
-        <span>01</span>
+        <div class="creative-block-heading reveal">
 
-        <div>
-            <p>VISUAL WORK</p>
-            <h3>Sketchbook</h3>
-        </div>
+            <span>
+                05.01
+            </span>
 
-        <span class="archive-count">
-            10 WORKS
-        </span>
-
-    </div>
-
-
-    <div class="art-grid">
-
-        <button class="art-item art-large"
-            data-image="IMG-20250829-WA0008.jpg"
-            data-title="Sketchbook / 01">
-            <img src="IMG-20250829-WA0008.jpg" alt="Artwork 01">
-            <span>01</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="IMG_20260607_184756768.jpg"
-            data-title="Sketchbook / 02">
-            <img src="IMG_20260607_184756768.jpg" alt="Artwork 02">
-            <span>02</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="20260126_150411.jpg"
-            data-title="Sketchbook / 03">
-            <img src="20260126_150411.jpg" alt="Artwork 03">
-            <span>03</span>
-        </button>
-
-
-        <button class="art-item art-wide"
-            data-image="IMG_20251117_032357_284.jpg"
-            data-title="Sketchbook / 04">
-            <img src="IMG_20251117_032357_284.jpg" alt="Artwork 04">
-            <span>04</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="IMG_20251117_032352_534.jpg"
-            data-title="Sketchbook / 05">
-            <img src="IMG_20251117_032352_534.jpg" alt="Artwork 05">
-            <span>05</span>
-        </button>
-
-
-        <button class="art-item art-tall"
-            data-image="IMG_20251117_032354_002.jpg"
-            data-title="Sketchbook / 06">
-            <img src="IMG_20251117_032354_002.jpg" alt="Artwork 06">
-            <span>06</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="IMG_20251019_004046619_HDR~2.jpg"
-            data-title="Sketchbook / 07">
-            <img src="IMG_20251019_004046619_HDR~2.jpg" alt="Artwork 07">
-            <span>07</span>
-        </button>
-
-
-        <button class="art-item art-wide"
-            data-image="IMG_20251019_003637605_HDR.jpg"
-            data-title="Sketchbook / 08">
-            <img src="IMG_20251019_003637605_HDR.jpg" alt="Artwork 08">
-            <span>08</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="IMG_20251019_003614078_HDR.jpg"
-            data-title="Sketchbook / 09">
-            <img src="IMG_20251019_003614078_HDR.jpg" alt="Artwork 09">
-            <span>09</span>
-        </button>
-
-
-        <button class="art-item"
-            data-image="IMG_20251117_032405_870.jpg"
-            data-title="Sketchbook / 10">
-            <img src="IMG_20251117_032405_870.jpg" alt="Artwork 10">
-            <span>10</span>
-        </button>
-
-    </div>
-
-
-    <!-- =====================================================
-         WRITING
-    ====================================================== -->
-
-    <div class="archive-heading writing-heading">
-
-        <span>02</span>
-
-        <div>
-            <p>WORDS / ORIGINAL WRITING</p>
-            <h3>Writing</h3>
-        </div>
-
-        <span class="archive-count">
-            3 PIECES
-        </span>
-
-    </div>
-
-
-    <div class="writing-grid">
-
-
-        <!-- POEM 01 -->
-
-        <article class="writing-card featured-writing">
-
-            <div class="writing-meta">
-                <span>01</span>
-                <span>POETRY</span>
-            </div>
-
-
-            <h4>
-                From Bloom to Dusk
-            </h4>
-
+            <h3>
+                Art
+            </h3>
 
             <p>
-                A poem about a flower, time, growth,
-                change and the quiet inevitability of dusk.
+                Visual experiments · Sketches · Studies
             </p>
 
-
-            <button
-                class="read-writing"
-                data-writing="bloom"
-            >
-                READ PIECE ↗
-            </button>
-
-        </article>
-
-
-        <!-- POEM 02 -->
-
-        <article class="writing-card">
-
-            <div class="writing-meta">
-                <span>02</span>
-                <span>POETRY</span>
-            </div>
-
-
-            <h4>
-                Uneven Promise
-            </h4>
-
-
-            <p>
-                A small fragment about competition,
-                friendship and a promise left uneven.
-            </p>
-
-
-            <button
-                class="read-writing"
-                data-writing="promise"
-            >
-                READ PIECE ↗
-            </button>
-
-        </article>
-
-
-        <!-- POEM 03 -->
-
-        <article class="writing-card">
-
-            <div class="writing-meta">
-                <span>03</span>
-                <span>POETRY</span>
-            </div>
-
-
-            <h4>
-                Before it was plucked
-            </h4>
-
-
-            <p>
-                A gardener, a mango seed and the moment
-                when something carefully grown becomes
-                difficult to let go.
-            </p>
-
-
-            <button
-                class="read-writing"
-                data-writing="plucked"
-            >
-                READ PIECE ↗
-            </button>
-
-        </article>
-
-    </div>
-
-
-    <!-- =====================================================
-         ORIGINAL POETRY IMAGE ARCHIVE
-    ====================================================== -->
-
-    <div class="poetry-note">
-
-        <div>
-            <span>ORIGINAL MANUSCRIPT</span>
         </div>
 
-        <p>
-            The original poetry pages are preserved as
-            part of the visual archive.
-        </p>
+
+        <div
+            class="art-grid"
+            id="artGrid"
+        >
+
+            <!-- Generated by JavaScript -->
+
+        </div>
 
     </div>
 
 
-    <div class="poetry-image-grid">
+    <!-- WRITING -->
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261006_194615_425.jpg"
-            data-title="Original Writing / 01"
-        >
-            <img
-                src="IMG_20261006_194615_425.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+    <div class="creative-block writing-block">
 
+        <div class="creative-block-heading reveal">
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261005_012646332_HDR~2.jpg"
-            data-title="Original Writing / 02"
-        >
-            <img
-                src="IMG_20261005_012646332_HDR~2.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+            <span>
+                05.02
+            </span>
+
+            <h3>
+                Writing
+            </h3>
+
+            <p>
+                Small observations turned into words.
+            </p>
+
+        </div>
 
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261006_193516_352.webp"
-            data-title="Original Writing / 03"
-        >
-            <img
-                src="IMG_20261006_193516_352.webp"
-                alt="Original poetry page"
-            >
-        </button>
+        <div class="poetry-list">
 
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261006_193525_532.webp"
-            data-title="Original Writing / 04"
-        >
-            <img
-                src="IMG_20261006_193525_532.webp"
-                alt="Original poetry page"
-            >
-        </button>
+            <article class="poem reveal">
+
+                <div class="poem-number">
+                    01
+                </div>
+
+                <div>
+
+                    <p class="poem-category">
+                        POETRY · FROM BLOOM TO DUSK
+                    </p>
+
+                    <h3>
+                        From Bloom to Dusk
+                    </h3>
+
+                    <div class="poem-text">
+
+                        <p>
+                            I saw a flower blooming,
+                        </p>
+
+                        <p>
+                            As the morning sky made itself
+                            look clean and grooming.
+                        </p>
+
+                        <p>
+                            The day before, it had just budded,
+                        </p>
+
+                        <p>
+                            As the morning red turned white
+                            when the light flooded.
+                        </p>
+
+                        <p>
+                            Now it is fully grown;
+                        </p>
+
+                        <p>
+                            Now it is noon, and the sun has
+                            brightly shone.
+                        </p>
+
+                        <p>
+                            As time passes, the flower withers;
+                        </p>
+
+                        <p>
+                            Now it is evening, and the light
+                            slowly dithers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
 
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261006_193503_673.webp"
-            data-title="Original Writing / 05"
-        >
-            <img
-                src="IMG_20261006_193503_673.webp"
-                alt="Original poetry page"
-            >
-        </button>
+            <article class="poem reveal">
+
+                <div class="poem-number">
+                    02
+                </div>
+
+                <div>
+
+                    <p class="poem-category">
+                        POETRY · UNEVEN PROMISE
+                    </p>
+
+                    <h3>
+                        Uneven Promise
+                    </h3>
+
+                    <div class="poem-text">
+
+                        <p>
+                            We had batted just a few days ago.
+                        </p>
+
+                        <p>
+                            You were my opposite.
+                        </p>
+
+                        <p>
+                            You won.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
 
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261001_002001_409.jpg"
-            data-title="Original Writing / 06"
-        >
-            <img
-                src="IMG_20261001_002001_409.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+            <article class="poem reveal">
 
+                <div class="poem-number">
+                    03
+                </div>
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20261001_002001_361.jpg"
-            data-title="Original Writing / 07"
-        >
-            <img
-                src="IMG_20261001_002001_361.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+                <div>
 
+                    <p class="poem-category">
+                        POETRY · BEFORE IT WAS PLUCKED
+                    </p>
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20260928_025833148_HDR~2.jpg"
-            data-title="Original Writing / 08"
-        >
-            <img
-                src="IMG_20260928_025833148_HDR~2.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+                    <h3>
+                        Before it was Plucked
+                    </h3>
 
+                    <div class="poem-text">
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20260928_025657503_HDR.jpg"
-            data-title="Original Writing / 09"
-        >
-            <img
-                src="IMG_20260928_025657503_HDR.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+                        <p>
+                            A gardener planted a mango seed,
+                        </p>
 
+                        <p>
+                            Grown with care to fill a need.
+                        </p>
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20260918_200802_610.jpg"
-            data-title="Original Writing / 10"
-        >
-            <img
-                src="IMG_20260918_200802_610.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+                        <p>
+                            Now comes the time to take its fee,
+                        </p>
 
+                        <p>
+                            Yet neither is ready to let the
+                            fruit be free.
+                        </p>
 
-        <button
-            class="poetry-image"
-            data-image="IMG_20260918_200802_712.jpg"
-            data-title="Original Writing / 11"
-        >
-            <img
-                src="IMG_20260918_200802_712.jpg"
-                alt="Original poetry page"
-            >
-        </button>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
 
     </div>
 
@@ -998,60 +976,97 @@
      THINKING
 ========================================================= -->
 
-<section id="thinking" class="section thinking-section">
+<section
+    class="section thinking-section"
+    id="thinking"
+>
 
     <div class="section-label">
+
         <span>06</span>
-        HOW I THINK
+
+        <span>HOW I THINK</span>
+
     </div>
 
 
     <div class="thinking-layout">
 
-        <h2>
-            Break it down.
-            <br>
-            Understand it.
-            <br>
-            <i>Build it better.</i>
-        </h2>
+        <div class="thinking-title reveal">
 
-
-        <div class="thinking-copy">
-
-            <p>
-                I prefer understanding a problem from the
-                fundamentals instead of blindly searching
-                for a shortcut.
+            <p class="eyebrow">
+                METHOD
             </p>
 
-            <p>
-                That mindset carries across everything I do,
-                from physics and mathematics to programming,
-                visual design and writing.
-            </p>
+            <h2>
+                Don't brute
+                <br>
+                force it.
+                <br>
+                <em>Understand it.</em>
+            </h2>
+
+        </div>
 
 
-            <div class="principles">
+        <div class="thinking-items">
+
+            <div class="thinking-item reveal">
+
+                <span>01</span>
 
                 <div>
-                    <span>01</span>
-                    FUNDAMENTALS
+
+                    <h3>
+                        Fundamentals first
+                    </h3>
+
+                    <p>
+                        Complex problems become easier
+                        when they are reduced to the ideas
+                        underneath them.
+                    </p>
+
                 </div>
 
-                <div>
-                    <span>02</span>
-                    CURIOSITY
-                </div>
+            </div>
+
+
+            <div class="thinking-item reveal">
+
+                <span>02</span>
 
                 <div>
-                    <span>03</span>
-                    EXPERIMENTATION
+
+                    <h3>
+                        Experiment
+                    </h3>
+
+                    <p>
+                        Build something small, observe what
+                        happens, then push it further.
+                    </p>
+
                 </div>
 
+            </div>
+
+
+            <div class="thinking-item reveal">
+
+                <span>03</span>
+
                 <div>
-                    <span>04</span>
-                    REFINEMENT
+
+                    <h3>
+                        Make it feel right
+                    </h3>
+
+                    <p>
+                        Function matters, but the experience
+                        around the function matters too.
+                    </p>
+
                 </div>
 
             </div>
@@ -1067,25 +1082,47 @@
      FUTURE
 ========================================================= -->
 
-<section class="future-section">
+<section class="section future-section">
 
-    <div class="future-inner">
+    <div class="future-card reveal">
 
-        <p class="eyebrow">
-            LOOKING AHEAD
-        </p>
+        <div>
 
-        <h2>
-            Engineering +
-            <br>
-            <i>creative technology.</i>
-        </h2>
+            <span class="eyebrow">
+                NEXT 3–5 YEARS
+            </span>
 
-        <p>
-            I want to build software and digital experiences
-            where technical depth and visual thinking are
-            equally important.
-        </p>
+            <h2>
+                Engineering.
+                <br>
+                Software.
+                <br>
+                <em>Creative technology.</em>
+            </h2>
+
+        </div>
+
+
+        <div class="future-copy">
+
+            <p>
+
+                The long-term goal is to work at the
+                intersection of engineering, software
+                architecture and creative technology.
+
+            </p>
+
+            <p>
+
+                Interactive 3D environments, high-performance
+                web applications, complex systems and
+                experiences that combine clean engineering
+                with striking visual design.
+
+            </p>
+
+        </div>
 
     </div>
 
@@ -1096,57 +1133,51 @@
      CONTACT
 ========================================================= -->
 
-<section id="contact" class="section contact-section">
+<section class="section contact-section">
 
-    <div class="section-label">
-        <span>07</span>
-        CONTACT
-    </div>
+    <div class="contact-content reveal">
 
+        <p class="eyebrow">
+            07 / CONTACT
+        </p>
 
-    <div class="contact-layout">
-
-        <div>
-
-            <p class="eyebrow">
-                HAVE AN IDEA?
-            </p>
-
-            <h2>
-                Let's make
-                <i>something interesting.</i>
-            </h2>
-
-        </div>
+        <h2>
+            Let's build
+            <br>
+            something
+            <em>interesting.</em>
+        </h2>
 
 
-        <div class="contact-details">
+        <a
+            class="contact-email"
+            href="mailto:Shreeyansraj463@gmail.com"
+        >
+            Shreeyansraj463@gmail.com
+        </a>
+
+
+        <div class="contact-links">
 
             <a
-                href="mailto:Shreeyansraj463@gmail.com"
-                class="email-link"
+                href="https://github.com/shreeyansraj463-hue"
+                target="_blank"
+                rel="noopener"
             >
-                Shreeyansraj463@gmail.com
+                GitHub ↗
             </a>
 
+            <a
+                href="https://x.com/Mainhushreeyans"
+                target="_blank"
+                rel="noopener"
+            >
+                X ↗
+            </a>
 
-            <div class="social-links">
-
-                <a
-                    href="https://github.com/shreeyansraj463-hue"
-                    target="_blank"
-                >
-                    GitHub ↗
-                </a>
-
-                <a
-                    href="https://x.com/Mainhushreeyans"
-                    target="_blank"
-                >
-                    X ↗
-                </a>
-
-            </div>
+            <button data-open-mira>
+                Talk to Mira ↗
+            </button>
 
         </div>
 
@@ -1154,189 +1185,249 @@
 
 </section>
 
-</main>
-
 
 <!-- =========================================================
      FOOTER
 ========================================================= -->
 
-<footer>
+<footer class="site-footer">
 
-    <div>SHREEYANS RAJ</div>
+    <span>
+        SHREEYANS RAJ
+    </span>
 
-    <div>ENGINEERING × CREATIVITY</div>
+    <span>
+        ENGINEERING × CREATIVITY
+    </span>
 
-    <div>© 2026</div>
+    <span>
+        © <span id="year"></span>
+    </span>
 
 </footer>
 
+</main>
+
 
 <!-- =========================================================
-     ART LIGHTBOX
+     MIRA OVERLAY
 ========================================================= -->
 
-<div class="art-lightbox">
+<div
+    class="mira-overlay"
+    id="miraOverlay"
+    aria-hidden="true"
+>
 
-    <button class="lightbox-close">
-        CLOSE ×
-    </button>
+    <div class="mira-interface">
 
-    <div class="lightbox-content">
 
-        <img src="" alt="">
+        <!-- TOP -->
 
-        <div class="lightbox-caption">
+        <header class="mira-topbar">
 
-            <span></span>
+            <div class="mira-brand">
 
-            <small>
-                SHREEYANS RAJ / CREATIVE ARCHIVE
-            </small>
+                <span class="mira-live">
 
-        </div>
+                    <i></i>
+
+                    MIRA
+
+                </span>
+
+
+                <span class="mira-subtitle">
+
+                    PERSONAL GUIDE
+
+                </span>
+
+            </div>
+
+
+            <div class="mira-top-actions">
+
+                <span class="mira-status">
+                    LOCAL INTELLIGENCE
+                </span>
+
+
+                <button
+                    class="mira-close"
+                    id="miraClose"
+                    aria-label="Close Mira"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- MAIN -->
+
+        <main class="mira-main">
+
+
+            <div class="mira-orb-area">
+
+                <div class="mira-orb-glow"></div>
+
+
+                <div class="mira-orb">
+
+                    <div class="mira-orb-inner"></div>
+
+                    <div class="mira-orbit orbit-a"></div>
+
+                    <div class="mira-orbit orbit-b"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="mira-greeting">
+
+                <span class="mira-eyebrow">
+                    SHREEYANS / PORTFOLIO GUIDE
+                </span>
+
+
+                <h2>
+                    Hello.
+                    <br>
+                    I'm <span>Mira.</span>
+                </h2>
+
+
+                <p>
+                    I know the person behind this portfolio.
+                    Ask me about his work, education,
+                    interests, creative side, or anything
+                    you're curious about.
+                </p>
+
+            </div>
+
+
+            <!-- SUGGESTIONS -->
+
+            <div class="mira-suggestions">
+
+                <button
+                    data-mira-question="Who is Shreeyans?"
+                >
+                    Who is Shreeyans?
+                </button>
+
+
+                <button
+                    data-mira-question="What is he interested in?"
+                >
+                    His interests
+                </button>
+
+
+                <button
+                    data-mira-question="What is his best project?"
+                >
+                    Best project
+                </button>
+
+
+                <button
+                    data-mira-question="Tell me about his creative side"
+                >
+                    Creative side
+                </button>
+
+            </div>
+
+
+            <!-- CONVERSATION -->
+
+            <div
+                class="mira-conversation"
+                id="miraConversation"
+            ></div>
+
+
+            <!-- INPUT -->
+
+            <form
+                class="mira-input-area"
+                id="miraForm"
+            >
+
+                <div class="mira-input-wrap">
+
+                    <input
+                        id="miraInput"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Ask Mira anything..."
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="mira-send"
+                        aria-label="Send"
+                    >
+                        <span>↑</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="mira-footer">
+
+                <span>
+                    MIRA / 01
+                </span>
+
+                <span>
+                    KNOWLEDGE + REASONING
+                </span>
+
+                <span>
+                    NO API REQUIRED
+                </span>
+
+            </div>
+
+        </main>
 
     </div>
 
 </div>
 
 
-<!-- =========================================================
-     WRITING READER
-========================================================= -->
+<!-- IMAGE LIGHTBOX -->
 
-<div class="writing-reader">
+<div
+    class="lightbox"
+    id="lightbox"
+>
 
-    <button class="reader-close">
-        CLOSE ×
+    <button
+        id="lightboxClose"
+        class="lightbox-close"
+    >
+        ×
     </button>
 
 
-    <div class="reader-inner">
-
-        <div class="reader-meta">
-
-            <span id="reader-number">
-                01
-            </span>
-
-            <span>
-                ORIGINAL WRITING
-            </span>
-
-        </div>
-
-
-        <h2 id="reader-title">
-            From Bloom to Dusk
-        </h2>
-
-
-        <div id="reader-content"></div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     PERSONAL ASSISTANT
-========================================================= -->
-
-<div class="assistant-panel">
-
-    <div class="assistant-header">
-
-        <div>
-
-            <span class="assistant-status">
-                <i></i>
-                ONLINE
-            </span>
-
-            <h3>
-                SR / PERSONAL ASSISTANT
-            </h3>
-
-        </div>
-
-
-        <button class="assistant-close">
-            ×
-        </button>
-
-    </div>
-
-
-    <div class="assistant-intro">
-
-        <div class="assistant-avatar">
-            SR
-        </div>
-
-        <div>
-
-            <strong>
-                Hi. I'm SR.
-            </strong>
-
-            <p>
-                I can tell you about Shreeyans,
-                his work, creative archive and
-                what he is currently exploring.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="assistant-suggestions">
-
-        <button data-question="Who is Shreeyans?">
-            Who is Shreeyans?
-        </button>
-
-        <button data-question="What does he build?">
-            What does he build?
-        </button>
-
-        <button data-question="Tell me about his art">
-            His art
-        </button>
-
-        <button data-question="Tell me about his writing">
-            His writing
-        </button>
-
-    </div>
-
-
-    <div
-        class="assistant-messages"
-        id="assistantMessages"
-    ></div>
-
-
-    <form class="assistant-form">
-
-        <input
-            id="assistantInput"
-            type="text"
-            autocomplete="off"
-            placeholder="Ask something..."
-        >
-
-        <button type="submit">
-            ↑
-        </button>
-
-    </form>
-
-
-    <div class="assistant-note">
-        LOCAL ASSISTANT · NO API REQUIRED
-    </div>
+    <img
+        id="lightboxImage"
+        src=""
+        alt=""
+    >
 
 </div>
 

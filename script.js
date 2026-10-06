@@ -1,20 +1,21 @@
-/* =========================================================
+/* =====================================================
    SHREEYANS RAJ
-   PORTFOLIO ENGINE
-========================================================= */
+   PORTFOLIO + MIRA ENGINE
+===================================================== */
 
 
-/* =========================================================
+/* =====================================================
    YEAR
-========================================================= */
+===================================================== */
 
 document.getElementById("year").textContent =
     new Date().getFullYear();
 
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
+
+/* =====================================================
+   MOBILE NAV
+===================================================== */
 
 const mobileMenu =
     document.getElementById("mobileMenu");
@@ -30,50 +31,47 @@ mobileMenu.addEventListener("click", () => {
 });
 
 
-mobileNav
-    .querySelectorAll("a")
-    .forEach(link => {
+mobileNav.querySelectorAll("a").forEach(link => {
 
-        link.addEventListener("click", () => {
+    link.addEventListener("click", () => {
 
-            mobileNav.classList.remove("active");
-
-        });
+        mobileNav.classList.remove("active");
 
     });
 
+});
 
-/* =========================================================
+
+
+/* =====================================================
    CURSOR
-========================================================= */
+===================================================== */
 
 const cursorGlow =
     document.querySelector(".cursor-glow");
 
 
-if (window.matchMedia("(pointer:fine)").matches) {
+if (
+    window.matchMedia("(pointer:fine)").matches
+) {
 
-    window.addEventListener("mousemove", event => {
+    window.addEventListener("mousemove", e => {
 
-        cursorGlow.animate(
-            {
-                left: `${event.clientX}px`,
-                top: `${event.clientY}px`
-            },
-            {
-                duration: 500,
-                fill: "forwards"
-            }
-        );
+        cursorGlow.style.left =
+            `${e.clientX}px`;
+
+        cursorGlow.style.top =
+            `${e.clientY}px`;
 
     });
 
 }
 
 
-/* =========================================================
-   REVEAL
-========================================================= */
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
 
 const revealObserver =
     new IntersectionObserver(
@@ -81,9 +79,13 @@ const revealObserver =
 
             entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+                if (
+                    entry.isIntersecting
+                ) {
 
-                    entry.target.classList.add("visible");
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
                     revealObserver.unobserve(
                         entry.target
@@ -100,8 +102,7 @@ const revealObserver =
     );
 
 
-document
-    .querySelectorAll(".reveal")
+document.querySelectorAll(".reveal")
     .forEach(element => {
 
         revealObserver.observe(element);
@@ -109,10 +110,10 @@ document
     });
 
 
-/* =========================================================
-   LIQUID GOLD BACKGROUND
-   Canvas based.
-========================================================= */
+
+/* =====================================================
+   GOLD ATMOSPHERE
+===================================================== */
 
 const canvas =
     document.getElementById("goldCanvas");
@@ -120,14 +121,10 @@ const canvas =
 const ctx =
     canvas.getContext("2d");
 
+
 let width;
 let height;
-
-let dpr =
-    Math.min(window.devicePixelRatio || 1, 2);
-
-let time =
-    0;
+let animationTime = 0;
 
 
 function resizeCanvas() {
@@ -138,6 +135,12 @@ function resizeCanvas() {
     height =
         window.innerHeight;
 
+    const dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
     canvas.width =
         width * dpr;
 
@@ -145,10 +148,10 @@ function resizeCanvas() {
         height * dpr;
 
     canvas.style.width =
-        `${width}px`;
+        width + "px";
 
     canvas.style.height =
-        `${height}px`;
+        height + "px";
 
     ctx.setTransform(
         dpr,
@@ -170,21 +173,24 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   GOLD PARTICLES
-========================================================= */
 
-const goldParticles = [];
+/* GOLD PARTICLES */
+
+const particles = [];
 
 const particleCount =
     window.innerWidth < 700
-        ? 45
-        : 85;
+        ? 35
+        : 75;
 
 
-for (let i = 0; i < particleCount; i++) {
+for (
+    let i = 0;
+    i < particleCount;
+    i++
+) {
 
-    goldParticles.push({
+    particles.push({
 
         x:
             Math.random() * window.innerWidth,
@@ -192,14 +198,14 @@ for (let i = 0; i < particleCount; i++) {
         y:
             Math.random() * window.innerHeight,
 
-        radius:
-            Math.random() * 1.5 + .25,
+        size:
+            Math.random() * 1.5 + .2,
 
         speed:
-            Math.random() * .18 + .03,
+            Math.random() * .15 + .02,
 
         alpha:
-            Math.random() * .45 + .08,
+            Math.random() * .4 + .05,
 
         phase:
             Math.random() * Math.PI * 2
@@ -209,85 +215,79 @@ for (let i = 0; i < particleCount; i++) {
 }
 
 
-/* =========================================================
-   LIQUID CURVES
-========================================================= */
 
-function drawLiquidCurve(
+function liquidLine(
     offset,
     amplitude,
-    color,
-    alpha,
-    widthLine
+    opacity,
+    lineWidth
 ) {
 
     ctx.beginPath();
 
-    const points = 70;
 
-    for (let i = 0; i <= points; i++) {
+    const points = 80;
+
+
+    for (
+        let i = 0;
+        i <= points;
+        i++
+    ) {
 
         const x =
-            (i / points) *
-            width;
+            i / points * width;
 
-        const waveA =
-            Math.sin(
-                i * .11 +
-                time * .00035 +
-                offset
-            );
-
-        const waveB =
-            Math.sin(
-                i * .047 -
-                time * .00022 +
-                offset * 1.7
-            );
-
-        const waveC =
-            Math.sin(
-                i * .019 +
-                time * .00011
-            );
 
         const y =
-            height * .5 +
-            waveA * amplitude +
-            waveB * amplitude * .55 +
-            waveC * amplitude * .35;
+            height * .48 +
+
+            Math.sin(
+                i * .11 +
+                animationTime * .0003 +
+                offset
+            ) *
+            amplitude +
+
+            Math.sin(
+                i * .037 -
+                animationTime * .00018
+            ) *
+            amplitude * .55 +
+
+            Math.sin(
+                i * .017 +
+                animationTime * .0001
+            ) *
+            amplitude * .3;
+
 
         if (i === 0) {
 
-            ctx.moveTo(x, y);
+            ctx.moveTo(x,y);
 
         } else {
 
-            ctx.lineTo(x, y);
+            ctx.lineTo(x,y);
 
         }
 
     }
 
+
     ctx.strokeStyle =
-        color.replace(
-            "ALPHA",
-            alpha
-        );
+        `rgba(184,154,90,${opacity})`;
 
     ctx.lineWidth =
-        widthLine;
+        lineWidth;
 
     ctx.stroke();
 
 }
 
 
-/* =========================================================
-   GOLD AMBIENCE
-========================================================= */
 
-function drawGoldAtmosphere() {
+function drawGoldBackground() {
 
     ctx.clearRect(
         0,
@@ -297,7 +297,7 @@ function drawGoldAtmosphere() {
     );
 
 
-    /* dark base */
+    /* black base */
 
     const background =
         ctx.createLinearGradient(
@@ -307,14 +307,15 @@ function drawGoldAtmosphere() {
             height
         );
 
+
     background.addColorStop(
         0,
-        "#030303"
+        "#020202"
     );
 
     background.addColorStop(
         .5,
-        "#070706"
+        "#080807"
     );
 
     background.addColorStop(
@@ -322,8 +323,10 @@ function drawGoldAtmosphere() {
         "#020202"
     );
 
+
     ctx.fillStyle =
         background;
+
 
     ctx.fillRect(
         0,
@@ -333,7 +336,7 @@ function drawGoldAtmosphere() {
     );
 
 
-    /* central atmospheric glow */
+    /* gold atmosphere */
 
     const glow =
         ctx.createRadialGradient(
@@ -345,23 +348,28 @@ function drawGoldAtmosphere() {
             width * .65
         );
 
-    glow.addColorStop(
-        0,
-        "rgba(184,154,90,.08)"
-    );
 
     glow.addColorStop(
-        .45,
-        "rgba(120,95,45,.025)"
+        0,
+        "rgba(184,154,90,.09)"
     );
+
+
+    glow.addColorStop(
+        .5,
+        "rgba(184,154,90,.025)"
+    );
+
 
     glow.addColorStop(
         1,
-        "rgba(0,0,0,0)"
+        "transparent"
     );
+
 
     ctx.fillStyle =
         glow;
+
 
     ctx.fillRect(
         0,
@@ -371,176 +379,212 @@ function drawGoldAtmosphere() {
     );
 
 
-    /* liquid curves */
+    /* fluid lines */
 
-    drawLiquidCurve(
+    liquidLine(
         0,
         height * .11,
-        "rgba(184,154,90,ALPHA)",
-        .16,
-        1.3
+        .13,
+        1.2
     );
 
-    drawLiquidCurve(
-        2.2,
+
+    liquidLine(
+        2.3,
         height * .08,
-        "rgba(225,201,138,ALPHA)",
-        .08,
+        .065,
         .8
     );
 
-    drawLiquidCurve(
-        4.7,
+
+    liquidLine(
+        4.8,
         height * .14,
-        "rgba(184,154,90,ALPHA)",
-        .06,
+        .045,
         1
     );
 
 
     /* particles */
 
-    goldParticles.forEach(
-        particle => {
+    particles.forEach(p => {
 
-            particle.y -=
-                particle.speed;
-
-            particle.x +=
-                Math.sin(
-                    time * .0003 +
-                    particle.phase
-                ) * .05;
+        p.y -= p.speed;
 
 
-            if (particle.y < -10) {
+        if (p.y < -10) {
 
-                particle.y =
-                    height + 10;
-
-            }
-
-
-            const flicker =
-                .55 +
-                Math.sin(
-                    time * .002 +
-                    particle.phase
-                ) * .45;
-
-
-            ctx.beginPath();
-
-            ctx.arc(
-                particle.x,
-                particle.y,
-                particle.radius,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.fillStyle =
-                `rgba(214,181,105,${
-                    particle.alpha *
-                    flicker
-                })`;
-
-            ctx.fill();
+            p.y =
+                height + 10;
 
         }
-    );
 
 
-    time += 16;
+        const flicker =
+            .5 +
+            Math.sin(
+                animationTime * .002 +
+                p.phase
+            ) *
+            .5;
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+            `rgba(214,181,105,${
+                p.alpha * flicker
+            })`;
+
+
+        ctx.fill();
+
+    });
+
+
+    animationTime += 16;
+
 
     requestAnimationFrame(
-        drawGoldAtmosphere
+        drawGoldBackground
     );
 
 }
 
 
-drawGoldAtmosphere();
+drawGoldBackground();
 
 
-/* =========================================================
-   CREATIVE ARCHIVE
-=========================================================
 
-   IMPORTANT:
-   Put your artwork inside:
+/* =====================================================
+   ACTUAL UPLOADED IMAGES
+===================================================== */
 
-   assets/art/
+/*
+   These filenames come directly from the files you
+   uploaded to your GitHub repository.
 
-   Then simply add filenames below.
+   They are in the ROOT of the repository, NOT assets/art/.
+*/
 
-========================================================= */
+const uploadedImages = [
 
-const creativeData = {
+    {
+        file:
+            "IMG_20261006_194615_425.jpg",
 
-    art: [
+        title:
+            "Visual Study 01"
+    },
 
-        {
-            src:
-                "assets/art/art-01.jpg",
-            title:
-                "Study 01"
-        },
+    {
+        file:
+            "IMG_20261005_012646332_HDR~2.jpg",
 
-        {
-            src:
-                "assets/art/art-02.jpg",
-            title:
-                "Study 02"
-        },
+        title:
+            "Visual Study 02"
+    },
 
-        {
-            src:
-                "assets/art/art-03.jpg",
-            title:
-                "Study 03"
-        },
+    {
+        file:
+            "IMG_20261006_193516_352.webp",
 
-        {
-            src:
-                "assets/art/art-04.jpg",
-            title:
-                "Study 04"
-        },
+        title:
+            "Visual Study 03"
+    },
 
-        {
-            src:
-                "assets/art/art-05.jpg",
-            title:
-                "Study 05"
-        },
+    {
+        file:
+            "IMG_20261006_193525_532.webp",
 
-        {
-            src:
-                "assets/art/art-06.jpg",
-            title:
-                "Study 06"
-        }
+        title:
+            "Visual Study 04"
+    },
 
-    ]
+    {
+        file:
+            "IMG_20261006_193503_673.webp",
 
-};
+        title:
+            "Visual Study 05"
+    },
+
+    {
+        file:
+            "IMG_20261001_002001_409.jpg",
+
+        title:
+            "Visual Study 06"
+    },
+
+    {
+        file:
+            "IMG_20261001_002001_361.jpg",
+
+        title:
+            "Visual Study 07"
+    },
+
+    {
+        file:
+            "IMG_20260928_025833148_HDR~2.jpg",
+
+        title:
+            "Visual Study 08"
+    },
+
+    {
+        file:
+            "IMG_20260928_025657503_HDR.jpg",
+
+        title:
+            "Visual Study 09"
+    },
+
+    {
+        file:
+            "IMG_20260918_200802_610.jpg",
+
+        title:
+            "Visual Study 10"
+    },
+
+    {
+        file:
+            "IMG_20260918_200802_712.jpg",
+
+        title:
+            "Visual Study 11"
+    }
+
+];
 
 
-/* =========================================================
-   ART GALLERY
-========================================================= */
+
+/* =====================================================
+   CREATE IMAGE GRID
+===================================================== */
 
 const artGrid =
     document.getElementById("artGrid");
 
 
-creativeData.art.forEach(
-    (art, index) => {
+uploadedImages.forEach(
+    (image,index) => {
 
         const card =
             document.createElement("article");
+
 
         card.className =
             "art-card reveal";
@@ -549,8 +593,8 @@ creativeData.art.forEach(
         card.innerHTML = `
 
             <img
-                src="${art.src}"
-                alt="${art.title}"
+                src="./${image.file}"
+                alt="${image.title}"
                 loading="lazy"
             >
 
@@ -558,11 +602,10 @@ creativeData.art.forEach(
 
                 <span>
                     ${String(index + 1).padStart(2,"0")}
-                    / ART
                 </span>
 
                 <span>
-                    ${art.title}
+                    ${image.title}
                 </span>
 
             </div>
@@ -575,8 +618,8 @@ creativeData.art.forEach(
             () => {
 
                 openLightbox(
-                    art.src,
-                    art.title
+                    `./${image.file}`,
+                    image.title
                 );
 
             }
@@ -585,15 +628,17 @@ creativeData.art.forEach(
 
         artGrid.appendChild(card);
 
+
         revealObserver.observe(card);
 
     }
 );
 
 
-/* =========================================================
+
+/* =====================================================
    LIGHTBOX
-========================================================= */
+===================================================== */
 
 const lightbox =
     document.getElementById("lightbox");
@@ -606,15 +651,15 @@ const lightboxClose =
 
 
 function openLightbox(
-    src,
-    alt
+    source,
+    title
 ) {
 
     lightboxImage.src =
-        src;
+        source;
 
     lightboxImage.alt =
-        alt;
+        title;
 
     lightbox.classList.add(
         "active"
@@ -629,13 +674,6 @@ function closeLightbox() {
         "active"
     );
 
-    setTimeout(() => {
-
-        lightboxImage.src =
-            "";
-
-    }, 300);
-
 }
 
 
@@ -647,11 +685,10 @@ lightboxClose.addEventListener(
 
 lightbox.addEventListener(
     "click",
-    event => {
+    e => {
 
         if (
-            event.target ===
-            lightbox
+            e.target === lightbox
         ) {
 
             closeLightbox();
@@ -662,939 +699,666 @@ lightbox.addEventListener(
 );
 
 
-/* =========================================================
-   MIRA KNOWLEDGE BASE
-========================================================= */
+
+/* =====================================================
+   MIRA KNOWLEDGE
+===================================================== */
 
 const miraKnowledge = {
 
     identity: {
 
-        name:
-            "Shreeyans Raj",
+        keywords: [
+            "who",
+            "shreeyans",
+            "about him",
+            "about shreeyans",
+            "person"
+        ],
 
-        role:
-            "Engineering Aspirant and Creative Technologist",
+        section:
+            "#about",
 
-        description:
-            "Shreeyans is an engineering aspirant who combines technical problem-solving with creative coding, visual experimentation, art and writing."
+        sectionName:
+            "About",
+
+        answer:
+            "Shreeyans is an engineering aspirant and creative technologist. His main academic focus is JEE preparation, while outside academics he spends a lot of time exploring front-end development, creative coding, physics, visual design, sketching, writing and music."
 
     },
 
 
     education: {
 
-        current:
-            "JEE preparation",
-
-        interests: [
-            "Physics",
-            "Mathematics",
-            "Engineering",
-            "Computer Science",
-            "Quantum mechanics"
+        keywords: [
+            "jee",
+            "education",
+            "study",
+            "studies",
+            "student",
+            "exam",
+            "college",
+            "academic"
         ],
 
-        philosophy:
-            "He prefers understanding concepts deeply rather than only studying them for exams."
+        section:
+            "#current",
+
+        sectionName:
+            "Current State",
+
+        answer:
+            "Right now, JEE preparation is a major part of Shreeyans' life. He also likes learning beyond the exam syllabus, especially when a subject becomes interesting enough to explore deeply."
 
     },
 
 
-    technical: {
+    skills: {
 
-        comfortable: [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "Python"
+        keywords: [
+            "skill",
+            "skills",
+            "technology",
+            "technologies",
+            "tech stack",
+            "what can he code",
+            "coding"
         ],
 
-        exploring: [
-            "Three.js",
-            "WebGL",
-            "GLSL",
-            "Shaders",
-            "Creative coding",
-            "UI/UX",
-            "Web animation"
+        section:
+            "#about",
+
+        sectionName:
+            "About",
+
+        answer:
+            "He's comfortable with HTML, CSS, JavaScript and Python. He's also exploring Three.js, WebGL, GLSL, shaders, creative coding, web animation and UI/UX."
+
+    },
+
+
+    physics: {
+
+        keywords: [
+            "physics",
+            "mathematics",
+            "math",
+            "quantum",
+            "mechanics",
+            "science"
         ],
 
-        interests: [
-            "3D web development",
-            "Interactive interfaces",
-            "Computer graphics",
-            "Physics simulations",
-            "Performance optimization",
-            "Visual interaction"
-        ]
+        section:
+            "#about",
+
+        sectionName:
+            "About",
+
+        answer:
+            "Physics and mathematics are important parts of his academic interests. What seems to matter most to him is understanding the underlying logic rather than simply memorising formulas."
+
+    },
+
+
+    particle: {
+
+        keywords: [
+            "particle",
+            "gesture",
+            "hand gesture",
+            "mediapipe",
+            "computer vision",
+            "three.js",
+            "threejs"
+        ],
+
+        section:
+            "#project-particle",
+
+        sectionName:
+            "Project 01 · Hand-Gesture 3D Particle System",
+
+        answer:
+            "The Hand-Gesture 3D Particle System is probably the project that represents him best. It combines Three.js, MediaPipe, JavaScript, WebGL and real-time hand interaction."
 
     },
 
 
     projects: {
 
-        particle: {
+        keywords: [
+            "project",
+            "projects",
+            "work",
+            "built",
+            "build",
+            "portfolio project"
+        ],
 
-            name:
-                "Hand-Gesture 3D Particle System",
+        section:
+            "#work",
 
-            description:
-                "A real-time 3D particle environment controlled by webcam hand gestures.",
+        sectionName:
+            "Selected Work",
 
-            technologies: [
-                "Three.js",
-                "MediaPipe Hands",
-                "JavaScript",
-                "WebGL"
-            ],
-
-            importance:
-                "This project represents Shreeyans particularly well because it combines computer vision, graphics, interaction and creative coding.",
-
-            live:
-                "https://shreeyansraj463-hue.github.io/3D-Particle-Playground/",
-
-            source:
-                "https://github.com/shreeyansraj463-hue/3D-Particle-Playground"
-
-        },
-
-
-        camlab: {
-
-            name:
-                "Camlab",
-
-            description:
-                "An interface experiment focused on advanced UI, animation and interactive frontend concepts.",
-
-            technologies: [
-                "HTML",
-                "CSS",
-                "JavaScript"
-            ],
-
-            live:
-                "https://shreeyansraj463-hue.github.io/camlab/",
-
-            source:
-                "https://github.com/shreeyansraj463-hue/camlab"
-
-        },
-
-
-        game: {
-
-            name:
-                "3D Multiplayer Game Starter",
-
-            description:
-                "A foundational Unity project exploring player movement, health systems, weapon controls and game physics.",
-
-            technologies: [
-                "Unity",
-                "C#",
-                "Game physics"
-            ]
-
-        }
+        answer:
+            "There are three main projects featured here: the Hand-Gesture 3D Particle System, Camlab and a foundational 3D Multiplayer Game project."
 
     },
 
 
-    creative: {
+    bestProject: {
 
-        art: [
-            "Sketching",
-            "Drawing",
-            "Visual experimentation",
-            "Visual design"
+        keywords: [
+            "best project",
+            "favorite project",
+            "strongest project",
+            "most impressive project",
+            "project represents him"
         ],
 
-        writing: [
-            "Poetry",
-            "Creative writing",
-            "Narrative writing"
+        section:
+            "#project-particle",
+
+        sectionName:
+            "Project 01 · Hand-Gesture 3D Particle System",
+
+        answer:
+            "I'd point you toward the Hand-Gesture 3D Particle System. It brings together several things Shreeyans genuinely likes: 3D graphics, interaction, computer vision and creative coding."
+
+    },
+
+
+    camlab: {
+
+        keywords: [
+            "camlab",
+            "interface project",
+            "ui project"
         ],
 
-        poems: [
+        section:
+            "#project-camlab",
 
+        sectionName:
+            "Project 02 · Camlab",
+
+        answer:
+            "Camlab is an interface experiment focused on advanced UI, motion and interactive frontend concepts."
+
+    },
+
+
+    game: {
+
+        keywords: [
+            "unity",
+            "game",
+            "multiplayer",
+            "c#",
+            "game development"
+        ],
+
+        section:
+            "#project-game",
+
+        sectionName:
+            "Project 03 · 3D Multiplayer Game",
+
+        answer:
+            "The game project is a foundational Unity experiment involving player movement, health systems, weapon controls and game physics."
+
+    },
+
+
+    art: {
+
+        keywords: [
+            "art",
+            "drawing",
+            "draw",
+            "sketch",
+            "sketching",
+            "visual art"
+        ],
+
+        section:
+            "#creative",
+
+        sectionName:
+            "Creative Archive",
+
+        answer:
+            "There's a strong visual side to Shreeyans too. He sketches, draws and experiments with visual ideas. The portfolio keeps that side alongside the technical work rather than hiding it."
+
+    },
+
+
+    poetry: {
+
+        keywords: [
+            "poetry",
+            "poem",
+            "poems",
+            "writing",
+            "written",
+            "bloom",
+            "promise",
+            "plucked",
+            "mango"
+        ],
+
+        section:
+            "#poetry",
+
+        sectionName:
+            "Creative Archive · Writing",
+
+        answer:
+            "Three poems are featured here: From Bloom to Dusk, Uneven Promise and Before it was Plucked. They show a much quieter and more observational side of his personality."
+
+    },
+
+
+    bloom: {
+
+        keywords: [
+            "from bloom",
+            "bloom to dusk",
+            "flower poem"
+        ],
+
+        section:
+            "#poem-bloom",
+
+        sectionName:
             "From Bloom to Dusk",
 
+        answer:
+            "From Bloom to Dusk follows a flower through budding, full bloom and withering, using the progression of a day as a parallel for its life."
+
+    },
+
+
+    promise: {
+
+        keywords: [
+            "uneven promise"
+        ],
+
+        section:
+            "#poem-promise",
+
+        sectionName:
             "Uneven Promise",
 
-            "Before it was Plucked"
+        answer:
+            "Uneven Promise is one of his shorter pieces. It takes a very small memory and deliberately leaves a lot of emotional space around it."
 
+    },
+
+
+    plucked: {
+
+        keywords: [
+            "before it was plucked",
+            "mango poem"
         ],
 
-        music: [
-            "KK",
-            "Nusrat Fateh Ali Khan",
-            "John Mayer",
-            "The Weeknd"
-        ],
+        section:
+            "#poem-plucked",
 
-        films: [
-            "Christopher Nolan films",
-            "SRK classics"
-        ]
+        sectionName:
+            "Before it was Plucked",
+
+        answer:
+            "Before it was Plucked uses a gardener and a mango tree to explore attachment, expectation and the difficulty of letting something go."
 
     },
 
 
     thinking: {
 
-        approach: [
-            "Break complex things into fundamentals",
-            "Understand the underlying logic",
-            "Avoid brute force",
-            "Experiment",
-            "Improve things through iteration"
+        keywords: [
+            "how does he think",
+            "thinking",
+            "approach",
+            "problem solving",
+            "logic",
+            "fundamentals",
+            "learn"
         ],
 
-        belief:
-            "Good technical work should function well and also feel good to use."
+        section:
+            "#thinking",
+
+        sectionName:
+            "How I Think",
+
+        answer:
+            "His approach is to break complicated things down until the underlying logic makes sense. He prefers understanding fundamentals and experimenting over blindly brute-forcing a solution."
 
     },
 
 
     future: {
 
-        goals: [
-            "Top-tier engineering education",
-            "Advanced software engineering",
-            "Creative technology",
-            "Immersive web experiences",
-            "Interactive 3D",
-            "High-performance systems",
-            "Complex software used by many people"
-        ]
+        keywords: [
+            "future",
+            "goal",
+            "goals",
+            "career",
+            "dream",
+            "long term",
+            "three years",
+            "five years"
+        ],
+
+        section:
+            "#future",
+
+        sectionName:
+            "Future",
+
+        answer:
+            "Long term, he wants to work where engineering, software and creative technology overlap: interactive 3D, high-performance web experiences, complex systems and visually strong digital products."
+
+    },
+
+
+    music: {
+
+        keywords: [
+            "music",
+            "songs",
+            "artists",
+            "listen",
+            "kk",
+            "nusrat",
+            "john mayer",
+            "weeknd"
+        ],
+
+        section:
+            "#creative",
+
+        sectionName:
+            "Creative Archive",
+
+        answer:
+            "His music taste is pretty broad. Artists he's mentioned include KK, Nusrat Fateh Ali Khan, John Mayer and The Weeknd."
 
     }
 
 };
 
 
-/* =========================================================
-   MIRA RESPONSE ENGINE
-========================================================= */
 
-/*
-    This is intentionally NOT an API.
+/* =====================================================
+   MIRA FALLBACKS
+===================================================== */
 
-    Mira uses:
-    - keyword recognition
-    - topic scoring
-    - knowledge retrieval
-    - contextual combinations
-    - response variation
+const miraFallbacks = [
 
-    This lets her answer questions that were not
-    explicitly written as individual responses.
-*/
+    "I don't have enough information about that specific part of Shreeyans' life, so I don't want to make something up.",
 
+    "That's outside the information he's shared with me. I can tell you about his work, education, interests or creative side though.",
 
-const miraResponses = {
+    "I don't have a reliable answer for that yet. I'd rather be honest about that than invent an answer."
 
-    greetings: [
+];
 
-        "Hey. I'm Mira. What are you curious about?",
 
-        "Hi. I can show you around Shreeyans' world if you want.",
 
-        "Hello. Ask me anything about the person behind the portfolio."
-
-    ],
-
-
-    identity: [
-
-        "Shreeyans is an engineering aspirant with a rather unusual combination of interests. He spends a lot of time on technical problem-solving, but he also likes building visual experiences, sketching and writing.",
-
-        "He's basically somewhere between an engineering student and a creative coder. The technical side is important to him, but he doesn't really want technology to feel lifeless."
-
-    ],
-
-
-    education: [
-
-        "Right now, a major part of Shreeyans' life is JEE preparation. He's particularly interested in physics and mathematics, but he also likes going beyond the exam syllabus when something catches his curiosity.",
-
-        "JEE is the current academic focus. But the interesting part is that he doesn't seem satisfied with memorising things. He likes understanding why they work."
-
-    ],
-
-
-    physics: [
-
-        "Physics is one of the places where his engineering and curiosity overlap. He likes going beyond just solving questions and understanding the ideas underneath them.",
-
-        "Physics interests him partly because it gives him a way to describe how systems behave. That same systems-thinking shows up in his coding projects too."
-
-    ],
-
-
-    programming: [
-
-        "His comfortable languages and tools include HTML, CSS, JavaScript and Python. He's especially interested in moving deeper into Three.js, WebGL, GLSL and creative coding.",
-
-        "Front-end development is probably the area where his technical and visual interests meet most naturally."
-
-    ],
-
-
-    threejs: [
-
-        "Three.js is interesting to him because it lets code become visual. Instead of only building a traditional interface, he can work with geometry, particles, cameras, lighting and interaction.",
-
-        "I'd point you toward his hand-gesture particle project. It combines computer vision and 3D graphics, which is pretty representative of what he likes building."
-
-    ],
-
-
-    projects: [
-
-        "The hand-gesture 3D particle system is probably the project that represents him best. It combines Three.js, MediaPipe, JavaScript and real-time interaction.",
-
-        "He has explored a few different directions: interactive 3D particles, interface experiments and Unity game development. There's a common thread though: he likes making systems interactive."
-
-    ],
-
-
-    art: [
-
-        "There's definitely a quieter visual side to him. He sketches, experiments with visual ideas and pays attention to composition and aesthetics.",
-
-        "His art is one of the reasons the portfolio isn't purely technical. It's another way he explores ideas visually."
-
-    ],
-
-
-    writing: [
-
-        "He also writes poetry. There are three pieces currently featured here: 'From Bloom to Dusk', 'Uneven Promise' and 'Before it was Plucked'.",
-
-        "The writing is a very different side of him from the engineering work. It's slower, more observational and much less about solving a problem."
-
-    ],
-
-
-    creative: [
-
-        "The creative side is probably best described through three things: sketching, writing and music. They give him a completely different way to think compared with technical problem-solving.",
-
-        "Technology isn't the only thing he's interested in. There's a pretty strong artistic side here too, especially through sketching and poetry."
-
-    ],
-
-
-    thinking: [
-
-        "His general approach is to break complicated things down until the underlying logic makes sense. He'd rather understand something properly than brute-force his way through it.",
-
-        "He tends to start with fundamentals, experiment with the idea, see what happens, and then keep refining it."
-
-    ],
-
-
-    future: [
-
-        "Long term, he wants to work where engineering, software and creative technology overlap. Think interactive 3D, high-performance web experiences and complex systems that people actually use.",
-
-        "The direction seems pretty clear: become technically strong, but keep the creative side instead of treating it as something separate."
-
-    ],
-
-
-    music: [
-
-        "His music taste is pretty broad. KK, Nusrat Fateh Ali Khan, John Mayer and The Weeknd are some of the artists he's mentioned.",
-
-        "His music taste definitely doesn't stay in one lane. There's everything from KK and Nusrat Fateh Ali Khan to John Mayer and The Weeknd."
-
-    ],
-
-
-    unknown: [
-
-        "That's an interesting one. I don't have enough information about that part of Shreeyans' life to pretend I know the answer.",
-
-        "I don't have a reliable answer for that from what Shreeyans has shared with me. I'd rather tell you that than invent something.",
-
-        "That's outside my current knowledge of him. I can still help you explore the parts of his work and interests that I do know."
-
-    ]
-
-};
-
-
-/* =========================================================
-   KEYWORD GROUPS
-========================================================= */
-
-const miraTopics = {
-
-    identity: [
-        "who",
-        "shreeyans",
-        "about him",
-        "person",
-        "himself",
-        "your owner",
-        "who are you"
-    ],
-
-    education: [
-        "jee",
-        "study",
-        "studies",
-        "education",
-        "school",
-        "exam",
-        "student",
-        "college",
-        "academic"
-    ],
-
-    physics: [
-        "physics",
-        "math",
-        "mathematics",
-        "quantum",
-        "mechanics",
-        "science"
-    ],
-
-    programming: [
-        "code",
-        "coding",
-        "programming",
-        "javascript",
-        "python",
-        "html",
-        "css",
-        "frontend",
-        "front end",
-        "developer"
-    ],
-
-    threejs: [
-        "three.js",
-        "threejs",
-        "webgl",
-        "glsl",
-        "shader",
-        "3d",
-        "graphics",
-        "particle"
-    ],
-
-    projects: [
-        "project",
-        "projects",
-        "built",
-        "build",
-        "work",
-        "portfolio",
-        "camlab",
-        "particle"
-    ],
-
-    art: [
-        "art",
-        "draw",
-        "drawing",
-        "sketch",
-        "sketching",
-        "visual",
-        "painting"
-    ],
-
-    writing: [
-        "write",
-        "writing",
-        "poem",
-        "poetry",
-        "poems",
-        "bloom",
-        "promise",
-        "pluck",
-        "mango"
-    ],
-
-    creative: [
-        "creative",
-        "creativity",
-        "music",
-        "film",
-        "movie",
-        "nolan",
-        "srk"
-    ],
-
-    thinking: [
-        "think",
-        "thinking",
-        "approach",
-        "logic",
-        "problem",
-        "problem solving",
-        "fundamental",
-        "fundamentals",
-        "learn"
-    ],
-
-    future: [
-        "future",
-        "goal",
-        "goals",
-        "career",
-        "dream",
-        "later",
-        "3-5 years",
-        "three years"
-    ],
-
-    music: [
-        "music",
-        "song",
-        "songs",
-        "artist",
-        "artists",
-        "kk",
-        "nusrat",
-        "john mayer",
-        "weeknd"
-    ]
-
-};
-
-
-/* =========================================================
+/* =====================================================
    NORMALIZE
-========================================================= */
+===================================================== */
 
-function normalizeText(text) {
+function normalize(text) {
 
     return text
         .toLowerCase()
-        .replace(/[^\w\s.-]/g, " ")
-        .replace(/\s+/g, " ")
+        .replace(/[^\w\s.-]/g," ")
+        .replace(/\s+/g," ")
         .trim();
 
 }
 
 
-/* =========================================================
-   SCORE TOPICS
-========================================================= */
 
-function scoreMiraTopics(question) {
+/* =====================================================
+   SCORE KNOWLEDGE
+===================================================== */
+
+function findKnowledge(question) {
 
     const text =
-        normalizeText(question);
+        normalize(question);
 
-    const scores = {};
+
+    const results = [];
+
 
     Object.entries(
-        miraTopics
+        miraKnowledge
     ).forEach(
-        ([topic, keywords]) => {
+        ([key,item]) => {
 
-            scores[topic] = 0;
+            let score = 0;
 
-            keywords.forEach(
+
+            item.keywords.forEach(
                 keyword => {
 
+                    const k =
+                        normalize(keyword);
+
+
                     if (
-                        text.includes(
-                            keyword
-                        )
+                        text.includes(k)
                     ) {
 
-                        scores[topic] +=
-                            keyword.includes(" ")
-                                ? 3
-                                : 1;
+                        score +=
+                            k.includes(" ")
+                                ? 5
+                                : 2;
 
                     }
 
                 }
             );
 
+
+            if (score > 0) {
+
+                results.push({
+
+                    key,
+
+                    score,
+
+                    item
+
+                });
+
+            }
+
         }
     );
 
 
-    return Object.entries(scores)
-        .sort(
-            (a,b) =>
-                b[1] - a[1]
-        );
+    results.sort(
+        (a,b) =>
+            b.score - a.score
+    );
+
+
+    return results;
 
 }
 
 
-/* =========================================================
-   RESPONSE PICKER
-========================================================= */
 
-function randomResponse(
-    collection
-) {
+/* =====================================================
+   SPECIAL CONTEXT
+===================================================== */
 
-    return collection[
-        Math.floor(
-            Math.random() *
-            collection.length
-        )
-    ];
-
-}
-
-
-/* =========================================================
-   SMART COMBINATIONS
-========================================================= */
-
-function buildContextualResponse(
-    question,
-    topics
-) {
+function intelligentAnswer(question) {
 
     const text =
-        normalizeText(question);
+        normalize(question);
 
 
-    /* best project */
+    const matches =
+        findKnowledge(question);
 
-    if (
-        (
-            text.includes("best") ||
-            text.includes("favorite") ||
-            text.includes("most") ||
-            text.includes("represent")
-        ) &&
-        (
-            text.includes("project") ||
-            text.includes("work") ||
-            text.includes("built")
-        )
-    ) {
 
-        return `
-            Honestly, I'd start with the
-            <strong>Hand-Gesture 3D Particle System</strong>.
-            It's probably the most "Shreeyans" project here
-            because it brings together his interest in
-            JavaScript, 3D graphics, computer vision and
-            interactive experiences.
-        `;
+    if (!matches.length) {
+
+        return {
+
+            answer:
+                miraFallbacks[
+                    Math.floor(
+                        Math.random() *
+                        miraFallbacks.length
+                    )
+                ],
+
+            sources: []
+
+        };
 
     }
 
 
-    /* creative + technical */
+    /* BEST PROJECT */
 
     if (
-        topics.includes("creative") &&
-        (
-            topics.includes("programming") ||
-            topics.includes("threejs")
-        )
+        text.includes("best") &&
+        text.includes("project")
     ) {
 
-        return `
-            That's actually where a lot of his interests
-            meet. He likes the technical precision of code,
-            but he also cares about how the result looks,
-            moves and feels. Three.js is a good example of
-            that overlap.
-        `;
+        const item =
+            miraKnowledge.bestProject;
+
+
+        return {
+
+            answer:
+                item.answer,
+
+            sources: [
+                item
+            ]
+
+        };
 
     }
 
 
-    /* education + future */
+    /* COMBINED TOPICS */
+
+    const primary =
+        matches[0];
+
+
+    let answer =
+        primary.item.answer;
+
+
+    /*
+       If the visitor asks something that combines
+       two topics, Mira adds another useful thought.
+    */
 
     if (
-        topics.includes("education") &&
-        topics.includes("future")
+        matches.length >= 2 &&
+        matches[1].score >= 2
     ) {
 
-        return `
-            Right now the immediate academic focus is JEE
-            preparation. Longer term, though, he wants to
-            move toward engineering and software while
-            keeping creative technology in the picture.
-        `;
-
-    }
-
-
-    /* art + writing */
-
-    if (
-        topics.includes("art") &&
-        topics.includes("writing")
-    ) {
-
-        return `
-            Those are two different sides of the same
-            creative instinct. Sketching lets him work
-            visually, while poetry lets him work through
-            ideas with words. Both sit outside the more
-            structured engineering side of his life.
-        `;
-
-    }
-
-
-    /* physics + programming */
-
-    if (
-        topics.includes("physics") &&
-        (
-            topics.includes("programming") ||
-            topics.includes("threejs")
-        )
-    ) {
-
-        return `
-            That's one of the more interesting connections
-            in his interests. Physics gives him a way of
-            thinking about systems, motion and rules, while
-            programming gives him a way to actually build
-            and simulate some of those ideas.
-        `;
-
-    }
-
-
-    /* writing specific */
-
-    if (
-        text.includes("from bloom") ||
-        text.includes("bloom to dusk")
-    ) {
-
-        return `
-            <strong>From Bloom to Dusk</strong> is one of
-            the three poems featured here. It follows a
-            flower through blooming, maturity and fading,
-            using the passing day as a parallel for its life.
-        `;
-
-    }
-
-
-    if (
-        text.includes("uneven promise")
-    ) {
-
-        return `
-            <strong>Uneven Promise</strong> is one of his
-            shorter pieces. It takes a very small memory
-            and turns it into something deliberately brief
-            and open-ended.
-        `;
-
-    }
-
-
-    if (
-        text.includes("before it was plucked") ||
-        text.includes("mango")
-    ) {
-
-        return `
-            <strong>Before it was Plucked</strong> uses a
-            gardener and a mango tree to explore attachment,
-            expectation and the difficulty of letting go.
-        `;
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-   MIRA CORE
-========================================================= */
-
-function getMiraResponse(
-    question
-) {
-
-    const text =
-        normalizeText(question);
-
-
-    /* greetings */
-
-    if (
-        /^(hi|hello|hey|yo|hola|good morning|good evening)$/
-            .test(text)
-    ) {
-
-        return randomResponse(
-            miraResponses.greetings
-        );
-
-    }
-
-
-    /* thanks */
-
-    if (
-        text.includes("thank") ||
-        text.includes("thanks")
-    ) {
-
-        return `
-            You're welcome. I'm around if you want
-            to dig deeper into anything else.
-        `;
-
-    }
-
-
-    /* goodbye */
-
-    if (
-        text === "bye" ||
-        text.includes("goodbye")
-    ) {
-
-        return `
-            See you. And if you're still curious,
-            the particle project is a pretty good
-            place to continue.
-        `;
-
-    }
-
-
-    const scored =
-        scoreMiraTopics(question);
-
-
-    const detected =
-        scored
-            .filter(
-                item => item[1] > 0
-            )
-            .slice(0,3)
-            .map(
-                item => item[0]
-            );
-
-
-    const contextual =
-        buildContextualResponse(
-            question,
-            detected
-        );
-
-
-    if (contextual) {
-
-        return contextual;
-
-    }
-
-
-    /* direct topic response */
-
-    if (
-        detected.length
-    ) {
-
-        const primary =
-            detected[0];
+        const secondary =
+            matches[1];
 
 
         if (
-            miraResponses[primary]
+            primary.key === "education" &&
+            secondary.key === "future"
         ) {
 
-            return randomResponse(
-                miraResponses[primary]
-            );
+            answer +=
+                " So the immediate goal is academic, while the longer-term direction is engineering combined with creative technology.";
+
+        }
+
+
+        else if (
+            primary.key === "physics" &&
+            (
+                secondary.key === "particle" ||
+                secondary.key === "projects"
+            )
+        ) {
+
+            answer +=
+                " That connection also shows up in his projects, where technical ideas become interactive systems.";
+
+        }
+
+
+        else if (
+            primary.key === "art" &&
+            secondary.key === "poetry"
+        ) {
+
+            answer +=
+                " Together, those two sides show that his creative interests aren't limited to technology.";
 
         }
 
     }
 
 
-    /* special questions */
+    return {
 
-    if (
-        text.includes("skill") ||
-        text.includes("skills")
-    ) {
+        answer,
 
-        return `
-            Technically, he's comfortable with HTML,
-            CSS, JavaScript and Python. He's currently
-            pushing deeper into Three.js, WebGL, GLSL,
-            shaders, creative coding and UI/UX.
-        `;
+        sources:
+            matches
+                .slice(0,2)
+                .map(
+                    match =>
+                        match.item
+                )
 
-    }
-
-
-    if (
-        text.includes("music") ||
-        text.includes("listen")
-    ) {
-
-        return randomResponse(
-            miraResponses.music
-        );
-
-    }
-
-
-    if (
-        text.includes("why") &&
-        text.includes("code")
-    ) {
-
-        return `
-            I think the attraction is partly that code
-            gives him a way to turn an idea into something
-            real. He especially likes it when the result
-            becomes interactive rather than staying purely
-            theoretical.
-        `;
-
-    }
-
-
-    return randomResponse(
-        miraResponses.unknown
-    );
+    };
 
 }
 
 
-/* =========================================================
-   MIRA UI
-========================================================= */
 
-const miraOverlay =
+/* =====================================================
+   MIRA ELEMENTS
+===================================================== */
+
+const miraFloating =
     document.getElementById(
-        "miraOverlay"
+        "miraFloating"
+    );
+
+const miraPopup =
+    document.getElementById(
+        "miraPopup"
     );
 
 const miraClose =
     document.getElementById(
         "miraClose"
+    );
+
+const miraChat =
+    document.getElementById(
+        "miraChat"
     );
 
 const miraForm =
@@ -1607,56 +1371,36 @@ const miraInput =
         "miraInput"
     );
 
-const miraConversation =
+const miraSource =
     document.getElementById(
-        "miraConversation"
+        "miraSource"
     );
 
-const miraInterface =
-    document.querySelector(
-        ".mira-interface"
+const heroMiraButton =
+    document.getElementById(
+        "heroMiraButton"
     );
 
 
-/* =========================================================
-   OPEN
-========================================================= */
+
+/* =====================================================
+   OPEN MIRA
+===================================================== */
 
 function openMira() {
 
-    miraOverlay.classList.add(
-        "active"
+    miraPopup.classList.add(
+        "open"
     );
 
-    miraOverlay.setAttribute(
+    miraPopup.setAttribute(
         "aria-hidden",
         "false"
     );
 
     document.body.classList.add(
-        "no-scroll"
+        "mira-open"
     );
-
-
-    /* first greeting only */
-
-    if (
-        !miraConversation.children.length
-    ) {
-
-        setTimeout(
-            () => {
-
-                addMiraMessage(
-                    "Hey. I'm Mira. You can ask me about Shreeyans' work, studies, interests, projects, art or writing. Or ask me something a little less obvious.",
-                    "mira"
-                );
-
-            },
-            450
-        );
-
-    }
 
 
     setTimeout(
@@ -1665,52 +1409,34 @@ function openMira() {
             miraInput.focus();
 
         },
-        500
+        250
     );
 
 }
 
 
-/* =========================================================
-   CLOSE
-========================================================= */
-
 function closeMira() {
 
-    miraOverlay.classList.remove(
-        "active"
+    miraPopup.classList.remove(
+        "open"
     );
 
-    miraOverlay.setAttribute(
+    miraPopup.setAttribute(
         "aria-hidden",
         "true"
     );
 
     document.body.classList.remove(
-        "no-scroll"
+        "mira-open"
     );
 
 }
 
 
-/* =========================================================
-   ALL OPEN BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(
-        "[data-open-mira]"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                openMira
-            );
-
-        }
-    );
+miraFloating.addEventListener(
+    "click",
+    openMira
+);
 
 
 miraClose.addEventListener(
@@ -1719,167 +1445,23 @@ miraClose.addEventListener(
 );
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function addMiraMessage(
-    text,
-    type = "mira"
-) {
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-    message.className =
-        `mira-message ${type}`;
-
-    message.innerHTML =
-        text;
-
-    miraConversation.appendChild(
-        message
-    );
-
-    miraConversation.scrollTop =
-        miraConversation.scrollHeight;
-
-}
-
-
-/* =========================================================
-   THINKING
-========================================================= */
-
-function miraThinking() {
-
-    miraInterface.classList.add(
-        "thinking"
-    );
-
-}
-
-
-function miraDoneThinking() {
-
-    miraInterface.classList.remove(
-        "thinking"
-    );
-
-}
-
-
-/* =========================================================
-   ASK
-========================================================= */
-
-function askMira(
-    question
-) {
-
-    addMiraMessage(
-        escapeHTML(question),
-        "user"
-    );
-
-    miraInput.value =
-        "";
-
-    miraThinking();
-
-
-    const delay =
-        450 +
-        Math.random() * 700;
-
-
-    setTimeout(
-        () => {
-
-            const answer =
-                getMiraResponse(
-                    question
-                );
-
-            miraDoneThinking();
-
-            addMiraMessage(
-                answer,
-                "mira"
-            );
-
-        },
-        delay
-    );
-
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-miraForm.addEventListener(
-    "submit",
-    event => {
-
-        event.preventDefault();
-
-        const question =
-            miraInput.value.trim();
-
-        if (!question) return;
-
-        askMira(
-            question
-        );
-
-    }
+heroMiraButton.addEventListener(
+    "click",
+    openMira
 );
 
 
-/* =========================================================
-   SUGGESTIONS
-========================================================= */
 
-document
-    .querySelectorAll(
-        "[data-mira-question]"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    askMira(
-                        button.dataset
-                            .miraQuestion
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
+/* =====================================================
+   ESCAPE CLOSE
+===================================================== */
 
 document.addEventListener(
     "keydown",
     event => {
 
         if (
-            event.key === "Escape" &&
-            miraOverlay.classList.contains(
-                "active"
-            )
+            event.key === "Escape"
         ) {
 
             closeMira();
@@ -1890,19 +1472,326 @@ document.addEventListener(
 );
 
 
-/* =========================================================
+
+/* =====================================================
+   ADD CHAT MESSAGE
+===================================================== */
+
+function addMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        `mira-message ${
+            type === "user"
+                ? "mira-message-user"
+                : "mira-message-ai"
+        }`;
+
+
+    message.innerHTML =
+        `<p>${text}</p>`;
+
+
+    miraChat.appendChild(
+        message
+    );
+
+
+    miraChat.scrollTop =
+        miraChat.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   SOURCE MARKER
+===================================================== */
+
+function showSources(
+    sources
+) {
+
+    miraSource.innerHTML =
+        "";
+
+
+    if (
+        !sources ||
+        !sources.length
+    ) {
+
+        return;
+
+    }
+
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "mira-source-card";
+
+
+    const label =
+        document.createElement(
+            "span"
+        );
+
+
+    label.className =
+        "mira-source-label";
+
+
+    label.textContent =
+        "RELATED IN PORTFOLIO";
+
+
+    card.appendChild(
+        label
+    );
+
+
+    sources.forEach(
+        source => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "mira-source-link";
+
+
+            button.innerHTML =
+                `↗ ${source.sectionName}`;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    closeMira();
+
+
+                    setTimeout(
+                        () => {
+
+                            const target =
+                                document.querySelector(
+                                    source.section
+                                );
+
+
+                            if (target) {
+
+                                target.scrollIntoView({
+                                    behavior:
+                                        "smooth",
+                                    block:
+                                        "start"
+                                });
+
+
+                                target.classList.add(
+                                    "mira-highlight"
+                                );
+
+
+                                setTimeout(
+                                    () => {
+
+                                        target.classList.remove(
+                                            "mira-highlight"
+                                        );
+
+                                    },
+                                    1800
+                                );
+
+                            }
+
+                        },
+                        250
+                    );
+
+                }
+            );
+
+
+            card.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    miraSource.appendChild(
+        card
+    );
+
+}
+
+
+
+/* =====================================================
+   ASK MIRA
+===================================================== */
+
+function askMira(
+    question
+) {
+
+    addMessage(
+        escapeHTML(question),
+        "user"
+    );
+
+
+    miraInput.value =
+        "";
+
+
+    miraSource.innerHTML =
+        "";
+
+
+    /* thinking delay */
+
+    setTimeout(
+        () => {
+
+            const result =
+                intelligentAnswer(
+                    question
+                );
+
+
+            addMessage(
+                result.answer,
+                "ai"
+            );
+
+
+            showSources(
+                result.sources
+            );
+
+
+        },
+        450 +
+        Math.random() * 500
+    );
+
+}
+
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+miraForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+
+        const question =
+            miraInput.value.trim();
+
+
+        if (!question) {
+
+            return;
+
+        }
+
+
+        askMira(
+            question
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   SUGGESTIONS
+===================================================== */
+
+document
+    .querySelectorAll(
+        "[data-question]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    askMira(
+                        button.dataset.question
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
    HTML ESCAPE
-========================================================= */
+===================================================== */
 
 function escapeHTML(
     value
 ) {
 
     return value
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }

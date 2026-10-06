@@ -1,915 +1,465 @@
-/* ============================================================
-   SHREEYANS RAJ
-   PORTFOLIO INTERACTION SYSTEM
-============================================================ */
+/* =========================================
+   PAGE LOADER
+========================================= */
 
-"use strict";
+window.addEventListener("load", () => {
 
+    setTimeout(() => {
+        document
+            .querySelector(".page-loader")
+            .classList.add("loaded");
+    }, 500);
 
-/* ============================================================
-   01. ELEMENTS
-============================================================ */
-
-const header =
-    document.querySelector(".site-header");
-
-const menuToggle =
-    document.querySelector(".menu-toggle");
-
-const mobileNavigation =
-    document.querySelector(".mobile-navigation");
-
-const revealElements =
-    document.querySelectorAll(".reveal");
-
-const navigationLinks =
-    document.querySelectorAll(
-        ".desktop-nav a, .mobile-navigation a"
-    );
+});
 
 
-const reducedMotion =
-    window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+/* =========================================
+   HEADER
+========================================= */
 
+const header = document.querySelector(".site-header");
 
-/* ============================================================
-   02. HEADER
-============================================================ */
+window.addEventListener("scroll", () => {
 
-function updateHeader() {
-
-    if (!header) return;
-
-    header.classList.toggle(
-        "scrolled",
-        window.scrollY > 30
-    );
-}
-
-
-updateHeader();
-
-
-window.addEventListener(
-    "scroll",
-    updateHeader,
-    {
-        passive: true
+    if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
     }
+
+});
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+const menuButton = document.querySelector(".menu-button");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+menuButton.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
+
+});
+
+
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        mobileMenu.classList.remove("active");
+        document.body.classList.remove("no-scroll");
+
+    });
+
+});
+
+
+/* =========================================
+   SCROLL REVEAL
+========================================= */
+
+const revealElements = document.querySelectorAll(
+    ".section, .project, .state-card, .statement-section, .writing-card, .art-item, .future-inner, .contact-layout"
 );
 
 
-/* ============================================================
-   03. MOBILE NAVIGATION
-============================================================ */
+const revealObserver = new IntersectionObserver(
+    entries => {
 
-function closeMobileMenu() {
+        entries.forEach(entry => {
 
-    if (
-        !menuToggle ||
-        !mobileNavigation
-    ) {
-        return;
-    }
+            if (entry.isIntersecting) {
 
+                entry.target.classList.add("reveal");
+                requestAnimationFrame(() => {
+                    entry.target.classList.add("visible");
+                });
 
-    menuToggle.classList.remove("active");
-
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-
-    menuToggle.setAttribute(
-        "aria-label",
-        "Open navigation"
-    );
-
-
-    mobileNavigation.classList.remove("open");
-
-
-    document.body.classList.remove(
-        "menu-open"
-    );
-}
-
-
-function openMobileMenu() {
-
-    if (
-        !menuToggle ||
-        !mobileNavigation
-    ) {
-        return;
-    }
-
-
-    menuToggle.classList.add("active");
-
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        "true"
-    );
-
-
-    menuToggle.setAttribute(
-        "aria-label",
-        "Close navigation"
-    );
-
-
-    mobileNavigation.classList.add("open");
-
-
-    document.body.classList.add(
-        "menu-open"
-    );
-}
-
-
-if (menuToggle) {
-
-    menuToggle.addEventListener(
-        "click",
-        () => {
-
-            const isOpen =
-                menuToggle.getAttribute(
-                    "aria-expanded"
-                ) === "true";
-
-
-            if (isOpen) {
-
-                closeMobileMenu();
-
-            } else {
-
-                openMobileMenu();
+                revealObserver.unobserve(entry.target);
 
             }
 
-        }
-    );
-
-}
-
-
-/* Close after navigation */
-
-navigationLinks.forEach(
-    (link) => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                closeMobileMenu();
-
-            }
-        );
-
-    }
-);
-
-
-/* Escape */
-
-document.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeMobileMenu();
-
-        }
-
-    }
-);
-
-
-/* Click outside */
-
-document.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            !mobileNavigation ||
-            !menuToggle
-        ) {
-            return;
-        }
-
-
-        if (
-            !mobileNavigation.classList.contains(
-                "open"
-            )
-        ) {
-            return;
-        }
-
-
-        const insideMenu =
-            mobileNavigation.contains(
-                event.target
-            );
-
-        const insideToggle =
-            menuToggle.contains(
-                event.target
-            );
-
-
-        if (
-            !insideMenu &&
-            !insideToggle
-        ) {
-
-            closeMobileMenu();
-
-        }
-
-    }
-);
-
-
-/* ============================================================
-   04. SCROLL REVEAL
-============================================================ */
-
-if (
-    !reducedMotion &&
-    "IntersectionObserver" in window
-) {
-
-    const revealObserver =
-        new IntersectionObserver(
-            (entries, observer) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-                );
-
-            },
-            {
-                threshold: .12,
-
-                rootMargin:
-                    "0px 0px -40px 0px"
-            }
-        );
-
-
-    revealElements.forEach(
-        (element) => {
-
-            revealObserver.observe(
-                element
-            );
-
-        }
-    );
-
-} else {
-
-    revealElements.forEach(
-        (element) => {
-
-            element.classList.add(
-                "visible"
-            );
-
-        }
-    );
-
-}
-
-
-/* ============================================================
-   05. ACTIVE NAVIGATION
-============================================================ */
-
-const sections =
-    document.querySelectorAll(
-        "main section[id]"
-    );
-
-const desktopLinks =
-    document.querySelectorAll(
-        ".desktop-nav a"
-    );
-
-
-if (
-    "IntersectionObserver" in window
-) {
-
-    const sectionObserver =
-        new IntersectionObserver(
-            (entries) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
-
-
-                        const id =
-                            entry.target.getAttribute(
-                                "id"
-                            );
-
-
-                        desktopLinks.forEach(
-                            (link) => {
-
-                                link.classList.toggle(
-                                    "active",
-                                    link.getAttribute(
-                                        "href"
-                                    ) === `#${id}`
-                                );
-
-                            }
-                        );
-
-                    }
-                );
-
-            },
-            {
-                rootMargin:
-                    "-35% 0px -55% 0px"
-            }
-        );
-
-
-    sections.forEach(
-        (section) => {
-
-            sectionObserver.observe(
-                section
-            );
-
-        }
-    );
-
-}
-
-
-/* ============================================================
-   06. SMOOTH ANCHOR NAVIGATION
-============================================================ */
-
-document
-    .querySelectorAll(
-        'a[href^="#"]'
-    )
-    .forEach(
-        (link) => {
-
-            link.addEventListener(
-                "click",
-                (event) => {
-
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-                        return;
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView({
-                        behavior:
-                            reducedMotion
-                                ? "auto"
-                                : "smooth",
-
-                        block: "start"
-                    });
-
-                }
-            );
-
-        }
-    );
-
-
-/* ============================================================
-   07. AMBIENT PARTICLE FIELD
-============================================================ */
-
-const ambientCanvas =
-    document.querySelector(
-        "#ambient-canvas"
-    );
-
-
-if (
-    ambientCanvas &&
-    !reducedMotion
-) {
-
-    const context =
-        ambientCanvas.getContext(
-            "2d",
-            {
-                alpha: true
-            }
-        );
-
-
-    let particles = [];
-
-
-    let width = 0;
-    let height = 0;
-
-
-    let pointerX = .5;
-    let pointerY = .5;
-
-
-    let animationFrame;
-
-
-    const mobile =
-        window.matchMedia(
-            "(max-width: 720px)"
-        ).matches;
-
-
-    const particleCount =
-        mobile
-            ? 25
-            : 60;
-
-
-    function resizeCanvas() {
-
-        const rect =
-            ambientCanvas.getBoundingClientRect();
-
-
-        width =
-            rect.width;
-
-        height =
-            rect.height;
-
-
-        const pixelRatio =
-            Math.min(
-                window.devicePixelRatio || 1,
-                1.5
-            );
-
-
-        ambientCanvas.width =
-            width * pixelRatio;
-
-
-        ambientCanvas.height =
-            height * pixelRatio;
-
-
-        context.setTransform(
-            pixelRatio,
-            0,
-            0,
-            pixelRatio,
-            0,
-            0
-        );
-
-    }
-
-
-    function createParticles() {
-
-        particles = [];
-
-
-        for (
-            let i = 0;
-            i < particleCount;
-            i++
-        ) {
-
-            particles.push({
-
-                x:
-                    Math.random() * width,
-
-                y:
-                    Math.random() * height,
-
-                size:
-                    Math.random() * 1.35 + .35,
-
-                speed:
-                    Math.random() * .14 + .035,
-
-                drift:
-                    (Math.random() - .5) * .11,
-
-                opacity:
-                    Math.random() * .32 + .07,
-
-                phase:
-                    Math.random() *
-                    Math.PI *
-                    2
-
-            });
-
-        }
-
-    }
-
-
-    function renderParticles(time) {
-
-        context.clearRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-
-        const seconds =
-            time * .001;
-
-
-        for (
-            const particle of particles
-        ) {
-
-            particle.y -=
-                particle.speed;
-
-
-            particle.x +=
-                Math.sin(
-                    seconds +
-                    particle.phase
-                ) *
-                particle.drift;
-
-
-            if (
-                particle.y <
-                -10
-            ) {
-
-                particle.y =
-                    height + 10;
-
-                particle.x =
-                    Math.random() * width;
-
-            }
-
-
-            if (
-                particle.x <
-                -10
-            ) {
-
-                particle.x =
-                    width + 10;
-
-            }
-
-
-            if (
-                particle.x >
-                width + 10
-            ) {
-
-                particle.x =
-                    -10;
-
-            }
-
-
-            /*
-             * Gentle cursor interaction
-             */
-
-            const targetX =
-                pointerX * width;
-
-            const targetY =
-                pointerY * height;
-
-
-            const dx =
-                targetX -
-                particle.x;
-
-            const dy =
-                targetY -
-                particle.y;
-
-
-            const distance =
-                Math.sqrt(
-                    dx * dx +
-                    dy * dy
-                );
-
-
-            if (
-                distance < 180
-            ) {
-
-                particle.x +=
-                    dx * .0003;
-
-                particle.y +=
-                    dy * .0003;
-
-            }
-
-
-            context.beginPath();
-
-
-            context.arc(
-                particle.x,
-                particle.y,
-                particle.size,
-                0,
-                Math.PI * 2
-            );
-
-
-            context.fillStyle =
-                `rgba(232,224,210,${particle.opacity})`;
-
-
-            context.fill();
-
-        }
-
-
-        animationFrame =
-            requestAnimationFrame(
-                renderParticles
-            );
-
-    }
-
-
-    function updatePointer(event) {
-
-        pointerX =
-            event.clientX /
-            window.innerWidth;
-
-
-        pointerY =
-            event.clientY /
-            window.innerHeight;
-
-    }
-
-
-    resizeCanvas();
-
-    createParticles();
-
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            resizeCanvas();
-
-            createParticles();
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    window.addEventListener(
-        "pointermove",
-        updatePointer,
-        {
-            passive: true
-        }
-    );
-
-
-    animationFrame =
-        requestAnimationFrame(
-            renderParticles
-        );
-
-}
-
-
-/* ============================================================
-   08. MAGNETIC PRIMARY BUTTON
-============================================================ */
-
-const primaryButtons =
-    document.querySelectorAll(
-        ".button-primary"
-    );
-
-
-if (
-    !reducedMotion &&
-    window.matchMedia(
-        "(hover: hover)"
-    ).matches
-) {
-
-    primaryButtons.forEach(
-        (button) => {
-
-            button.addEventListener(
-                "pointermove",
-                (event) => {
-
-                    const rect =
-                        button.getBoundingClientRect();
-
-
-                    const x =
-                        event.clientX -
-                        rect.left -
-                        rect.width / 2;
-
-
-                    const y =
-                        event.clientY -
-                        rect.top -
-                        rect.height / 2;
-
-
-                    button.style.transform =
-                        `translate(${x * .07}px, ${y * .07}px)`;
-
-                }
-            );
-
-
-            button.addEventListener(
-                "pointerleave",
-                () => {
-
-                    button.style.transform =
-                        "translate(0,0)";
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* ============================================================
-   09. RESIZE SAFETY
-============================================================ */
-
-let resizeTimer;
-
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        clearTimeout(
-            resizeTimer
-        );
-
-
-        resizeTimer =
-            setTimeout(
-                () => {
-
-                    if (
-                        window.innerWidth > 720 &&
-                        mobileNavigation &&
-                        mobileNavigation.classList.contains(
-                            "open"
-                        )
-                    ) {
-
-                        closeMobileMenu();
-
-                    }
-
-                },
-                150
-            );
+        });
 
     },
     {
-        passive: true
+        threshold: 0.08
     }
 );
 
 
-/* ============================================================
-   10. WINDOW BLUR SAFETY
-============================================================ */
+revealElements.forEach(element => {
+    revealObserver.observe(element);
+});
 
-window.addEventListener(
-    "blur",
-    () => {
 
-        primaryButtons.forEach(
-            (button) => {
+/* =========================================
+   ART LIGHTBOX
+========================================= */
 
-                button.style.transform =
-                    "translate(0,0)";
+const artLightbox = document.querySelector(".art-lightbox");
+const artLightboxImage = artLightbox.querySelector("img");
+const artLightboxTitle = artLightbox.querySelector(
+    ".lightbox-caption span"
+);
 
-            }
+const artItems = document.querySelectorAll(".art-item");
+
+
+artItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const image = item.dataset.image;
+        const title = item.dataset.title;
+
+        artLightboxImage.src = image;
+        artLightboxImage.alt = title;
+        artLightboxTitle.textContent = title;
+
+        artLightbox.classList.add("active");
+        document.body.classList.add("no-scroll");
+
+    });
+
+});
+
+
+document
+    .querySelector(".lightbox-close")
+    .addEventListener("click", closeArt);
+
+
+function closeArt() {
+
+    artLightbox.classList.remove("active");
+    document.body.classList.remove("no-scroll");
+
+    setTimeout(() => {
+        artLightboxImage.src = "";
+    }, 400);
+
+}
+
+
+artLightbox.addEventListener("click", event => {
+
+    if (event.target === artLightbox) {
+        closeArt();
+    }
+
+});
+
+
+/* =========================================
+   WRITING ARCHIVE
+========================================= */
+
+/*
+    Replace these texts later with the exact
+    poetry from your uploaded pages.
+
+    The design is already ready.
+*/
+
+const writings = {
+
+    "writing-01": {
+        number: "01",
+        title: "Years Ago",
+        content: `
+            <p>
+                Years ago, it was a trivial, petulant dispute
+                between best friends, who, being young and careless,
+                never thought that it could evolve into something
+                that would change their lives forever.
+            </p>
+
+            <p>
+                They bickered about some inconsequential thing
+                only best friends could discuss for hours, if not days.
+            </p>
+
+            <p>
+                “I'll go first,” she said.
+            </p>
+
+            <p>
+                Not that she believed it, for in her petulant
+                whisper there was an echo of resolution, a promise
+                that neither of them yet understood.
+            </p>
+        `
+    },
+
+
+    "writing-02": {
+        number: "02",
+        title: "Untitled I",
+        content: `
+            <p>
+                Some thoughts are easier to write than to say.
+            </p>
+
+            <p>
+                They remain somewhere between silence and paper,
+                waiting for the right moment to become words.
+            </p>
+        `
+    },
+
+
+    "writing-03": {
+        number: "03",
+        title: "Untitled II",
+        content: `
+            <p>
+                There are moments that seem ordinary while
+                they are happening, only becoming important
+                much later.
+            </p>
+        `
+    },
+
+
+    "writing-04": {
+        number: "04",
+        title: "Untitled III",
+        content: `
+            <p>
+                Maybe unfinished thoughts deserve a place too.
+            </p>
+
+            <p>
+                Not everything needs to become a conclusion.
+            </p>
+        `
+    },
+
+
+    "writing-05": {
+        number: "05",
+        title: "Untitled IV",
+        content: `
+            <p>
+                A page begins with a thought.
+                Sometimes the thought never decides
+                what it wants to become.
+            </p>
+        `
+    },
+
+
+    "writing-06": {
+        number: "06",
+        title: "Untitled V",
+        content: `
+            <p>
+                Small observations can stay with us
+                longer than important conversations.
+            </p>
+        `
+    },
+
+
+    "writing-07": {
+        number: "07",
+        title: "Untitled VI",
+        content: `
+            <p>
+                Some words are never meant to be loud.
+            </p>
+
+            <p>
+                They exist simply because someone
+                needed to write them.
+            </p>
+        `
+    },
+
+
+    "writing-08": {
+        number: "08",
+        title: "Untitled VII",
+        content: `
+            <p>
+                Another page from the archive.
+            </p>
+
+            <p>
+                Another thought that refused to disappear.
+            </p>
+        `
+    },
+
+
+    "writing-09": {
+        number: "09",
+        title: "Untitled VIII",
+        content: `
+            <p>
+                Sometimes writing is nothing more
+                than trying to remember exactly
+                how something felt.
+            </p>
+        `
+    },
+
+
+    "writing-10": {
+        number: "10",
+        title: "Untitled IX",
+        content: `
+            <p>
+                Memory rarely keeps things in order.
+                Maybe that is what makes it beautiful.
+            </p>
+        `
+    },
+
+
+    "writing-11": {
+        number: "11",
+        title: "Untitled X",
+        content: `
+            <p>
+                The archive ends here for now.
+            </p>
+
+            <p>
+                The writing does not.
+            </p>
+        `
+    }
+
+};
+
+
+/* =========================================
+   WRITING READER
+========================================= */
+
+const writingReader = document.querySelector(".writing-reader");
+
+const readerNumber =
+    document.querySelector("#reader-number");
+
+const readerTitle =
+    document.querySelector("#reader-title");
+
+const readerContent =
+    document.querySelector("#reader-content");
+
+
+document.querySelectorAll(".writing-card").forEach(card => {
+
+    const button = card.querySelector("button");
+
+    button.addEventListener("click", () => {
+
+        const id = card.dataset.writing;
+        const writing = writings[id];
+
+        if (!writing) return;
+
+        readerNumber.textContent = writing.number;
+        readerTitle.textContent = writing.title;
+        readerContent.innerHTML = writing.content;
+
+        writingReader.classList.add("active");
+
+        document.body.classList.add("no-scroll");
+
+    });
+
+});
+
+
+document
+    .querySelector(".reader-close")
+    .addEventListener("click", closeReader);
+
+
+function closeReader() {
+
+    writingReader.classList.remove("active");
+
+    document.body.classList.remove("no-scroll");
+
+}
+
+
+writingReader.addEventListener("click", event => {
+
+    if (event.target === writingReader) {
+        closeReader();
+    }
+
+});
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener("keydown", event => {
+
+    if (event.key !== "Escape") return;
+
+    closeArt();
+    closeReader();
+
+    mobileMenu.classList.remove("active");
+    document.body.classList.remove("no-scroll");
+
+});
+
+
+/* =========================================
+   IMAGE ERROR HANDLING
+========================================= */
+
+document.querySelectorAll("img").forEach(img => {
+
+    img.addEventListener("error", () => {
+
+        img.style.background = "#141319";
+
+        console.warn(
+            `Image not found: ${img.getAttribute("src")}`
         );
 
-    }
-);
+    });
+
+});
 
 
-/* ============================================================
-   11. CLEANUP
-============================================================ */
+/* =========================================
+   SMOOTH INTERNAL NAVIGATION
+========================================= */
 
-window.addEventListener(
-    "pagehide",
-    () => {
+document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-        if (animationFrame) {
+    link.addEventListener("click", event => {
 
-            cancelAnimationFrame(
-                animationFrame
-            );
+        const targetID = link.getAttribute("href");
 
-        }
+        if (targetID === "#") return;
 
-    }
-);
+        const target = document.querySelector(targetID);
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+});

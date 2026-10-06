@@ -1,170 +1,849 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shreeyans Raj — physics enthusiast and computational web engineer.">
-  <title>Shreeyans Raj — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="description"
+        content="Shreeyans Raj is an engineering aspirant and creative technologist exploring interactive web experiences, creative coding, and visual technology."
+    >
+
+    <meta name="theme-color" content="#08070B">
+
+    <title>Shreeyans Raj — Engineering Aspirant · Creative Technologist</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Shreeyans Raj home">
-      <span class="brand-mark">SR</span>
-      <span>SHREEYANS RAJ</span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#focus">Focus</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a class="header-cta" href="#contact">Let's connect <span>↗</span></a>
-  </header>
 
-  <main id="top">
-    <section class="hero section-shell">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> KOTA, RAJASTHAN · 2026</p>
-        <h1>Curious by nature.<br><em>Precise by practice.</em></h1>
-        <p class="hero-lede">
-          I explore the space where physics, mathematics and digital engineering meet,
-          turning ideas and mathematical models into interactive web experiences.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#work">View selected work <span>↓</span></a>
-          <a class="text-link" href="https://github.com/shreeyansraj463-hue" target="_blank" rel="noopener">GitHub ↗</a>
+    <!-- =========================================================
+         SITE HEADER
+    ========================================================== -->
+
+    <header class="site-header" id="site-header">
+        <div class="container header-inner">
+
+            <a href="#top" class="brand" aria-label="Shreeyans Raj home">
+                <span class="brand-mark">SR</span>
+                <span class="brand-name">SHREEYANS RAJ</span>
+            </a>
+
+            <nav class="desktop-nav" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#work">Work</a>
+                <a href="#exploring">Exploring</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <a href="#contact" class="header-contact">
+                Let's talk <span>↗</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-navigation"
+            >
+                <span></span>
+                <span></span>
+            </button>
+
         </div>
-      </div>
 
-      <div class="hero-visual" aria-label="Decorative visual">
-        <div class="orbital orbital-one"></div>
-        <div class="orbital orbital-two"></div>
-        <div class="core"></div>
-        <div class="visual-label label-top">01 / EXPLORE</div>
-        <div class="visual-label label-bottom">PHYSICS × CODE</div>
-      </div>
-    </section>
+        <nav
+            class="mobile-navigation"
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
+        >
+            <a href="#about">01 — About</a>
+            <a href="#work">02 — Selected Work</a>
+            <a href="#mindset">03 — How I Think</a>
+            <a href="#exploring">04 — Exploring</a>
+            <a href="#beyond">05 — Beyond the Screen</a>
+            <a href="#contact">06 — Contact</a>
+        </nav>
+    </header>
 
-    <section id="about" class="section-shell section">
-      <div class="section-intro">
-        <p class="eyebrow">01 / ABOUT</p>
-        <h2>A builder who likes to understand <span>why.</span></h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-copy">
-          <p class="large-copy">
-            I am driven by a relentless need to understand how things work. My core
-            interests span physics, chemistry and mathematics, alongside frontend
-            engineering and computational experiments.
-          </p>
-          <p>
-            I don't want to leave equations on paper. I like turning them into things
-            that can be seen, tested and interacted with using JavaScript, Canvas and
-            WebGL. The goal is simple: make complex ideas feel tangible.
-          </p>
-        </div>
-        <aside class="quote-card">
-          <span class="quote-mark">“</span>
-          <p>Translate the model. Test the idea. Make it understandable.</p>
-          <span class="quote-credit">SHREEYANS RAJ / NEXUS CORE</span>
-        </aside>
-      </div>
-    </section>
 
-    <section id="work" class="section-shell section">
-      <div class="section-heading-row">
-        <div>
-          <p class="eyebrow">02 / SELECTED WORK</p>
-          <h2>Things I've built.</h2>
-        </div>
-        <span class="section-count">02 PROJECTS</span>
-      </div>
+    <main id="top">
 
-      <div class="projects">
-        <article class="project project-featured">
-          <div class="project-index">01</div>
-          <div class="project-body">
-            <div class="project-meta"><span>PHYSICS / WEBGL</span><span>01</span></div>
-            <h3>3D Particle Playground</h3>
-            <p>
-              A real-time computational playground focused on interactive particle
-              behaviour and physics-inspired visualisation. Built as an experiment in
-              translating mathematical ideas into an engaging browser experience.
-            </p>
-            <div class="tags"><span>Three.js</span><span>JavaScript</span><span>Physics</span><span>WebGL</span></div>
-            <div class="project-links">
-              <a href="https://shreeyansraj463-hue.github.io/3D-Particle-Playground/" target="_blank" rel="noopener">Live experience ↗</a>
-              <a href="https://github.com/shreeyansraj463-hue/3D-Particle-Playground" target="_blank" rel="noopener">Source ↗</a>
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section class="hero section">
+            <div class="hero-grid container">
+
+                <div class="hero-meta reveal">
+                    <span>01 / 06</span>
+                    <span>ENGINEERING × CREATIVITY</span>
+                </div>
+
+                <div class="hero-content">
+
+                    <p class="eyebrow reveal">
+                        Engineering Aspirant · Creative Technologist
+                    </p>
+
+                    <h1 class="hero-title reveal">
+                        Building things<br>
+                        that feel <em>alive.</em>
+                    </h1>
+
+                    <div class="hero-bottom">
+
+                        <p class="hero-description reveal">
+                            I'm Shreeyans Raj, an engineering aspirant exploring
+                            the intersection of code, interactive technology,
+                            visual design and creative problem-solving.
+                        </p>
+
+                        <div class="hero-actions reveal">
+                            <a href="#work" class="button button-primary">
+                                Explore my work
+                                <span>↓</span>
+                            </a>
+
+                            <a href="#about" class="text-link">
+                                More about me <span>↘</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-index" aria-hidden="true">
+                    <span>SR</span>
+                    <span>2026</span>
+                </div>
+
             </div>
-          </div>
-          <div class="project-art physics-art">
-            <div class="particle p1"></div><div class="particle p2"></div><div class="particle p3"></div>
-            <div class="particle p4"></div><div class="particle p5"></div><div class="particle p6"></div>
-            <div class="physics-ring"></div>
-          </div>
-        </article>
 
-        <article class="project">
-          <div class="project-index">02</div>
-          <div class="project-body">
-            <div class="project-meta"><span>CHEMISTRY / UI</span><span>02</span></div>
-            <h3>Camlab</h3>
-            <p>
-              An interactive frontend experiment built around clean UI, responsive
-              behaviour and smooth browser interactions.
-            </p>
-            <div class="tags"><span>JavaScript</span><span>DOM API</span><span>Responsive UI</span></div>
-            <div class="project-links">
-              <a href="https://shreeyansraj463-hue.github.io/camlab/" target="_blank" rel="noopener">Live experience ↗</a>
-              <a href="https://github.com/shreeyansraj463-hue/camlab" target="_blank" rel="noopener">Source ↗</a>
+            <div class="hero-line container"></div>
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section class="section about-section" id="about">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-number">01</span>
+                    <span class="section-label">ABOUT</span>
+                </div>
+
+                <div class="about-grid">
+
+                    <div class="about-title reveal">
+                        <h2>
+                            Curious by nature.<br>
+                            <span>Analytical by instinct.</span>
+                        </h2>
+                    </div>
+
+                    <div class="about-copy">
+
+                        <p class="large-copy reveal">
+                            I enjoy taking complicated things apart until
+                            the underlying logic becomes clear, then using
+                            that same mindset to build something of my own.
+                        </p>
+
+                        <p class="reveal">
+                            Right now, I'm balancing engineering preparation
+                            with a growing obsession for front-end development,
+                            creative coding and interactive digital experiences.
+                        </p>
+
+                        <p class="reveal">
+                            I don't see engineering and creativity as separate
+                            worlds. Physics teaches me to understand systems.
+                            Code gives me a way to build them. Art gives me
+                            another way to see them.
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
-          </div>
-          <div class="project-art lab-art">
-            <div class="lab-tile">CHEM<br><strong>LAB</strong></div>
-            <div class="lab-line"></div>
-          </div>
-        </article>
-      </div>
-    </section>
+        </section>
 
-    <section id="focus" class="section-shell section focus-section">
-      <div class="section-intro">
-        <p class="eyebrow">03 / CURRENT FOCUS</p>
-        <h2>Learning with <span>intent.</span></h2>
-      </div>
-      <div class="focus-list">
-        <div><span>01</span><strong>Physics, Chemistry & Mathematics</strong><small>Competitive-level study and deeper conceptual understanding.</small></div>
-        <div><span>02</span><strong>Computational Physics</strong><small>JavaScript, Canvas and WebGL experiments that make models visual.</small></div>
-        <div><span>03</span><strong>Algorithmic Logic</strong><small>Breaking complex problems into clear, testable systems.</small></div>
-        <div><span>04</span><strong>Discipline & Consistency</strong><small>Building a process that keeps curiosity moving forward.</small></div>
-      </div>
-    </section>
 
-    <section id="contact" class="contact section-shell section">
-      <div class="contact-inner">
-        <p class="eyebrow">04 / CONTACT</p>
-        <h2>Have an idea?<br><span>Let's talk.</span></h2>
-        <p>For projects, experiments, collaboration or just a good conversation about physics and code.</p>
-        <a class="button button-primary" href="mailto:Shreeyansraj463@gmail.com">Start a conversation ↗</a>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:Shreeyansraj463@gmail.com">Email</a>
-        <a href="https://github.com/shreeyansraj463-hue" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://x.com/Mainhushreeyans" target="_blank" rel="noopener">X</a>
-        <a href="https://wa.me/916201957968" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </section>
-  </main>
+        <!-- =====================================================
+             WHAT I BUILD
+        ====================================================== -->
 
-  <footer class="site-footer">
-    <span>SHREEYANS RAJ</span>
-    <span>ENGINEERED WITH CURIOSITY · © 2026</span>
-  </footer>
+        <section class="section build-section">
+            <div class="container">
 
-  <script src="script.js"></script>
+                <div class="section-heading reveal">
+                    <span class="section-number">02</span>
+                    <span class="section-label">WHAT I BUILD</span>
+                </div>
+
+                <div class="build-list">
+
+                    <article class="build-item reveal">
+                        <div class="build-number">01</div>
+
+                        <div class="build-main">
+                            <h3>Interactive Web</h3>
+                            <p>
+                                Front-end experiences, interfaces and
+                                interactions designed to feel responsive,
+                                intentional and alive.
+                            </p>
+                        </div>
+
+                        <div class="build-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </article>
+
+
+                    <article class="build-item reveal">
+                        <div class="build-number">02</div>
+
+                        <div class="build-main">
+                            <h3>Creative Coding</h3>
+                            <p>
+                                Browser-based experiments with 3D graphics,
+                                particles, simulations and visual interaction.
+                            </p>
+                        </div>
+
+                        <div class="build-tags">
+                            <span>Three.js</span>
+                            <span>WebGL</span>
+                            <span>Creative Code</span>
+                        </div>
+                    </article>
+
+
+                    <article class="build-item reveal">
+                        <div class="build-number">03</div>
+
+                        <div class="build-main">
+                            <h3>Problem Solving</h3>
+                            <p>
+                                Breaking difficult physics, mathematics and
+                                programming problems down to their fundamentals.
+                            </p>
+                        </div>
+
+                        <div class="build-tags">
+                            <span>Physics</span>
+                            <span>Mathematics</span>
+                            <span>Logic</span>
+                        </div>
+                    </article>
+
+
+                    <article class="build-item reveal">
+                        <div class="build-number">04</div>
+
+                        <div class="build-main">
+                            <h3>Visual Experiences</h3>
+                            <p>
+                                Sketching, writing and experimenting with visual
+                                storytelling outside the world of code.
+                            </p>
+                        </div>
+
+                        <div class="build-tags">
+                            <span>Sketching</span>
+                            <span>Writing</span>
+                            <span>Visual Design</span>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             SELECTED WORK
+        ====================================================== -->
+
+        <section class="section work-section" id="work">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-number">03</span>
+                    <span class="section-label">SELECTED WORK</span>
+                </div>
+
+                <div class="work-intro reveal">
+                    <h2>
+                        Things I've built<br>
+                        <span>to understand how they work.</span>
+                    </h2>
+                </div>
+
+
+                <!-- PROJECT 01 -->
+
+                <article class="project project-featured reveal">
+
+                    <div class="project-visual particle-visual">
+
+                        <div class="visual-grid"></div>
+
+                        <div class="particle-core">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="visual-label">
+                            <span>PROJECT / 01</span>
+                            <span>INTERACTIVE SYSTEM</span>
+                        </div>
+
+                    </div>
+
+                    <div class="project-info">
+
+                        <div class="project-topline">
+                            <span>01</span>
+                            <span>2026</span>
+                        </div>
+
+                        <h3>
+                            Hand-Gesture<br>
+                            3D Particle System
+                        </h3>
+
+                        <p>
+                            A browser-based 3D particle environment controlled
+                            through real-time hand gestures.
+                        </p>
+
+                        <p>
+                            Built as an experiment in combining computer vision
+                            with interactive graphics, translating physical
+                            movement into a dynamic visual system.
+                        </p>
+
+                        <div class="project-tech">
+                            <span>Three.js</span>
+                            <span>MediaPipe</span>
+                            <span>JavaScript</span>
+                            <span>WebGL</span>
+                        </div>
+
+                        <a
+                            href="https://github.com/shreeyansraj463-hue"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="project-link"
+                        >
+                            View project <span>↗</span>
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT GRID -->
+
+                <div class="project-grid">
+
+                    <article class="project project-small reveal">
+
+                        <div class="project-visual portfolio-visual">
+                            <span class="visual-code">&lt;/&gt;</span>
+
+                            <div class="visual-label">
+                                <span>PROJECT / 02</span>
+                                <span>WEB</span>
+                            </div>
+                        </div>
+
+                        <div class="project-small-content">
+
+                            <div class="project-topline">
+                                <span>02</span>
+                                <span>2026</span>
+                            </div>
+
+                            <h3>Personal Portfolio</h3>
+
+                            <p>
+                                A living digital space built to explore
+                                interface design, interaction and the process
+                                of turning an idea into a live product.
+                            </p>
+
+                            <div class="project-tech">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+
+                            <a
+                                href="https://github.com/shreeyansraj463-hue"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link"
+                            >
+                                View project <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="project project-small reveal">
+
+                        <div class="project-visual game-visual">
+                            <div class="game-crosshair">+</div>
+
+                            <div class="visual-label">
+                                <span>PROJECT / 03</span>
+                                <span>GAME DEVELOPMENT</span>
+                            </div>
+                        </div>
+
+                        <div class="project-small-content">
+
+                            <div class="project-topline">
+                                <span>03</span>
+                                <span>EXPERIMENT</span>
+                            </div>
+
+                            <h3>3D Multiplayer Game</h3>
+
+                            <p>
+                                An early exploration into 3D game development,
+                                player systems, controls, health mechanics and
+                                interactive environments.
+                            </p>
+
+                            <div class="project-tech">
+                                <span>Unity</span>
+                                <span>C#</span>
+                                <span>3D</span>
+                            </div>
+
+                            <a
+                                href="https://github.com/shreeyansraj463-hue"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link"
+                            >
+                                View project <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             HOW I THINK
+        ====================================================== -->
+
+        <section class="section mindset-section" id="mindset">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-number">04</span>
+                    <span class="section-label">HOW I THINK</span>
+                </div>
+
+                <div class="mindset-grid">
+
+                    <div class="mindset-title reveal">
+                        <h2>
+                            Strip away<br>
+                            the noise.
+                        </h2>
+                    </div>
+
+                    <div class="mindset-copy">
+
+                        <p class="large-copy reveal">
+                            A difficult physics problem, a stubborn JavaScript
+                            bug or a complicated visual effect usually gets
+                            the same treatment.
+                        </p>
+
+                        <p class="reveal">
+                            I break it down. Find the fundamentals. Understand
+                            what is actually happening. Then build back from
+                            there.
+                        </p>
+
+                        <p class="reveal">
+                            I don't particularly enjoy memorising solutions.
+                            I want the moment when the logic finally clicks.
+                        </p>
+
+                        <div class="mindset-words reveal">
+                            <span>ANALYTICAL</span>
+                            <span>CREATIVE</span>
+                            <span>DRIVEN</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CURRENTLY EXPLORING
+        ====================================================== -->
+
+        <section class="section exploring-section" id="exploring">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-number">05</span>
+                    <span class="section-label">CURRENTLY EXPLORING</span>
+                </div>
+
+                <div class="exploring-header reveal">
+
+                    <h2>
+                        The things<br>
+                        <em>I'm chasing next.</em>
+                    </h2>
+
+                    <p>
+                        I'm still learning. That's part of the point.
+                        These are the areas I'm actively pushing deeper into.
+                    </p>
+
+                </div>
+
+
+                <div class="exploring-list">
+
+                    <article class="exploring-item reveal">
+                        <span class="exploring-index">01</span>
+
+                        <div>
+                            <h3>GLSL &amp; Shaders</h3>
+                            <p>
+                                Understanding how visual effects are constructed
+                                at the GPU level.
+                            </p>
+                        </div>
+
+                        <span class="exploring-arrow">↗</span>
+                    </article>
+
+
+                    <article class="exploring-item reveal">
+                        <span class="exploring-index">02</span>
+
+                        <div>
+                            <h3>Advanced Three.js</h3>
+                            <p>
+                                Moving beyond basic 3D scenes toward richer,
+                                more responsive environments.
+                            </p>
+                        </div>
+
+                        <span class="exploring-arrow">↗</span>
+                    </article>
+
+
+                    <article class="exploring-item reveal">
+                        <span class="exploring-index">03</span>
+
+                        <div>
+                            <h3>Web Performance</h3>
+                            <p>
+                                Learning how to make visually ambitious
+                                experiences remain fast and efficient.
+                            </p>
+                        </div>
+
+                        <span class="exploring-arrow">↗</span>
+                    </article>
+
+
+                    <article class="exploring-item reveal">
+                        <span class="exploring-index">04</span>
+
+                        <div>
+                            <h3>UI / UX</h3>
+                            <p>
+                                Sharpening my eye for typography, hierarchy,
+                                interaction and visual systems.
+                            </p>
+                        </div>
+
+                        <span class="exploring-arrow">↗</span>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             BEYOND THE SCREEN
+        ====================================================== -->
+
+        <section class="section beyond-section" id="beyond">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="section-number">06</span>
+                    <span class="section-label">BEYOND THE SCREEN</span>
+                </div>
+
+                <div class="beyond-intro reveal">
+                    <h2>
+                        Code isn't<br>
+                        <span>the whole story.</span>
+                    </h2>
+                </div>
+
+                <div class="beyond-grid">
+
+                    <article class="beyond-card reveal">
+                        <span class="beyond-number">01</span>
+                        <h3>Sketching</h3>
+                        <p>
+                            A slower kind of problem-solving. Working with
+                            proportions, shadows, lines and composition
+                            without a screen between the idea and the page.
+                        </p>
+                    </article>
+
+
+                    <article class="beyond-card reveal">
+                        <span class="beyond-number">02</span>
+                        <h3>Music</h3>
+                        <p>
+                            A constant backdrop to studying, coding and
+                            sketching. From soulful classics to modern
+                            soundscapes, music shapes the atmosphere around
+                            everything I do.
+                        </p>
+                    </article>
+
+
+                    <article class="beyond-card reveal">
+                        <span class="beyond-number">03</span>
+                        <h3>Writing</h3>
+                        <p>
+                            Stories, scripts and ideas. Another way of
+                            understanding people, situations and the worlds
+                            that exist outside technical logic.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             ENGINEERING / JEE
+        ====================================================== -->
+
+        <section class="section engineering-section">
+            <div class="container">
+
+                <div class="engineering-block reveal">
+
+                    <span class="section-label">ENGINEERING STARTS WITH CURIOSITY</span>
+
+                    <h2>
+                        I don't just want<br>
+                        to find the answer.
+                    </h2>
+
+                    <p>
+                        Preparing for JEE has taught me to approach difficult
+                        problems with patience, structure and persistence.
+                        But the part that keeps me interested is understanding
+                        why something works, not simply arriving at the answer.
+                    </p>
+
+                    <div class="engineering-tags">
+                        <span>PHYSICS</span>
+                        <span>MATHEMATICS</span>
+                        <span>PROBLEM SOLVING</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             FUTURE
+        ====================================================== -->
+
+        <section class="section future-section">
+            <div class="container">
+
+                <div class="future-grid">
+
+                    <div class="section-heading reveal">
+                        <span class="section-number">07</span>
+                        <span class="section-label">WHERE I'M HEADED</span>
+                    </div>
+
+                    <div class="future-content reveal">
+
+                        <h2>
+                            Engineering,<br>
+                            software &amp;<br>
+                            <em>creative technology.</em>
+                        </h2>
+
+                        <p>
+                            I want to work at the intersection of engineering,
+                            software and creative technology.
+                        </p>
+
+                        <p>
+                            I'm particularly interested in building
+                            high-performance interactive systems, 3D web
+                            experiences and software where technical precision
+                            and visual design aren't treated as separate things.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+
+        <section class="section contact-section" id="contact">
+            <div class="container">
+
+                <div class="contact-top reveal">
+                    <span class="section-label">LET'S BUILD SOMETHING</span>
+                    <span>08 / 08</span>
+                </div>
+
+                <div class="contact-main reveal">
+
+                    <h2>
+                        Have an idea?<br>
+                        <em>Let's talk.</em>
+                    </h2>
+
+                    <a
+                        href="mailto:Shreeyansraj463@gmail.com"
+                        class="email-link"
+                    >
+                        Shreeyansraj463@gmail.com
+                        <span>↗</span>
+                    </a>
+
+                </div>
+
+                <div class="contact-footer">
+
+                    <div class="social-links">
+                        <a
+                            href="https://github.com/shreeyansraj463-hue"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            GitHub ↗
+                        </a>
+
+                        <a
+                            href="https://x.com/Mainhushreeyans"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            X ↗
+                        </a>
+                    </div>
+
+                    <span class="contact-location">
+                        Open to interesting ideas &amp; collaborations.
+                    </span>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+
+            <span>© 2026 SHREEYANS RAJ</span>
+
+            <span>ENGINEERING × CREATIVITY</span>
+
+            <a href="#top" class="back-top">
+                Back to top ↑
+            </a>
+
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+
 </body>
 </html>

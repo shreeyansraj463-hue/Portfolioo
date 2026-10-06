@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,29 +11,27 @@
 
     <meta
         name="description"
-        content="Shreeyans Raj — Engineering Aspirant and Creative Technologist."
+        content="Shreeyans Raj — Engineering Aspirant · Creative Technologist"
     >
 
     <meta name="theme-color" content="#050505">
 
-    <title>Shreeyans Raj — Engineering × Creativity</title>
+    <title>Shreeyans Raj</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet"
     >
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
-<body>
 
-<!-- =========================================================
-     BACKGROUND
-========================================================= -->
+<body>
 
 <canvas id="goldCanvas"></canvas>
 
@@ -41,19 +40,22 @@
 <div class="cursor-glow"></div>
 
 
-<!-- =========================================================
+<!-- =====================================================
      NAVIGATION
-========================================================= -->
+===================================================== -->
 
 <header class="site-header">
 
     <a href="#top" class="brand">
+
+        <!-- GOLD SR LOGO -->
 
         <svg
             class="brand-mark"
             viewBox="0 0 180 130"
             aria-label="SR"
         >
+
             <path
                 d="M26 43
                    C35 21 69 17 89 30
@@ -88,6 +90,7 @@
                 stroke-width="2"
                 opacity=".65"
             />
+
         </svg>
 
         <span>SHREEYANS RAJ</span>
@@ -98,17 +101,12 @@
     <nav class="desktop-nav">
 
         <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#creative">Creative</a>
-        <a href="#thinking">Thinking</a>
 
-        <button
-            class="nav-mira"
-            data-open-mira
-        >
-            MIRA
-            <span></span>
-        </button>
+        <a href="#work">Work</a>
+
+        <a href="#creative">Creative</a>
+
+        <a href="#thinking">Thinking</a>
 
     </nav>
 
@@ -116,7 +114,7 @@
     <button
         class="mobile-menu"
         id="mobileMenu"
-        aria-label="Open menu"
+        aria-label="Open navigation"
     >
         <span></span>
         <span></span>
@@ -125,31 +123,38 @@
 </header>
 
 
-<div class="mobile-nav" id="mobileNav">
+<div
+    class="mobile-nav"
+    id="mobileNav"
+>
 
     <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#creative">Creative</a>
-    <a href="#thinking">Thinking</a>
 
-    <button data-open-mira>
-        Talk to Mira
-    </button>
+    <a href="#work">Work</a>
+
+    <a href="#creative">Creative</a>
+
+    <a href="#thinking">Thinking</a>
 
 </div>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      HERO
-========================================================= -->
+===================================================== -->
 
 <main id="top">
+
 
 <section class="hero section">
 
     <div class="hero-index">
+
         <span>01</span>
+
         <span>PERSONAL SYSTEM</span>
+
     </div>
 
 
@@ -186,8 +191,11 @@
                 href="#work"
                 class="gold-button"
             >
+
                 Explore the work
+
                 <span>↗</span>
+
             </a>
 
         </div>
@@ -195,51 +203,33 @@
     </div>
 
 
-    <!-- HERO MIRA -->
+    <!-- SMALL MIRA INTRO -->
 
     <aside class="hero-mira reveal">
 
-        <div class="mira-mini-top">
+        <div class="hero-mira-orb">
 
-            <span>
-                <i></i>
-                MIRA
-            </span>
+            <div class="hero-mira-core"></div>
 
-            <small>
-                PORTFOLIO GUIDE
-            </small>
+            <div class="hero-mira-ring"></div>
 
         </div>
 
 
-        <div class="mini-orb">
+        <div class="hero-mira-copy">
 
-            <div class="mini-orb-core"></div>
+            <span>MIRA</span>
 
-            <div class="mini-orbit"></div>
+            <p>
+                Want to know more about the person
+                behind this portfolio?
+            </p>
+
+            <button id="heroMiraButton">
+                Ask Mira →
+            </button>
 
         </div>
-
-
-        <p class="mira-mini-intro">
-            Not sure where to start?
-        </p>
-
-        <h3>
-            Ask me about
-            <br>
-            <em>Shreeyans.</em>
-        </h3>
-
-
-        <button
-            class="mira-mini-button"
-            data-open-mira
-        >
-            Talk to Mira
-            <span>→</span>
-        </button>
 
     </aside>
 
@@ -255,12 +245,13 @@
 </section>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      ABOUT
-========================================================= -->
+===================================================== -->
 
 <section
-    class="section about-section"
+    class="section"
     id="about"
 >
 
@@ -282,10 +273,13 @@
             </p>
 
             <h2>
+
                 Engineering
                 <br>
+
                 with a
                 <em>creative mind.</em>
+
             </h2>
 
         </div>
@@ -328,9 +322,13 @@
             <div class="about-tags">
 
                 <span>ENGINEERING</span>
+
                 <span>CREATIVE CODING</span>
+
                 <span>PHYSICS</span>
+
                 <span>VISUAL DESIGN</span>
+
                 <span>WRITING</span>
 
             </div>
@@ -342,11 +340,15 @@
 </section>
 
 
-<!-- =========================================================
-     CURRENT STATE
-========================================================= -->
 
-<section class="section state-section">
+<!-- =====================================================
+     CURRENT STATE
+===================================================== -->
+
+<section
+    class="section"
+    id="current"
+>
 
     <div class="section-label">
 
@@ -361,7 +363,7 @@
 
         <div class="state-heading">
 
-            <span class="mono-label">
+            <span>
                 SHREEYANS / NOW
             </span>
 
@@ -430,12 +432,13 @@
 </section>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      WORK
-========================================================= -->
+===================================================== -->
 
 <section
-    class="section work-section"
+    class="section"
     id="work"
 >
 
@@ -455,9 +458,11 @@
         </p>
 
         <h2>
+
             Where the
             <em>logic</em>
             becomes visible.
+
         </h2>
 
     </div>
@@ -468,7 +473,10 @@
 
         <!-- PROJECT 01 -->
 
-        <article class="project project-feature reveal">
+        <article
+            class="project project-feature reveal"
+            id="project-particle"
+        >
 
             <div class="project-number">
                 01
@@ -504,10 +512,13 @@
                 </p>
 
                 <h3>
+
                     Hand-Gesture
                     <br>
                     3D Particle System
+
                 </h3>
+
 
                 <p>
 
@@ -522,17 +533,13 @@
 
                 <div class="project-meta">
 
-                    <span>
-                        Three.js
-                    </span>
+                    <span>Three.js</span>
 
-                    <span>
-                        MediaPipe
-                    </span>
+                    <span>MediaPipe</span>
 
-                    <span>
-                        JavaScript
-                    </span>
+                    <span>JavaScript</span>
+
+                    <span>WebGL</span>
 
                 </div>
 
@@ -542,7 +549,6 @@
                     <a
                         href="https://shreeyansraj463-hue.github.io/3D-Particle-Playground/"
                         target="_blank"
-                        rel="noopener"
                     >
                         Live experience ↗
                     </a>
@@ -550,7 +556,6 @@
                     <a
                         href="https://github.com/shreeyansraj463-hue/3D-Particle-Playground"
                         target="_blank"
-                        rel="noopener"
                     >
                         Source ↗
                     </a>
@@ -562,9 +567,13 @@
         </article>
 
 
+
         <!-- PROJECT 02 -->
 
-        <article class="project reveal">
+        <article
+            class="project reveal"
+            id="project-camlab"
+        >
 
             <div class="project-number">
                 02
@@ -596,11 +605,12 @@
                     Camlab
                 </h3>
 
+
                 <p>
 
                     An exploration of advanced UI,
-                    smooth motion and futuristic
-                    interaction patterns.
+                    smooth motion and interactive
+                    frontend concepts.
 
                 </p>
 
@@ -608,7 +618,9 @@
                 <div class="project-meta">
 
                     <span>HTML</span>
+
                     <span>CSS</span>
+
                     <span>JavaScript</span>
 
                 </div>
@@ -619,7 +631,6 @@
                     <a
                         href="https://shreeyansraj463-hue.github.io/camlab/"
                         target="_blank"
-                        rel="noopener"
                     >
                         Live experience ↗
                     </a>
@@ -627,7 +638,6 @@
                     <a
                         href="https://github.com/shreeyansraj463-hue/camlab"
                         target="_blank"
-                        rel="noopener"
                     >
                         Source ↗
                     </a>
@@ -639,9 +649,13 @@
         </article>
 
 
+
         <!-- PROJECT 03 -->
 
-        <article class="project reveal">
+        <article
+            class="project reveal"
+            id="project-game"
+        >
 
             <div class="project-number">
                 03
@@ -668,16 +682,20 @@
                 </p>
 
                 <h3>
+
                     3D Multiplayer
                     <br>
                     Game Starter
+
                 </h3>
+
 
                 <p>
 
-                    A foundational 3D game project exploring
-                    player movement, health systems,
-                    weapon controls and game physics.
+                    A foundational 3D game project
+                    exploring player movement, health
+                    systems, weapon controls and
+                    game physics.
 
                 </p>
 
@@ -685,7 +703,9 @@
                 <div class="project-meta">
 
                     <span>Unity</span>
+
                     <span>C#</span>
+
                     <span>Game Physics</span>
 
                 </div>
@@ -699,22 +719,26 @@
 </section>
 
 
-<!-- =========================================================
-     SIGNATURE STATEMENT
-========================================================= -->
+
+<!-- =====================================================
+     STATEMENT
+===================================================== -->
 
 <section class="statement-section">
 
     <div class="statement-inner reveal">
 
-        <span class="statement-small">
+        <span>
             A SIMPLE RULE
         </span>
 
         <h2>
+
             I like understanding
             <br>
+
             <em>how things work.</em>
+
         </h2>
 
         <div class="statement-arrow">
@@ -730,12 +754,13 @@
 </section>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      CREATIVE
-========================================================= -->
+===================================================== -->
 
 <section
-    class="section creative-section"
+    class="section"
     id="creative"
 >
 
@@ -755,36 +780,39 @@
         </p>
 
         <h2>
+
             There is a quieter
             <br>
+
             side to the work.
+
         </h2>
 
+
         <p>
+
             Sketching, visual experiments and writing
             are not separate from the technical side.
             They are another way of thinking.
+
         </p>
 
     </div>
 
 
-    <!-- ART -->
+
+    <!-- IMAGE ARCHIVE -->
 
     <div class="creative-block">
 
         <div class="creative-block-heading reveal">
 
-            <span>
-                05.01
-            </span>
+            <span>05.01</span>
 
-            <h3>
-                Art
-            </h3>
+            <h3>Visual Archive</h3>
 
             <p>
-                Visual experiments · Sketches · Studies
+                Images uploaded by Shreeyans
             </p>
 
         </div>
@@ -793,31 +821,27 @@
         <div
             class="art-grid"
             id="artGrid"
-        >
-
-            <!-- Generated by JavaScript -->
-
-        </div>
+        ></div>
 
     </div>
 
 
-    <!-- WRITING -->
 
-    <div class="creative-block writing-block">
+    <!-- POETRY -->
+
+    <div
+        class="creative-block"
+        id="poetry"
+    >
 
         <div class="creative-block-heading reveal">
 
-            <span>
-                05.02
-            </span>
+            <span>05.02</span>
 
-            <h3>
-                Writing
-            </h3>
+            <h3>Writing</h3>
 
             <p>
-                Small observations turned into words.
+                Poetry · observations · words
             </p>
 
         </div>
@@ -826,11 +850,15 @@
         <div class="poetry-list">
 
 
-            <article class="poem reveal">
+            <article
+                class="poem reveal"
+                id="poem-bloom"
+            >
 
                 <div class="poem-number">
                     01
                 </div>
+
 
                 <div>
 
@@ -841,6 +869,7 @@
                     <h3>
                         From Bloom to Dusk
                     </h3>
+
 
                     <div class="poem-text">
 
@@ -887,11 +916,16 @@
             </article>
 
 
-            <article class="poem reveal">
+
+            <article
+                class="poem reveal"
+                id="poem-promise"
+            >
 
                 <div class="poem-number">
                     02
                 </div>
+
 
                 <div>
 
@@ -902,6 +936,7 @@
                     <h3>
                         Uneven Promise
                     </h3>
+
 
                     <div class="poem-text">
 
@@ -924,11 +959,16 @@
             </article>
 
 
-            <article class="poem reveal">
+
+            <article
+                class="poem reveal"
+                id="poem-plucked"
+            >
 
                 <div class="poem-number">
                     03
                 </div>
+
 
                 <div>
 
@@ -939,6 +979,7 @@
                     <h3>
                         Before it was Plucked
                     </h3>
+
 
                     <div class="poem-text">
 
@@ -972,12 +1013,13 @@
 </section>
 
 
-<!-- =========================================================
+
+<!-- =====================================================
      THINKING
-========================================================= -->
+===================================================== -->
 
 <section
-    class="section thinking-section"
+    class="section"
     id="thinking"
 >
 
@@ -999,17 +1041,22 @@
             </p>
 
             <h2>
+
                 Don't brute
                 <br>
+
                 force it.
                 <br>
+
                 <em>Understand it.</em>
+
             </h2>
 
         </div>
 
 
         <div class="thinking-items">
+
 
             <div class="thinking-item reveal">
 
@@ -1078,11 +1125,15 @@
 </section>
 
 
-<!-- =========================================================
-     FUTURE
-========================================================= -->
 
-<section class="section future-section">
+<!-- =====================================================
+     FUTURE
+===================================================== -->
+
+<section
+    class="section"
+    id="future"
+>
 
     <div class="future-card reveal">
 
@@ -1093,11 +1144,15 @@
             </span>
 
             <h2>
+
                 Engineering.
                 <br>
+
                 Software.
                 <br>
+
                 <em>Creative technology.</em>
+
             </h2>
 
         </div>
@@ -1113,12 +1168,14 @@
 
             </p>
 
+
             <p>
 
-                Interactive 3D environments, high-performance
-                web applications, complex systems and
-                experiences that combine clean engineering
-                with striking visual design.
+                Interactive 3D environments,
+                high-performance web applications,
+                complex systems and experiences that
+                combine clean engineering with striking
+                visual design.
 
             </p>
 
@@ -1129,11 +1186,15 @@
 </section>
 
 
-<!-- =========================================================
-     CONTACT
-========================================================= -->
 
-<section class="section contact-section">
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    class="section contact-section"
+    id="contact"
+>
 
     <div class="contact-content reveal">
 
@@ -1141,11 +1202,15 @@
             07 / CONTACT
         </p>
 
+
         <h2>
+
             Let's build
             <br>
+
             something
             <em>interesting.</em>
+
         </h2>
 
 
@@ -1162,7 +1227,6 @@
             <a
                 href="https://github.com/shreeyansraj463-hue"
                 target="_blank"
-                rel="noopener"
             >
                 GitHub ↗
             </a>
@@ -1170,14 +1234,9 @@
             <a
                 href="https://x.com/Mainhushreeyans"
                 target="_blank"
-                rel="noopener"
             >
                 X ↗
             </a>
-
-            <button data-open-mira>
-                Talk to Mira ↗
-            </button>
 
         </div>
 
@@ -1186,9 +1245,6 @@
 </section>
 
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
 
 <footer class="site-footer">
 
@@ -1209,206 +1265,178 @@
 </main>
 
 
-<!-- =========================================================
-     MIRA OVERLAY
-========================================================= -->
+
+<!-- =====================================================
+     MIRA FLOATING BUTTON
+===================================================== -->
+
+<button
+    class="mira-floating"
+    id="miraFloating"
+    aria-label="Open Mira"
+>
+
+    <span class="mira-floating-orb">
+
+        <span></span>
+
+    </span>
+
+    <span class="mira-floating-label">
+        MIRA
+    </span>
+
+</button>
+
+
+
+<!-- =====================================================
+     MIRA POPUP
+===================================================== -->
 
 <div
-    class="mira-overlay"
-    id="miraOverlay"
+    class="mira-popup"
+    id="miraPopup"
     aria-hidden="true"
 >
 
-    <div class="mira-interface">
+    <div class="mira-popup-panel">
 
 
-        <!-- TOP -->
+        <header class="mira-popup-header">
 
-        <header class="mira-topbar">
+            <div class="mira-popup-identity">
 
-            <div class="mira-brand">
+                <div class="mira-small-orb">
 
-                <span class="mira-live">
+                    <span></span>
 
-                    <i></i>
-
-                    MIRA
-
-                </span>
+                </div>
 
 
-                <span class="mira-subtitle">
+                <div>
 
-                    PERSONAL GUIDE
+                    <strong>Mira</strong>
 
-                </span>
+                    <small>
+                        Shreeyans' portfolio guide
+                    </small>
 
-            </div>
-
-
-            <div class="mira-top-actions">
-
-                <span class="mira-status">
-                    LOCAL INTELLIGENCE
-                </span>
-
-
-                <button
-                    class="mira-close"
-                    id="miraClose"
-                    aria-label="Close Mira"
-                >
-                    ×
-                </button>
+                </div>
 
             </div>
+
+
+            <button
+                id="miraClose"
+                class="mira-close"
+            >
+                ×
+            </button>
 
         </header>
 
 
-        <!-- MAIN -->
 
-        <main class="mira-main">
+        <div
+            class="mira-chat"
+            id="miraChat"
+        >
 
-
-            <div class="mira-orb-area">
-
-                <div class="mira-orb-glow"></div>
-
-
-                <div class="mira-orb">
-
-                    <div class="mira-orb-inner"></div>
-
-                    <div class="mira-orbit orbit-a"></div>
-
-                    <div class="mira-orbit orbit-b"></div>
-
-                </div>
-
-            </div>
-
-
-            <div class="mira-greeting">
-
-                <span class="mira-eyebrow">
-                    SHREEYANS / PORTFOLIO GUIDE
-                </span>
-
-
-                <h2>
-                    Hello.
-                    <br>
-                    I'm <span>Mira.</span>
-                </h2>
-
+            <div class="mira-message mira-message-ai">
 
                 <p>
-                    I know the person behind this portfolio.
-                    Ask me about his work, education,
-                    interests, creative side, or anything
-                    you're curious about.
+
+                    Hey, I'm Mira.
+
+                    <br><br>
+
+                    I can help you understand the person
+                    behind this portfolio. Ask me about
+                    his education, projects, interests,
+                    creative work, or anything else
+                    connected to the site.
+
                 </p>
 
             </div>
 
-
-            <!-- SUGGESTIONS -->
-
-            <div class="mira-suggestions">
-
-                <button
-                    data-mira-question="Who is Shreeyans?"
-                >
-                    Who is Shreeyans?
-                </button>
+        </div>
 
 
-                <button
-                    data-mira-question="What is he interested in?"
-                >
-                    His interests
-                </button>
+
+        <div class="mira-suggestions">
+
+            <button data-question="Who is Shreeyans?">
+                Who is Shreeyans?
+            </button>
+
+            <button data-question="What are his skills?">
+                His skills
+            </button>
+
+            <button data-question="What is his best project?">
+                Best project
+            </button>
+
+            <button data-question="Tell me about his poetry">
+                His poetry
+            </button>
+
+        </div>
 
 
-                <button
-                    data-mira-question="What is his best project?"
-                >
-                    Best project
-                </button>
 
+        <form
+            class="mira-input"
+            id="miraForm"
+        >
 
-                <button
-                    data-mira-question="Tell me about his creative side"
-                >
-                    Creative side
-                </button>
-
-            </div>
-
-
-            <!-- CONVERSATION -->
-
-            <div
-                class="mira-conversation"
-                id="miraConversation"
-            ></div>
-
-
-            <!-- INPUT -->
-
-            <form
-                class="mira-input-area"
-                id="miraForm"
+            <input
+                id="miraInput"
+                type="text"
+                placeholder="Ask Mira..."
+                autocomplete="off"
             >
 
-                <div class="mira-input-wrap">
 
-                    <input
-                        id="miraInput"
-                        type="text"
-                        autocomplete="off"
-                        placeholder="Ask Mira anything..."
-                    >
+            <button
+                type="submit"
+                aria-label="Send"
+            >
+                ↑
+            </button>
 
-
-                    <button
-                        type="submit"
-                        class="mira-send"
-                        aria-label="Send"
-                    >
-                        <span>↑</span>
-                    </button>
-
-                </div>
-
-            </form>
+        </form>
 
 
-            <div class="mira-footer">
+        <div
+            class="mira-source"
+            id="miraSource"
+        ></div>
 
-                <span>
-                    MIRA / 01
-                </span>
 
-                <span>
-                    KNOWLEDGE + REASONING
-                </span>
+        <footer class="mira-popup-footer">
 
-                <span>
-                    NO API REQUIRED
-                </span>
+            <span>
+                MIRA
+            </span>
 
-            </div>
+            <span>
+                LOCAL INTELLIGENCE
+            </span>
 
-        </main>
+        </footer>
 
     </div>
 
 </div>
 
 
-<!-- IMAGE LIGHTBOX -->
+
+<!-- =====================================================
+     IMAGE LIGHTBOX
+===================================================== -->
 
 <div
     class="lightbox"
@@ -1422,7 +1450,6 @@
         ×
     </button>
 
-
     <img
         id="lightboxImage"
         src=""
@@ -1430,6 +1457,7 @@
     >
 
 </div>
+
 
 
 <script src="script.js"></script>

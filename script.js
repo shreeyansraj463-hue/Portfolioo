@@ -1,14 +1,13 @@
-/* =========================================================
-   PORTFOLIO SCRIPT
-========================================================= */
+document.addEventListener("DOMContentLoaded",()=>{
 
-document.addEventListener("DOMContentLoaded", () => {
+  const reduced=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-  /* =======================================================
-     ART COLLECTION
-  ======================================================== */
 
-  const art = [
+  /* =====================================================
+     ARCHIVE
+  ===================================================== */
+
+  const art=[
     "20260126_150411.jpg",
     "IMG-20250829-WA0008.jpg",
     "IMG_20251019_003614078_HDR.jpg",
@@ -21,12 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "IMG_20260607_184756768.jpg"
   ];
 
-
-  /* =======================================================
-     POETRY COLLECTION
-  ======================================================== */
-
-  const poetry = [
+  const poetry=[
     "Screenshot_20261007-045758_Files by Google.png",
     "Screenshot_20261007-045745_Files by Google.png",
     "Screenshot_20261007-045733_Files by Google.png",
@@ -40,728 +34,627 @@ document.addEventListener("DOMContentLoaded", () => {
     "IMG_20260928_025657503_HDR.jpg"
   ];
 
+  const path=f=>"./"+f.split("/").map(encodeURIComponent).join("/");
 
-  /* =======================================================
-     IMAGE PATH
-  ======================================================== */
+  function gallery(id,list,type){
 
-  function imagePath(filename) {
-    return "./" +
-      filename
-        .split("/")
-        .map(part => encodeURIComponent(part))
-        .join("/");
-  }
+    const el=document.getElementById(id);
+    if(!el)return;
 
+    list.forEach((file,i)=>{
 
-  /* =======================================================
-     GALLERY RENDER
-  ======================================================== */
+      const button=document.createElement("button");
+      const img=document.createElement("img");
 
-  const artGallery = document.getElementById("artGallery");
-  const poetryGallery = document.getElementById("poetryGallery");
+      button.type="button";
+      img.src=path(file);
+      img.alt=`${type} ${i+1}`;
+      img.loading="lazy";
+      img.decoding="async";
 
-  function createImageItem(filename, type, index) {
+      button.appendChild(img);
+      el.appendChild(button);
 
-    const item = document.createElement("button");
-
-    item.type = "button";
-    item.className =
-      type === "art"
-        ? "art-item"
-        : "poetry-item";
-
-    item.setAttribute(
-      "aria-label",
-      `Open ${type} ${index + 1}`
-    );
-
-    const image = document.createElement("img");
-
-    image.src = imagePath(filename);
-
-    image.alt =
-      type === "art"
-        ? `Artwork ${index + 1}`
-        : `Poetry piece ${index + 1}`;
-
-    image.loading = "lazy";
-    image.decoding = "async";
-
-    image.onerror = () => {
-      item.style.display = "none";
-      console.warn("Image could not be loaded:", filename);
-    };
-
-    item.appendChild(image);
-
-    item.addEventListener("click", () => {
-      openLightbox(image.src, image.alt);
+      button.addEventListener("click",()=>{
+        openLightbox(img.src,`${type.toUpperCase()} · ${String(i+1).padStart(2,"0")}`);
+      });
     });
-
-    return item;
   }
 
-
-  art.forEach((filename, index) => {
-    artGallery.appendChild(
-      createImageItem(filename, "art", index)
-    );
-  });
+  gallery("artGallery",art,"Art");
+  gallery("poetryGallery",poetry,"Poetry");
 
 
-  poetry.forEach((filename, index) => {
-    poetryGallery.appendChild(
-      createImageItem(filename, "poetry", index)
-    );
-  });
+  /* =====================================================
+     REVEALS
+  ===================================================== */
 
+  const reveals=[...document.querySelectorAll(".reveal")];
 
-  /* =======================================================
-     LIGHTBOX
-  ======================================================== */
+  if(!reduced && "IntersectionObserver" in window){
 
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImage = document.getElementById("lightboxImage");
-  const lightboxClose = document.getElementById("lightboxClose");
+    const observer=new IntersectionObserver(entries=>{
 
-  function openLightbox(src, alt) {
+      entries.forEach(entry=>{
 
-    lightboxImage.src = src;
-    lightboxImage.alt = alt;
+        if(!entry.isIntersecting)return;
 
-    lightbox.classList.add("open");
+        const siblings=[...entry.target.parentElement.children]
+          .filter(x=>x.classList.contains("reveal"));
 
-    document.body.style.overflow = "hidden";
-  }
+        const index=Math.max(0,siblings.indexOf(entry.target));
 
-  function closeLightbox() {
+        entry.target.style.transitionDelay=
+          `${Math.min(index*55,240)}ms`;
 
-    lightbox.classList.remove("open");
-
-    document.body.style.overflow = "";
-
-    setTimeout(() => {
-      if (!lightbox.classList.contains("open")) {
-        lightboxImage.src = "";
-      }
-    }, 300);
-  }
-
-  lightboxClose.addEventListener("click", closeLightbox);
-
-  lightbox.addEventListener("click", event => {
-
-    if (event.target === lightbox) {
-      closeLightbox();
-    }
-
-  });
-
-  document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
-
-  });
-
-
-  /* =======================================================
-     SCROLL REVEALS
-  ======================================================== */
-
-  const revealElements =
-    document.querySelectorAll(".reveal");
-
-  const revealObserver =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (entry.isIntersecting) {
-
-            const delay =
-              entry.target.dataset.delay || 0;
-
-            setTimeout(() => {
-              entry.target.classList.add("visible");
-            }, Number(delay));
-
-            revealObserver.unobserve(entry.target);
-          }
-
-        });
-
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px"
-      }
-    );
-
-
-  revealElements.forEach((element, index) => {
-
-    element.dataset.delay =
-      Math.min((index % 5) * 70, 280);
-
-    revealObserver.observe(element);
-
-  });
-
-
-  /* =======================================================
-     NAVIGATION
-  ======================================================== */
-
-  const mobileMenu =
-    document.querySelector(".mobile-menu");
-
-  const mobileNav =
-    document.querySelector(".mobile-nav");
-
-  mobileMenu.addEventListener("click", () => {
-
-    mobileNav.classList.toggle("open");
-
-  });
-
-
-  mobileNav
-    .querySelectorAll("a")
-    .forEach(link => {
-
-      link.addEventListener("click", () => {
-        mobileNav.classList.remove("open");
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       });
 
+    },{
+      threshold:.08,
+      rootMargin:"0px 0px -45px"
     });
 
+    reveals.forEach(x=>observer.observe(x));
 
-  /* =======================================================
-     SUBTLE HERO PARALLAX
-  ======================================================== */
+  }else{
+    reveals.forEach(x=>x.classList.add("visible"));
+  }
 
-  const hero =
-    document.querySelector(".hero");
 
-  const heroContent =
-    document.querySelector(".hero-content");
+  /* =====================================================
+     MOBILE NAV
+  ===================================================== */
 
-  const heroMark =
-    document.querySelector(".hero-mark");
+  const menu=document.getElementById("menu");
+  const mobile=document.getElementById("mobileMenu");
 
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
+  function closeMenu(){
+    mobile?.classList.remove("open");
+  }
 
-  window.addEventListener("mousemove", event => {
+  menu?.addEventListener("click",()=>{
+    mobile?.classList.toggle("open");
+  });
 
-    mouseX =
-      (event.clientX / window.innerWidth - .5);
-
-    mouseY =
-      (event.clientY / window.innerHeight - .5);
-
+  mobile?.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click",closeMenu);
   });
 
 
-  function animateParallax() {
+  /* =====================================================
+     ACTIVE NAV
+  ===================================================== */
 
-    currentX +=
-      (mouseX - currentX) * .025;
+  const nav=[...document.querySelectorAll(".nav-links a")];
 
-    currentY +=
-      (mouseY - currentY) * .025;
+  if("IntersectionObserver" in window){
 
-    if (heroContent) {
+    const io=new IntersectionObserver(entries=>{
 
-      heroContent.style.transform =
-        `translate3d(
-          ${currentX * -5}px,
-          ${currentY * -4}px,
-          0
-        )`;
+      entries.forEach(entry=>{
 
-    }
+        if(!entry.isIntersecting)return;
 
-    if (heroMark) {
+        nav.forEach(x=>x.classList.remove("active"));
 
-      heroMark.style.transform =
-        `translate3d(
-          ${currentX * 20}px,
-          ${currentY * 20}px,
-          0
-        )`;
+        const link=nav.find(
+          x=>x.getAttribute("href")===`#${entry.target.id}`
+        );
 
-    }
+        link?.classList.add("active");
+      });
 
-    requestAnimationFrame(animateParallax);
+    },{
+      rootMargin:"-38% 0px -55% 0px"
+    });
+
+    ["about","work","archive","thinking","contact"]
+      .map(id=>document.getElementById(id))
+      .filter(Boolean)
+      .forEach(x=>io.observe(x));
   }
 
-  animateParallax();
+
+  /* =====================================================
+     CURSOR LIGHT
+  ===================================================== */
+
+  const cursor=document.querySelector(".cursor-light");
+
+  if(cursor && !reduced && matchMedia("(pointer:fine)").matches){
+
+    let tx=0,ty=0,x=0,y=0,frame=false;
+
+    addEventListener("pointermove",e=>{
+
+      tx=e.clientX;
+      ty=e.clientY;
+
+      document.body.classList.add("pointer");
+
+      if(frame)return;
+
+      frame=true;
+
+      requestAnimationFrame(()=>{
+
+        x+=(tx-x)*.16;
+        y+=(ty-y)*.16;
+
+        cursor.style.left=`${x}px`;
+        cursor.style.top=`${y}px`;
+
+        frame=false;
+      });
+
+    },{passive:true});
+  }
 
 
-  /* =======================================================
+  /* =====================================================
      PROJECT TILT
-  ======================================================== */
+  ===================================================== */
 
-  const projectVisuals =
-    document.querySelectorAll(".project-visual");
+  if(!reduced && matchMedia("(pointer:fine)").matches){
 
-  projectVisuals.forEach(visual => {
+    document.querySelectorAll(".project").forEach(project=>{
 
-    visual.addEventListener("mousemove", event => {
+      const visual=project.querySelector(".project-visual");
+      if(!visual)return;
 
-      const rect =
-        visual.getBoundingClientRect();
+      project.addEventListener("pointermove",e=>{
 
-      const x =
-        (event.clientX - rect.left) /
-        rect.width -
-        .5;
+        const r=project.getBoundingClientRect();
 
-      const y =
-        (event.clientY - rect.top) /
-        rect.height -
-        .5;
+        const px=(e.clientX-r.left)/r.width;
+        const py=(e.clientY-r.top)/r.height;
 
-      visual.style.transform =
-        `perspective(1000px)
-         rotateX(${y * -2.5}deg)
-         rotateY(${x * 2.5}deg)`;
+        visual.style.transform=
+          `perspective(1400px)
+           rotateX(${(0.5-py)*4}deg)
+           rotateY(${(px-0.5)*4}deg)`;
 
+        visual.style.setProperty("--x",`${px*100}%`);
+        visual.style.setProperty("--y",`${py*100}%`);
+      });
+
+      project.addEventListener("pointerleave",()=>{
+
+        visual.style.transform=
+          "perspective(1400px) rotateX(0deg) rotateY(0deg)";
+
+        visual.style.setProperty("--x","50%");
+        visual.style.setProperty("--y","50%");
+      });
     });
+  }
 
 
-    visual.addEventListener("mouseleave", () => {
+  /* =====================================================
+     LIGHTBOX
+  ===================================================== */
 
-      visual.style.transform =
-        "perspective(1000px) rotateX(0) rotateY(0)";
+  const lightbox=document.getElementById("lightbox");
+  const lightboxImage=document.getElementById("lightboxImage");
+  const caption=document.getElementById("lightboxCaption");
 
-    });
+  function openLightbox(src,text){
 
+    lightbox?.classList.add("open");
+    document.body.classList.add("locked");
+
+    if(lightboxImage){
+      lightboxImage.src=src;
+    }
+
+    if(caption){
+      caption.textContent=text;
+    }
+  }
+
+  function closeLightbox(){
+
+    lightbox?.classList.remove("open");
+    document.body.classList.remove("locked");
+  }
+
+  document.getElementById("lightboxClose")
+    ?.addEventListener("click",closeLightbox);
+
+  lightbox?.addEventListener("click",e=>{
+    if(e.target===lightbox)closeLightbox();
   });
 
 
-  /* =======================================================
+  /* =====================================================
      MIRA
-  ======================================================== */
+  ===================================================== */
 
-  const miraRoot =
-    document.querySelector(".mira-root");
+  const miraButton=document.getElementById("miraButton");
+  const miraPanel=document.getElementById("miraPanel");
+  const miraClose=document.getElementById("miraClose");
+  const messages=document.getElementById("messages");
+  const typing=document.getElementById("typing");
+  const form=document.getElementById("miraForm");
+  const input=document.getElementById("miraInput");
 
-  const miraOrb =
-    document.getElementById("miraOrb");
-
-  const miraPanel =
-    document.getElementById("miraPanel");
-
-  const miraClose =
-    document.getElementById("miraClose");
-
-  const miraForm =
-    document.getElementById("miraForm");
-
-  const miraInput =
-    document.getElementById("miraInput");
-
-  const miraMessages =
-    document.getElementById("miraMessages");
-
-  const quickButtons =
-    document.querySelectorAll(".mira-quick button");
+  let miraOpen=false;
+  let timer=null;
 
 
-  function openMira() {
+  const knowledge={
 
-    miraRoot.classList.add("open");
+    projects:{
+      keys:["project","projects","built","work","portfolio"],
+      text:
+      "There are three featured projects. The Hand-Gesture 3D Particle System is the strongest representation of the current direction, using Three.js, MediaPipe Hands and WebGL. Camlab explores interface and motion design, while the Unity project explores 3D game systems and physics.",
+      target:"#work",
+      label:"View selected work"
+    },
 
-    miraOrb.setAttribute(
-      "aria-expanded",
-      "true"
-    );
+    particle:{
+      keys:["particle","gesture","hand","three","webgl","mediapipe"],
+      text:
+      "The Hand-Gesture 3D Particle System turns webcam hand movement into real-time interaction with a Three.js particle environment.",
+      target:"#work",
+      label:"View project"
+    },
 
-    document.body.classList.add("mira-open");
+    camlab:{
+      keys:["camlab","interface","ui","ux","frontend"],
+      text:
+      "Camlab is an experimental frontend project focused on interaction, smooth motion and visual presentation.",
+      target:"#work",
+      label:"View Camlab"
+    },
 
-    setTimeout(() => {
-      miraInput.focus();
-    }, 450);
+    skills:{
+      keys:["skill","skills","technology","coding","programming","language"],
+      text:
+      "The portfolio covers HTML, CSS, JavaScript, Python, Three.js, WebGL, UI/UX, physics, mathematics, writing and sketching. The biggest technical growth area is advanced 3D web development.",
+      target:"#capabilities",
+      label:"View capabilities"
+    },
 
-  }
+    creative:{
+      keys:["art","drawing","draw","sketch","creative","poem","poetry","writing"],
+      text:
+      "The creative archive contains visual art and poetry. It represents the side of the work that is less about solving a problem and more about observing, expressing and experimenting.",
+      target:"#archive",
+      label:"Open creative archive"
+    },
 
+    thinking:{
+      keys:["think","thinking","logic","problem","fundamental","approach"],
+      text:
+      "The preferred approach is to break complicated problems down to fundamentals instead of brute-forcing them. Understanding why something works matters as much as making it work.",
+      target:"#thinking",
+      label:"See how he thinks"
+    },
 
-  function closeMira() {
+    future:{
+      keys:["future","goal","career","direction","college","engineering","next"],
+      text:
+      "The long-term direction combines engineering with creative technology: advanced 3D web development, shaders, high-performance interfaces and immersive digital experiences.",
+      target:"#future",
+      label:"See the direction"
+    },
 
-    miraRoot.classList.remove("open");
+    about:{
+      keys:["about","who","shreeyans","person"],
+      text:
+      "Shreeyans is an engineering aspirant interested in front-end development, coding, interactive experiences, physics, visual art, writing and music.",
+      target:"#about",
+      label:"Read about"
+    },
 
-    miraOrb.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-
-    document.body.classList.remove("mira-open");
-
-  }
-
-
-  miraOrb.addEventListener("click", openMira);
-
-  miraClose.addEventListener("click", closeMira);
-
-
-  /* =======================================================
-     MIRA KNOWLEDGE
-  ======================================================== */
-
-  const knowledge = {
-
-    intro:
-      "Shreeyans is an engineering aspirant and creative technologist interested in front-end development, creative coding, interactive experiences, physics, visual art and writing.",
-
-    projects:
-      "His main projects include a real-time hand-gesture 3D particle system using Three.js and MediaPipe, Camlab, an interactive front-end laboratory, and a Unity 3D multiplayer game starter.",
-
-    bestProject:
-      "The Hand-Gesture 3D Particle System probably represents him best. It combines webcam interaction, MediaPipe Hands, Three.js, WebGL and real-time visual behaviour.",
-
-    skills:
-      "He works with HTML, CSS and JavaScript comfortably, uses Python, is developing his Three.js and creative coding skills, and has a strong foundation in physics and mathematics. He is also interested in UI, UX, writing and sketching.",
-
-    art:
-      "The Creative Archive contains his artwork and visual experiments. He uses sketching and visual work as a creative outlet outside programming.",
-
-    poetry:
-      "His poetry collection includes pieces such as From Bloom to Dusk, Uneven Promise and Before it was Plucked. His writing tends to explore time, change, relationships and observation.",
-
-    thinking:
-      "His approach is to break complicated things down to their fundamentals, understand the logic, build a solution and then refine it rather than relying on brute force.",
-
-    future:
-      "He wants to move deeper into advanced 3D web development, GLSL shaders, complex geometry, performance optimisation and immersive interactive digital experiences.",
-
-    physics:
-      "Physics is an important part of his interests and JEE preparation. He enjoys going beyond exam-level understanding and exploring how physical ideas connect with computation and visualisation.",
-
-    music:
-      "Music is one of his creative outlets. His interests span artists and styles ranging from KK and Nusrat Fateh Ali Khan to John Mayer and The Weeknd.",
-
-    current:
-      "Right now the main focus is JEE preparation, front-end development, creative coding and improving his ability to build polished interactive experiences."
-
+    contact:{
+      keys:["contact","email","mail","hire","opportunity","collaboration"],
+      text:
+      "For opportunities, collaborations or interesting projects, the contact section contains the direct email address.",
+      target:"#contact",
+      label:"Go to contact"
+    }
   };
 
 
-  function getMiraResponse(question) {
+  function openMira(){
 
-    const q =
-      question
-        .toLowerCase()
-        .trim();
+    miraOpen=true;
 
+    miraPanel?.classList.add("open");
+    miraButton?.setAttribute("aria-expanded","true");
 
-    if (
-      q.includes("best project") ||
-      q.includes("favorite project") ||
-      q.includes("favourite project")
-    ) {
-      return knowledge.bestProject;
-    }
-
-
-    if (
-      q.includes("project") ||
-      q.includes("build") ||
-      q.includes("built")
-    ) {
-      return knowledge.projects;
-    }
-
-
-    if (
-      q.includes("skill") ||
-      q.includes("code") ||
-      q.includes("language") ||
-      q.includes("technology") ||
-      q.includes("tech stack")
-    ) {
-      return knowledge.skills;
-    }
-
-
-    if (
-      q.includes("art") ||
-      q.includes("drawing") ||
-      q.includes("sketch")
-    ) {
-      return knowledge.art;
-    }
-
-
-    if (
-      q.includes("poem") ||
-      q.includes("poetry") ||
-      q.includes("writing")
-    ) {
-      return knowledge.poetry;
-    }
-
-
-    if (
-      q.includes("think") ||
-      q.includes("approach") ||
-      q.includes("process")
-    ) {
-      return knowledge.thinking;
-    }
-
-
-    if (
-      q.includes("future") ||
-      q.includes("goal") ||
-      q.includes("want to")
-    ) {
-      return knowledge.future;
-    }
-
-
-    if (
-      q.includes("physics") ||
-      q.includes("jee") ||
-      q.includes("math")
-    ) {
-      return knowledge.physics;
-    }
-
-
-    if (
-      q.includes("music") ||
-      q.includes("song") ||
-      q.includes("listen")
-    ) {
-      return knowledge.music;
-    }
-
-
-    if (
-      q.includes("now") ||
-      q.includes("current") ||
-      q.includes("focus")
-    ) {
-      return knowledge.current;
-    }
-
-
-    if (
-      q.includes("who") ||
-      q.includes("about") ||
-      q.includes("shreeyans") ||
-      q.includes("yourself")
-    ) {
-      return knowledge.intro;
-    }
-
-
-    if (
-      q.includes("hello") ||
-      q.includes("hi") ||
-      q.includes("hey")
-    ) {
-      return "Hey. I'm Mira. Ask me anything about the work, the ideas behind it, or the person building it.";
-    }
-
-
-    return "I can tell you about the projects, skills, creative archive, poetry, thinking process, current focus or future direction. Try asking me about one of those.";
-  }
-
-
-  function addMessage(text, type) {
-
-    const message =
-      document.createElement("div");
-
-    message.className =
-      `mira-message ${type}`;
-
-    message.textContent = text;
-
-    miraMessages.appendChild(message);
-
-    miraMessages.scrollTop =
-      miraMessages.scrollHeight;
-
-  }
-
-
-  function askMira(question) {
-
-    if (!question.trim()) return;
-
-    addMessage(question, "user");
-
-    miraInput.value = "";
-
-    setTimeout(() => {
-
-      const response =
-        getMiraResponse(question);
-
-      addMessage(response, "bot");
-
-    }, 500);
-
-  }
-
-
-  miraForm.addEventListener("submit", event => {
-
-    event.preventDefault();
-
-    askMira(miraInput.value);
-
-  });
-
-
-  quickButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      askMira(
-        button.dataset.question
+    if(!reduced){
+      miraButton?.animate(
+        [
+          {transform:"scale(1)"},
+          {transform:"scale(1.08)"},
+          {transform:"scale(1)"}
+        ],
+        {duration:500,easing:"ease-out"}
       );
+    }
 
+    setTimeout(()=>input?.focus(),300);
+  }
+
+
+  function closeMira(){
+
+    miraOpen=false;
+
+    miraPanel?.classList.remove("open");
+    miraButton?.setAttribute("aria-expanded","false");
+  }
+
+
+  function addMessage(text,type="bot",source=null){
+
+    if(!messages)return;
+
+    const box=document.createElement("div");
+    box.className=`message ${type}`;
+    box.textContent=text;
+
+    if(source){
+
+      const br=document.createElement("br");
+      const button=document.createElement("button");
+
+      button.className="source";
+      button.type="button";
+      button.textContent=source.label;
+
+      button.onclick=()=>{
+
+        closeMira();
+
+        const target=document.querySelector(source.target);
+
+        target?.scrollIntoView({
+          behavior:reduced?"auto":"smooth",
+          block:"start"
+        });
+
+        if(target && !reduced){
+
+          target.animate(
+            [
+              {boxShadow:"inset 0 0 0 rgba(184,154,90,0)"},
+              {boxShadow:"inset 0 0 100px rgba(184,154,90,.08)"},
+              {boxShadow:"inset 0 0 0 rgba(184,154,90,0)"}
+            ],
+            {duration:1100}
+          );
+        }
+      };
+
+      box.append(br,button);
+    }
+
+    messages.appendChild(box);
+
+    messages.scrollTo({
+      top:messages.scrollHeight,
+      behavior:reduced?"auto":"smooth"
+    });
+  }
+
+
+  function response(question){
+
+    const q=question.toLowerCase();
+
+    if(
+      q.includes("hello")||
+      q.includes("hi")||
+      q.includes("hey")
+    ){
+      return {
+        text:"Hey. I'm Mira. Think of me as a small guide to the portfolio. What would you like to explore?"
+      };
+    }
+
+    let best=null;
+    let score=0;
+
+    Object.values(knowledge).forEach(item=>{
+
+      let current=0;
+
+      item.keys.forEach(key=>{
+        if(q.includes(key)){
+          current+=key.length>5?2:1;
+        }
+      });
+
+      if(current>score){
+        score=current;
+        best=item;
+      }
     });
 
-  });
+    return best||{
+      text:
+      "I don't have a specific answer for that yet. Try asking about projects, skills, creative work, thinking or future direction."
+    };
+  }
 
 
-  /* =======================================================
-     CLOSE MIRA WITH ESC
-  ======================================================== */
+  function ask(question){
 
-  document.addEventListener("keydown", event => {
+    if(!question.trim())return;
 
-    if (
-      event.key === "Escape" &&
-      miraRoot.classList.contains("open")
-    ) {
+    if(!miraOpen)openMira();
 
-      closeMira();
+    addMessage(question,"user");
 
-    }
+    typing?.classList.add("show");
+    miraButton?.classList.add("thinking");
 
-  });
+    const result=response(question);
 
+    clearTimeout(timer);
 
-  /* =======================================================
-     MIRA INTRO
-  ======================================================== */
+    timer=setTimeout(()=>{
 
-  setTimeout(() => {
+      typing?.classList.remove("show");
+      miraButton?.classList.remove("thinking");
+      miraButton?.classList.add("responding");
 
-    if (!sessionStorage.getItem("miraIntroduced")) {
-
-      miraOrb.animate(
-        [
-          {
-            transform: "scale(1)"
-          },
-          {
-            transform: "scale(1.16)"
-          },
-          {
-            transform: "scale(1)"
-          }
-        ],
-        {
-          duration: 900,
-          easing: "ease-out"
-        }
+      addMessage(
+        result.text,
+        "bot",
+        result.target?{
+          target:result.target,
+          label:result.label
+        }:null
       );
 
-      sessionStorage.setItem(
-        "miraIntroduced",
-        "true"
-      );
+      setTimeout(()=>{
+        miraButton?.classList.remove("responding");
+      },700);
 
+    },reduced?100:500+Math.random()*400);
+  }
+
+
+  miraButton?.addEventListener("click",()=>{
+    miraOpen?closeMira():openMira();
+  });
+
+  miraClose?.addEventListener("click",closeMira);
+
+  form?.addEventListener("submit",e=>{
+
+    e.preventDefault();
+
+    const q=input?.value.trim();
+
+    if(!q)return;
+
+    input.value="";
+    ask(q);
+  });
+
+  document.querySelectorAll(".quick button")
+    .forEach(button=>{
+      button.addEventListener("click",()=>{
+        ask(button.dataset.q);
+      });
+    });
+
+
+  /* Mira reacts to pointer */
+
+  if(!reduced && matchMedia("(pointer:fine)").matches){
+
+    miraButton?.addEventListener("pointermove",e=>{
+
+      const r=miraButton.getBoundingClientRect();
+
+      const x=((e.clientX-r.left)/r.width-.5)*8;
+      const y=((e.clientY-r.top)/r.height-.5)*8;
+
+      const orb=miraButton.querySelector(".mira-orb");
+
+      orb?.style.setProperty("--mx",`${x}px`);
+      orb?.style.setProperty("--my",`${y}px`);
+    });
+
+    miraButton?.addEventListener("pointerleave",()=>{
+
+      const orb=miraButton.querySelector(".mira-orb");
+
+      orb?.style.setProperty("--mx","0px");
+      orb?.style.setProperty("--my","0px");
+    });
+  }
+
+
+  /* =====================================================
+     KEYBOARD
+  ===================================================== */
+
+  document.addEventListener("keydown",e=>{
+
+    if(e.key!=="Escape")return;
+
+    closeLightbox();
+    closeMira();
+    closeMenu();
+  });
+
+
+  /* =====================================================
+     FIRST VISIT MIRA PULSE
+  ===================================================== */
+
+  try{
+
+    if(!sessionStorage.getItem("mira-presence")&&!reduced){
+
+      setTimeout(()=>{
+
+        miraButton?.animate(
+          [
+            {transform:"scale(1)"},
+            {transform:"scale(1.12)"},
+            {transform:"scale(1)"}
+          ],
+          {duration:900,easing:"ease-in-out"}
+        );
+
+        sessionStorage.setItem("mira-presence","1");
+
+      },2400);
     }
 
-  }, 1800);
+  }catch(e){}
 
 
-  /* =======================================================
-     MIRA ORB MOUSE RESPONSE
-  ======================================================== */
+  /* =====================================================
+     SCROLL AMBIENCE
+  ===================================================== */
 
-  miraOrb.addEventListener("mousemove", event => {
+  const a=document.querySelector(".glow-a");
+  const b=document.querySelector(".glow-b");
 
-    const rect =
-      miraOrb.getBoundingClientRect();
+  let scrollFrame=false;
 
-    const x =
-      (event.clientX - rect.left) /
-      rect.width -
-      .5;
+  addEventListener("scroll",()=>{
 
-    const y =
-      (event.clientY - rect.top) /
-      rect.height -
-      .5;
+    if(reduced||scrollFrame)return;
 
-    miraOrb.querySelector(".mira-orb").style.transform =
-      `translate(
-        ${x * 5}px,
-        ${y * 5}px
-      ) scale(1.05)`;
+    scrollFrame=true;
 
-  });
+    requestAnimationFrame(()=>{
 
+      const max=document.documentElement.scrollHeight-innerHeight;
+      const progress=max?scrollY/max:0;
 
-  miraOrb.addEventListener("mouseleave", () => {
+      if(a)a.style.transform=`translateY(${progress*100}px)`;
+      if(b)b.style.transform=`translateY(${-progress*130}px)`;
 
-    miraOrb.querySelector(".mira-orb").style.transform =
-      "";
+      scrollFrame=false;
+    });
 
-  });
+  },{passive:true});
 
 
-  /* =======================================================
-     SCROLL DEPTH
-  ======================================================== */
+  /* =====================================================
+     IMAGE FALLBACK
+  ===================================================== */
 
-  const goldGlowOne =
-    document.querySelector(".glow-one");
+  document.addEventListener("error",e=>{
 
-  const goldGlowTwo =
-    document.querySelector(".glow-two");
+    if(e.target?.tagName==="IMG"){
+      e.target.style.background="#111015";
+    }
 
-  window.addEventListener(
-    "scroll",
-    () => {
-
-      const scroll =
-        window.scrollY;
-
-      if (goldGlowOne) {
-
-        goldGlowOne.style.transform =
-          `translateY(${scroll * .025}px)`;
-
-      }
-
-      if (goldGlowTwo) {
-
-        goldGlowTwo.style.transform =
-          `translateY(${-scroll * .018}px)`;
-
-      }
-
-    },
-    { passive: true }
-  );
-
+  },true);
 
 });

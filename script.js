@@ -1,1477 +1,767 @@
 /* =========================================================
-   SHREEYANS RAJ
-   Premium Portfolio
+   PORTFOLIO SCRIPT
 ========================================================= */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =========================================================
-   YEAR
-========================================================= */
+  /* =======================================================
+     ART COLLECTION
+  ======================================================== */
 
-document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-
-/* =========================================================
-   BACKGROUND ATMOSPHERE
-========================================================= */
-
-const canvas =
-    document.getElementById("atmosphere");
-
-const ctx =
-    canvas.getContext("2d");
-
-let width = 0;
-let height = 0;
-
-let particles = [];
+  const art = [
+    "20260126_150411.jpg",
+    "IMG-20250829-WA0008.jpg",
+    "IMG_20251019_003614078_HDR.jpg",
+    "IMG_20251019_003637605_HDR.jpg",
+    "IMG_20251019_004046619_HDR~2.jpg",
+    "IMG_20251117_032352_534.jpg",
+    "IMG_20251117_032354_002.jpg",
+    "IMG_20251117_032357_284.jpg",
+    "IMG_20251117_032405_870.jpg",
+    "IMG_20260607_184756768.jpg"
+  ];
 
 
-function resizeCanvas() {
+  /* =======================================================
+     POETRY COLLECTION
+  ======================================================== */
 
-    width = window.innerWidth;
-    height = window.innerHeight;
+  const poetry = [
+    "Screenshot_20261007-045758_Files by Google.png",
+    "Screenshot_20261007-045745_Files by Google.png",
+    "Screenshot_20261007-045733_Files by Google.png",
+    "Screenshot_20261007-045720_Files by Google.png",
+    "Screenshot_20261007-045706_Files by Google.png",
+    "IMG_20261006_193525_532.webp",
+    "IMG_20261006_193516_352.webp",
+    "IMG_20261006_193503_673.webp",
+    "IMG_20261005_012646332_HDR~2.jpg",
+    "IMG_20260928_025833148_HDR~2.jpg",
+    "IMG_20260928_025657503_HDR.jpg"
+  ];
 
-    const ratio =
-        Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
 
-    canvas.width =
-        width * ratio;
+  /* =======================================================
+     IMAGE PATH
+  ======================================================== */
 
-    canvas.height =
-        height * ratio;
+  function imagePath(filename) {
+    return "./" +
+      filename
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+  }
 
-    canvas.style.width =
-        `${width}px`;
 
-    canvas.style.height =
-        `${height}px`;
+  /* =======================================================
+     GALLERY RENDER
+  ======================================================== */
 
-    ctx.setTransform(
-        ratio,
-        0,
-        0,
-        ratio,
-        0,
-        0
+  const artGallery = document.getElementById("artGallery");
+  const poetryGallery = document.getElementById("poetryGallery");
+
+  function createImageItem(filename, type, index) {
+
+    const item = document.createElement("button");
+
+    item.type = "button";
+    item.className =
+      type === "art"
+        ? "art-item"
+        : "poetry-item";
+
+    item.setAttribute(
+      "aria-label",
+      `Open ${type} ${index + 1}`
     );
 
-    createParticles();
-}
+    const image = document.createElement("img");
+
+    image.src = imagePath(filename);
+
+    image.alt =
+      type === "art"
+        ? `Artwork ${index + 1}`
+        : `Poetry piece ${index + 1}`;
+
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    image.onerror = () => {
+      item.style.display = "none";
+      console.warn("Image could not be loaded:", filename);
+    };
+
+    item.appendChild(image);
+
+    item.addEventListener("click", () => {
+      openLightbox(image.src, image.alt);
+    });
+
+    return item;
+  }
 
 
-function createParticles() {
+  art.forEach((filename, index) => {
+    artGallery.appendChild(
+      createImageItem(filename, "art", index)
+    );
+  });
 
-    const count =
-        width < 700 ? 22 : 50;
 
-    particles = [];
+  poetry.forEach((filename, index) => {
+    poetryGallery.appendChild(
+      createImageItem(filename, "poetry", index)
+    );
+  });
 
-    for (
-        let i = 0;
-        i < count;
-        i++
-    ) {
 
-        particles.push({
+  /* =======================================================
+     LIGHTBOX
+  ======================================================== */
 
-            x:
-                Math.random() * width,
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+  const lightboxClose = document.getElementById("lightboxClose");
 
-            y:
-                Math.random() * height,
+  function openLightbox(src, alt) {
 
-            radius:
-                Math.random() * 1.5 + 0.3,
+    lightboxImage.src = src;
+    lightboxImage.alt = alt;
 
-            vx:
-                (Math.random() - 0.5) * 0.15,
+    lightbox.classList.add("open");
 
-            vy:
-                (Math.random() - 0.5) * 0.15,
+    document.body.style.overflow = "hidden";
+  }
 
-            alpha:
-                Math.random() * 0.14 + 0.03
+  function closeLightbox() {
+
+    lightbox.classList.remove("open");
+
+    document.body.style.overflow = "";
+
+    setTimeout(() => {
+      if (!lightbox.classList.contains("open")) {
+        lightboxImage.src = "";
+      }
+    }, 300);
+  }
+
+  lightboxClose.addEventListener("click", closeLightbox);
+
+  lightbox.addEventListener("click", event => {
+
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+
+  });
+
+  document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+
+  });
+
+
+  /* =======================================================
+     SCROLL REVEALS
+  ======================================================== */
+
+  const revealElements =
+    document.querySelectorAll(".reveal");
+
+  const revealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            const delay =
+              entry.target.dataset.delay || 0;
+
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+            }, Number(delay));
+
+            revealObserver.unobserve(entry.target);
+          }
 
         });
 
-    }
-}
-
-
-function drawAtmosphere() {
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
+      }
     );
 
 
-    const gradient =
-        ctx.createRadialGradient(
-            width * 0.72,
-            height * 0.22,
-            0,
-            width * 0.72,
-            height * 0.22,
-            Math.max(width, height) * 0.65
-        );
+  revealElements.forEach((element, index) => {
 
+    element.dataset.delay =
+      Math.min((index % 5) * 70, 280);
 
-    gradient.addColorStop(
-        0,
-        "rgba(184,154,90,0.10)"
-    );
+    revealObserver.observe(element);
 
-    gradient.addColorStop(
-        0.45,
-        "rgba(184,154,90,0.025)"
-    );
+  });
 
-    gradient.addColorStop(
-        1,
-        "rgba(184,154,90,0)"
-    );
 
+  /* =======================================================
+     NAVIGATION
+  ======================================================== */
 
-    ctx.fillStyle =
-        gradient;
+  const mobileMenu =
+    document.querySelector(".mobile-menu");
 
-    ctx.fillRect(
-        0,
-        0,
-        width,
-        height
-    );
+  const mobileNav =
+    document.querySelector(".mobile-nav");
 
+  mobileMenu.addEventListener("click", () => {
 
-    particles.forEach(
-        particle => {
+    mobileNav.classList.toggle("open");
 
-            particle.x +=
-                particle.vx;
+  });
 
-            particle.y +=
-                particle.vy;
 
+  mobileNav
+    .querySelectorAll("a")
+    .forEach(link => {
 
-            if (
-                particle.x < -10
-            ) {
-                particle.x =
-                    width + 10;
-            }
+      link.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+      });
 
+    });
 
-            if (
-                particle.x > width + 10
-            ) {
-                particle.x = -10;
-            }
 
+  /* =======================================================
+     SUBTLE HERO PARALLAX
+  ======================================================== */
 
-            if (
-                particle.y < -10
-            ) {
-                particle.y =
-                    height + 10;
-            }
+  const hero =
+    document.querySelector(".hero");
 
+  const heroContent =
+    document.querySelector(".hero-content");
 
-            if (
-                particle.y > height + 10
-            ) {
-                particle.y = -10;
-            }
+  const heroMark =
+    document.querySelector(".hero-mark");
 
+  let mouseX = 0;
+  let mouseY = 0;
+  let currentX = 0;
+  let currentY = 0;
 
-            ctx.beginPath();
+  window.addEventListener("mousemove", event => {
 
+    mouseX =
+      (event.clientX / window.innerWidth - .5);
 
-            ctx.arc(
-                particle.x,
-                particle.y,
-                particle.radius,
-                0,
-                Math.PI * 2
-            );
+    mouseY =
+      (event.clientY / window.innerHeight - .5);
 
+  });
 
-            ctx.fillStyle =
-                `rgba(
-                    184,
-                    154,
-                    90,
-                    ${particle.alpha}
-                )`;
 
+  function animateParallax() {
 
-            ctx.fill();
+    currentX +=
+      (mouseX - currentX) * .025;
 
-        }
-    );
+    currentY +=
+      (mouseY - currentY) * .025;
 
+    if (heroContent) {
 
-    requestAnimationFrame(
-        drawAtmosphere
-    );
-}
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-resizeCanvas();
-
-drawAtmosphere();
-
-
-
-/* =========================================================
-   IMAGE PATH HANDLER
-========================================================= */
-
-/*
-   Important:
-
-   Some of your filenames contain spaces and special
-   characters such as "~".
-
-   This function safely creates the URL without
-   changing the actual filename in your repository.
-*/
-
-function imagePath(filename) {
-
-    return "./" +
-        filename
-            .split("/")
-            .map(
-                part =>
-                    encodeURIComponent(part)
-            )
-            .join("/");
-
-}
-
-
-
-/* =========================================================
-   ART COLLECTION
-========================================================= */
-
-const artCollection = [
-
-    {
-        file: "20260126_150411.jpg",
-        title: "Visual Study 01"
-    },
-
-    {
-        file: "IMG-20250829-WA0008.jpg",
-        title: "Visual Study 02"
-    },
-
-    {
-        file: "IMG_20251019_003614078_HDR.jpg",
-        title: "Visual Study 03"
-    },
-
-    {
-        file: "IMG_20251019_003637605_HDR.jpg",
-        title: "Visual Study 04"
-    },
-
-    {
-        file: "IMG_20251019_004046619_HDR~2.jpg",
-        title: "Visual Study 05"
-    },
-
-    {
-        file: "IMG_20251117_032352_534.jpg",
-        title: "Visual Study 06"
-    },
-
-    {
-        file: "IMG_20251117_032354_002.jpg",
-        title: "Visual Study 07"
-    },
-
-    {
-        file: "IMG_20251117_032357_284.jpg",
-        title: "Visual Study 08"
-    },
-
-    {
-        file: "IMG_20251117_032405_870.jpg",
-        title: "Visual Study 09"
-    },
-
-    {
-        file: "IMG_20260607_184756768.jpg",
-        title: "Visual Study 10"
-    }
-
-];
-
-
-
-/* =========================================================
-   POETRY COLLECTION
-========================================================= */
-
-const poetryCollection = [
-
-    {
-        file:
-            "Screenshot_20261007-045758_Files by Google.png",
-
-        title:
-            "Written Page 01"
-    },
-
-    {
-        file:
-            "Screenshot_20261007-045745_Files by Google.png",
-
-        title:
-            "Written Page 02"
-    },
-
-    {
-        file:
-            "Screenshot_20261007-045733_Files by Google.png",
-
-        title:
-            "Written Page 03"
-    },
-
-    {
-        file:
-            "Screenshot_20261007-045720_Files by Google.png",
-
-        title:
-            "Written Page 04"
-    },
-
-    {
-        file:
-            "Screenshot_20261007-045706_Files by Google.png",
-
-        title:
-            "Written Page 05"
-    },
-
-    {
-        file:
-            "IMG_20261006_193525_532.webp",
-
-        title:
-            "Written Page 06"
-    },
-
-    {
-        file:
-            "IMG_20261006_193516_352.webp",
-
-        title:
-            "Written Page 07"
-    },
-
-    {
-        file:
-            "IMG_20261006_193503_673.webp",
-
-        title:
-            "Written Page 08"
-    },
-
-    {
-        file:
-            "IMG_20261005_012646332_HDR~2.jpg",
-
-        title:
-            "Written Page 09"
-    },
-
-    {
-        file:
-            "IMG_20260928_025833148_HDR~2.jpg",
-
-        title:
-            "Written Page 10"
-    },
-
-    {
-        file:
-            "IMG_20260928_025657503_HDR.jpg",
-
-        title:
-            "Written Page 11"
-    }
-
-];
-
-
-
-/* =========================================================
-   GALLERY ELEMENTS
-========================================================= */
-
-const artGallery =
-    document.getElementById(
-        "artGallery"
-    );
-
-const poetryGallery =
-    document.getElementById(
-        "poetryGallery"
-    );
-
-
-
-/* =========================================================
-   LIGHTBOX ELEMENTS
-========================================================= */
-
-const lightbox =
-    document.getElementById(
-        "lightbox"
-    );
-
-const lightboxImage =
-    document.getElementById(
-        "lightboxImage"
-    );
-
-const lightboxCaption =
-    document.getElementById(
-        "lightboxCaption"
-    );
-
-const lightboxClose =
-    document.getElementById(
-        "lightboxClose"
-    );
-
-
-
-/* =========================================================
-   OPEN LIGHTBOX
-========================================================= */
-
-function openLightbox(
-    filename,
-    title
-) {
-
-    lightboxImage.src =
-        imagePath(filename);
-
-    lightboxImage.alt =
-        title;
-
-    lightboxCaption.textContent =
-        title;
-
-
-    lightbox.classList.add(
-        "open"
-    );
-
-
-    lightbox.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    document.body.classList.add(
-        "no-scroll"
-    );
-
-}
-
-
-
-/* =========================================================
-   CLOSE LIGHTBOX
-========================================================= */
-
-function closeLightbox() {
-
-    lightbox.classList.remove(
-        "open"
-    );
-
-
-    lightbox.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-
-
-    setTimeout(
-        () => {
-
-            lightboxImage.src = "";
-
-        },
-        250
-    );
-
-}
-
-
-lightboxClose.addEventListener(
-    "click",
-    closeLightbox
-);
-
-
-lightbox.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            lightbox
-        ) {
-
-            closeLightbox();
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeLightbox();
-
-        }
-
-    }
-);
-
-
-
-/* =========================================================
-   CREATE IMAGE CARD
-========================================================= */
-
-function createImageCard(
-    item,
-    index,
-    type
-) {
-
-    const card =
-        document.createElement(
-            "article"
-        );
-
-
-    card.className =
-        type === "art"
-            ? "art-card"
-            : "poetry-card";
-
-
-    const img =
-        document.createElement(
-            "img"
-        );
-
-
-    img.src =
-        imagePath(
-            item.file
-        );
-
-
-    img.alt =
-        item.title;
-
-
-    img.loading =
-        index < 4
-            ? "eager"
-            : "lazy";
-
-
-    img.decoding =
-        "async";
-
-
-    /*
-       If an image fails, show a clean
-       diagnostic card instead of a
-       broken image icon.
-    */
-
-    img.onerror =
-        () => {
-
-            card.classList.add(
-                "image-error"
-            );
-
-
-            card.innerHTML = `
-
-                <div style="
-                    width:100%;
-                    height:100%;
-                    min-height:260px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    padding:30px;
-                    text-align:center;
-                    background:#17161b;
-                    color:#aaa;
-                    font-family:monospace;
-                    font-size:10px;
-                    line-height:1.7;
-                    letter-spacing:.06em;
-                ">
-
-                    IMAGE COULD NOT BE LOADED<br><br>
-
-                    ${item.file}
-
-                </div>
-
-            `;
-
-        };
-
-
-    const info =
-        document.createElement(
-            "div"
-        );
-
-
-    info.className =
-        type === "art"
-            ? "art-card-info"
-            : "poetry-card-info";
-
-
-    const number =
-        String(index + 1)
-            .padStart(2, "0");
-
-
-    info.innerHTML = `
-
-        <div>
-
-            <span>
-                ${type === "art"
-                    ? "ART"
-                    : "POETRY"}
-                / ${number}
-            </span>
-
-            <span>
-                VIEW ↗
-            </span>
-
-        </div>
-
-    `;
-
-
-    card.appendChild(img);
-
-    card.appendChild(info);
-
-
-    card.addEventListener(
-        "click",
-        () => {
-
-            openLightbox(
-                item.file,
-                item.title
-            );
-
-        }
-    );
-
-
-    return card;
-
-}
-
-
-
-/* =========================================================
-   RENDER ART
-========================================================= */
-
-artCollection.forEach(
-    (item, index) => {
-
-        artGallery.appendChild(
-            createImageCard(
-                item,
-                index,
-                "art"
-            )
-        );
-
-    }
-);
-
-
-
-/* =========================================================
-   RENDER POETRY
-========================================================= */
-
-poetryCollection.forEach(
-    (item, index) => {
-
-        poetryGallery.appendChild(
-            createImageCard(
-                item,
-                index,
-                "poetry"
-            )
-        );
-
-    }
-);
-
-
-
-/* =========================================================
-   MIRA
-========================================================= */
-
-const miraButton =
-    document.getElementById(
-        "miraButton"
-    );
-
-const miraPanel =
-    document.getElementById(
-        "miraPanel"
-    );
-
-const miraClose =
-    document.getElementById(
-        "miraClose"
-    );
-
-const miraForm =
-    document.getElementById(
-        "miraForm"
-    );
-
-const miraInput =
-    document.getElementById(
-        "miraInput"
-    );
-
-const miraChat =
-    document.getElementById(
-        "miraChat"
-    );
-
-
-
-/* =========================================================
-   MIRA OPEN / CLOSE
-========================================================= */
-
-function openMira() {
-
-    miraPanel.classList.add(
-        "open"
-    );
-
-
-    setTimeout(
-        () => {
-
-            miraInput.focus();
-
-        },
-        250
-    );
-
-}
-
-
-function closeMira() {
-
-    miraPanel.classList.remove(
-        "open"
-    );
-
-}
-
-
-miraButton.addEventListener(
-    "click",
-    () => {
-
-        if (
-            miraPanel.classList.contains(
-                "open"
-            )
-        ) {
-
-            closeMira();
-
-        } else {
-
-            openMira();
-
-        }
-
-    }
-);
-
-
-miraClose.addEventListener(
-    "click",
-    closeMira
-);
-
-
-
-/* =========================================================
-   MIRA KNOWLEDGE
-========================================================= */
-
-const miraKnowledge = {
-
-    identity: {
-
-        keywords: [
-            "who",
-            "shreeyans",
-            "about him",
-            "about shreeyans",
-            "what does he do"
-        ],
-
-        answer:
-            "Shreeyans is an engineering aspirant and creative technologist interested in front-end development, creative coding, interactive 3D experiences, physics, mathematics, art and writing."
-
-    },
-
-
-    projects: {
-
-        keywords: [
-            "project",
-            "projects",
-            "work",
-            "built",
-            "particle",
-            "camlab",
-            "unity",
-            "game"
-        ],
-
-        answer:
-            "His work includes a real-time hand-gesture 3D particle system, Camlab, and a Unity-based 3D game development experiment. The particle system is a strong example of his interest in combining technical logic with interactive visual experiences."
-
-    },
-
-
-    skills: {
-
-        keywords: [
-            "skill",
-            "skills",
-            "technology",
-            "technologies",
-            "coding",
-            "code",
-            "programming",
-            "javascript",
-            "python",
-            "three",
-            "webgl"
-        ],
-
-        answer:
-            "His current skills include HTML, CSS, JavaScript and Python. He is also developing his abilities with Three.js, WebGL, creative coding, UI/UX and interactive web animation."
-
-    },
-
-
-    art: {
-
-        keywords: [
-            "art",
-            "arts",
-            "artwork",
-            "drawing",
-            "drawings",
-            "sketch",
-            "sketches",
-            "visual"
-        ],
-
-        answer:
-            "The Art collection contains 10 visual works, ranging from sketches and visual studies to personal experiments. They are presented separately from his poetry archive.",
-
-        target: "#art"
-
-    },
-
-
-    poetry: {
-
-        keywords: [
-            "poetry",
-            "poem",
-            "poems",
-            "writing",
-            "written",
-            "poetry pages",
-            "poetic"
-        ],
-
-        answer:
-            "The Poetry collection contains 11 pages of handwritten writing and observations. They are presented as a separate collection from the visual artwork.",
-
-        target: "#poetry"
-
-    },
-
-
-    creative: {
-
-        keywords: [
-            "creative",
-            "creative archive",
-            "archive"
-        ],
-
-        answer:
-            "The Creative Archive has two separate collections: Art, with 10 visual works, and Poetry, with 11 handwritten pages.",
-
-        target: "#archive"
-
-    },
-
-
-    thinking: {
-
-        keywords: [
-            "think",
-            "thinking",
-            "approach",
-            "problem",
-            "problem solving",
-            "logic",
-            "learn"
-        ],
-
-        answer:
-            "His approach is to break complicated things down to their fundamentals, understand the logic behind them, then rebuild and refine. He prefers understanding over blindly following shortcuts."
-
-    },
-
-
-    future: {
-
-        keywords: [
-            "future",
-            "goal",
-            "goals",
-            "dream",
-            "career",
-            "next"
-        ],
-
-        answer:
-            "His long-term direction is engineering combined with software and creative technology. He is particularly interested in advanced 3D web development, GLSL shaders, WebGL, browser simulations, performance and immersive interfaces.",
-
-        target: "#future"
-
-    },
-
-
-    physics: {
-
-        keywords: [
-            "physics",
-            "math",
-            "mathematics",
-            "jee",
-            "engineering"
-        ],
-
-        answer:
-            "Physics and mathematics form an important foundation for his engineering preparation and problem-solving approach."
-
-    },
-
-
-    contact: {
-
-        keywords: [
-            "contact",
-            "email",
-            "mail",
-            "reach"
-        ],
-
-        answer:
-            "You can reach Shreeyans at Shreeyansraj463@gmail.com. His GitHub and X profiles are also linked in the Contact section.",
-
-        target: "#contact"
+      heroContent.style.transform =
+        `translate3d(
+          ${currentX * -5}px,
+          ${currentY * -4}px,
+          0
+        )`;
 
     }
 
-};
+    if (heroMark) {
+
+      heroMark.style.transform =
+        `translate3d(
+          ${currentX * 20}px,
+          ${currentY * 20}px,
+          0
+        )`;
+
+    }
+
+    requestAnimationFrame(animateParallax);
+  }
+
+  animateParallax();
 
 
+  /* =======================================================
+     PROJECT TILT
+  ======================================================== */
 
-/* =========================================================
-   NORMALIZE
-========================================================= */
+  const projectVisuals =
+    document.querySelectorAll(".project-visual");
 
-function normalize(text) {
+  projectVisuals.forEach(visual => {
 
-    return text
+    visual.addEventListener("mousemove", event => {
+
+      const rect =
+        visual.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) /
+        rect.width -
+        .5;
+
+      const y =
+        (event.clientY - rect.top) /
+        rect.height -
+        .5;
+
+      visual.style.transform =
+        `perspective(1000px)
+         rotateX(${y * -2.5}deg)
+         rotateY(${x * 2.5}deg)`;
+
+    });
+
+
+    visual.addEventListener("mouseleave", () => {
+
+      visual.style.transform =
+        "perspective(1000px) rotateX(0) rotateY(0)";
+
+    });
+
+  });
+
+
+  /* =======================================================
+     MIRA
+  ======================================================== */
+
+  const miraRoot =
+    document.querySelector(".mira-root");
+
+  const miraOrb =
+    document.getElementById("miraOrb");
+
+  const miraPanel =
+    document.getElementById("miraPanel");
+
+  const miraClose =
+    document.getElementById("miraClose");
+
+  const miraForm =
+    document.getElementById("miraForm");
+
+  const miraInput =
+    document.getElementById("miraInput");
+
+  const miraMessages =
+    document.getElementById("miraMessages");
+
+  const quickButtons =
+    document.querySelectorAll(".mira-quick button");
+
+
+  function openMira() {
+
+    miraRoot.classList.add("open");
+
+    miraOrb.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    document.body.classList.add("mira-open");
+
+    setTimeout(() => {
+      miraInput.focus();
+    }, 450);
+
+  }
+
+
+  function closeMira() {
+
+    miraRoot.classList.remove("open");
+
+    miraOrb.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+    document.body.classList.remove("mira-open");
+
+  }
+
+
+  miraOrb.addEventListener("click", openMira);
+
+  miraClose.addEventListener("click", closeMira);
+
+
+  /* =======================================================
+     MIRA KNOWLEDGE
+  ======================================================== */
+
+  const knowledge = {
+
+    intro:
+      "Shreeyans is an engineering aspirant and creative technologist interested in front-end development, creative coding, interactive experiences, physics, visual art and writing.",
+
+    projects:
+      "His main projects include a real-time hand-gesture 3D particle system using Three.js and MediaPipe, Camlab, an interactive front-end laboratory, and a Unity 3D multiplayer game starter.",
+
+    bestProject:
+      "The Hand-Gesture 3D Particle System probably represents him best. It combines webcam interaction, MediaPipe Hands, Three.js, WebGL and real-time visual behaviour.",
+
+    skills:
+      "He works with HTML, CSS and JavaScript comfortably, uses Python, is developing his Three.js and creative coding skills, and has a strong foundation in physics and mathematics. He is also interested in UI, UX, writing and sketching.",
+
+    art:
+      "The Creative Archive contains his artwork and visual experiments. He uses sketching and visual work as a creative outlet outside programming.",
+
+    poetry:
+      "His poetry collection includes pieces such as From Bloom to Dusk, Uneven Promise and Before it was Plucked. His writing tends to explore time, change, relationships and observation.",
+
+    thinking:
+      "His approach is to break complicated things down to their fundamentals, understand the logic, build a solution and then refine it rather than relying on brute force.",
+
+    future:
+      "He wants to move deeper into advanced 3D web development, GLSL shaders, complex geometry, performance optimisation and immersive interactive digital experiences.",
+
+    physics:
+      "Physics is an important part of his interests and JEE preparation. He enjoys going beyond exam-level understanding and exploring how physical ideas connect with computation and visualisation.",
+
+    music:
+      "Music is one of his creative outlets. His interests span artists and styles ranging from KK and Nusrat Fateh Ali Khan to John Mayer and The Weeknd.",
+
+    current:
+      "Right now the main focus is JEE preparation, front-end development, creative coding and improving his ability to build polished interactive experiences."
+
+  };
+
+
+  function getMiraResponse(question) {
+
+    const q =
+      question
         .toLowerCase()
-        .replace(/[^\w\s]/g, " ")
-        .replace(/\s+/g, " ")
         .trim();
-
-}
-
-
-
-/* =========================================================
-   FIND MIRA RESPONSE
-========================================================= */
-
-function getMiraResponse(
-    question
-) {
-
-    const text =
-        normalize(question);
-
-
-    let bestMatch = null;
-
-    let bestScore = 0;
-
-
-    Object.values(
-        miraKnowledge
-    ).forEach(
-        category => {
-
-            let score = 0;
-
-
-            category.keywords.forEach(
-                keyword => {
-
-                    const normalized =
-                        normalize(keyword);
-
-
-                    if (
-                        text.includes(
-                            normalized
-                        )
-                    ) {
-
-                        score +=
-                            normalized.split(" ").length;
-
-                    }
-
-                }
-            );
-
-
-            if (
-                score > bestScore
-            ) {
-
-                bestScore =
-                    score;
-
-                bestMatch =
-                    category;
-
-            }
-
-        }
-    );
-
-
-    if (bestMatch) {
-
-        return bestMatch;
-
-    }
-
-
-    return {
-
-        answer:
-            "I don't have a specific answer for that yet. Try asking me about his projects, skills, art, poetry, thinking style or future direction.",
-
-        target: null
-
-    };
-
-}
-
-
-
-/* =========================================================
-   MIRA MESSAGE
-========================================================= */
-
-function addMiraMessage(
-    text,
-    type,
-    target = null,
-    label = null
-) {
-
-    const bubble =
-        document.createElement(
-            "div"
-        );
-
-
-    bubble.className =
-        `mira-bubble ${type}`;
-
-
-    bubble.textContent =
-        text;
 
 
     if (
-        target &&
-        type === "mira"
+      q.includes("best project") ||
+      q.includes("favorite project") ||
+      q.includes("favourite project")
     ) {
-
-        const source =
-            document.createElement(
-                "button"
-            );
-
-
-        source.className =
-            "mira-source";
-
-
-        source.textContent =
-            `View ${label || "section"} →`;
-
-
-        source.addEventListener(
-            "click",
-            () => {
-
-                closeMira();
-
-
-                const destination =
-                    document.querySelector(
-                        target
-                    );
-
-
-                if (
-                    !destination
-                ) return;
-
-
-                destination.scrollIntoView(
-                    {
-                        behavior: "smooth",
-                        block: "start"
-                    }
-                );
-
-            }
-        );
-
-
-        bubble.appendChild(
-            source
-        );
-
+      return knowledge.bestProject;
     }
 
 
-    miraChat.appendChild(
-        bubble
-    );
+    if (
+      q.includes("project") ||
+      q.includes("build") ||
+      q.includes("built")
+    ) {
+      return knowledge.projects;
+    }
 
 
-    miraChat.scrollTop =
-        miraChat.scrollHeight;
-
-}
-
-
-
-/* =========================================================
-   ASK MIRA
-========================================================= */
-
-function askMira(
-    question
-) {
-
-    const clean =
-        question.trim();
+    if (
+      q.includes("skill") ||
+      q.includes("code") ||
+      q.includes("language") ||
+      q.includes("technology") ||
+      q.includes("tech stack")
+    ) {
+      return knowledge.skills;
+    }
 
 
-    if (!clean) return;
+    if (
+      q.includes("art") ||
+      q.includes("drawing") ||
+      q.includes("sketch")
+    ) {
+      return knowledge.art;
+    }
 
 
-    addMiraMessage(
-        clean,
-        "user"
-    );
+    if (
+      q.includes("poem") ||
+      q.includes("poetry") ||
+      q.includes("writing")
+    ) {
+      return knowledge.poetry;
+    }
 
+
+    if (
+      q.includes("think") ||
+      q.includes("approach") ||
+      q.includes("process")
+    ) {
+      return knowledge.thinking;
+    }
+
+
+    if (
+      q.includes("future") ||
+      q.includes("goal") ||
+      q.includes("want to")
+    ) {
+      return knowledge.future;
+    }
+
+
+    if (
+      q.includes("physics") ||
+      q.includes("jee") ||
+      q.includes("math")
+    ) {
+      return knowledge.physics;
+    }
+
+
+    if (
+      q.includes("music") ||
+      q.includes("song") ||
+      q.includes("listen")
+    ) {
+      return knowledge.music;
+    }
+
+
+    if (
+      q.includes("now") ||
+      q.includes("current") ||
+      q.includes("focus")
+    ) {
+      return knowledge.current;
+    }
+
+
+    if (
+      q.includes("who") ||
+      q.includes("about") ||
+      q.includes("shreeyans") ||
+      q.includes("yourself")
+    ) {
+      return knowledge.intro;
+    }
+
+
+    if (
+      q.includes("hello") ||
+      q.includes("hi") ||
+      q.includes("hey")
+    ) {
+      return "Hey. I'm Mira. Ask me anything about the work, the ideas behind it, or the person building it.";
+    }
+
+
+    return "I can tell you about the projects, skills, creative archive, poetry, thinking process, current focus or future direction. Try asking me about one of those.";
+  }
+
+
+  function addMessage(text, type) {
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      `mira-message ${type}`;
+
+    message.textContent = text;
+
+    miraMessages.appendChild(message);
+
+    miraMessages.scrollTop =
+      miraMessages.scrollHeight;
+
+  }
+
+
+  function askMira(question) {
+
+    if (!question.trim()) return;
+
+    addMessage(question, "user");
 
     miraInput.value = "";
 
+    setTimeout(() => {
 
-    const result =
-        getMiraResponse(
-            clean
-        );
+      const response =
+        getMiraResponse(question);
+
+      addMessage(response, "bot");
+
+    }, 500);
+
+  }
 
 
-    let label = null;
+  miraForm.addEventListener("submit", event => {
 
+    event.preventDefault();
+
+    askMira(miraInput.value);
+
+  });
+
+
+  quickButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      askMira(
+        button.dataset.question
+      );
+
+    });
+
+  });
+
+
+  /* =======================================================
+     CLOSE MIRA WITH ESC
+  ======================================================== */
+
+  document.addEventListener("keydown", event => {
 
     if (
-        result.target === "#art"
+      event.key === "Escape" &&
+      miraRoot.classList.contains("open")
     ) {
 
-        label = "Art";
-
-    } else if (
-        result.target === "#poetry"
-    ) {
-
-        label = "Poetry";
-
-    } else if (
-        result.target === "#archive"
-    ) {
-
-        label = "Creative Archive";
-
-    } else if (
-        result.target === "#work"
-    ) {
-
-        label = "Projects";
-
-    } else if (
-        result.target === "#future"
-    ) {
-
-        label = "Future";
-
-    } else if (
-        result.target === "#contact"
-    ) {
-
-        label = "Contact";
+      closeMira();
 
     }
 
-
-    setTimeout(
-        () => {
-
-            addMiraMessage(
-                result.answer,
-                "mira",
-                result.target,
-                label
-            );
-
-        },
-        300
-    );
-
-}
+  });
 
 
+  /* =======================================================
+     MIRA INTRO
+  ======================================================== */
 
-/* =========================================================
-   MIRA FORM
-========================================================= */
+  setTimeout(() => {
 
-miraForm.addEventListener(
-    "submit",
-    event => {
+    if (!sessionStorage.getItem("miraIntroduced")) {
 
-        event.preventDefault();
-
-        askMira(
-            miraInput.value
-        );
-
-    }
-);
-
-
-
-/* =========================================================
-   MIRA QUICK QUESTIONS
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".mira-quick button"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    askMira(
-                        button.dataset.question
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeMira();
-
-            closeLightbox();
-
-        }
-
-    }
-);
-
-
-
-/* =========================================================
-   ACTIVE NAV
-========================================================= */
-
-const navLinks =
-    document.querySelectorAll(
-        ".nav-links a"
-    );
-
-const sections =
-    document.querySelectorAll(
-        "section[id]"
-    );
-
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    if (
-                        !entry.isIntersecting
-                    ) return;
-
-
-                    navLinks.forEach(
-                        link => {
-
-                            link.style.color =
-                                "";
-
-
-                            if (
-                                link.getAttribute(
-                                    "href"
-                                ) ===
-                                `#${entry.target.id}`
-                            ) {
-
-                                link.style.color =
-                                    "#b89a5a";
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-        },
+      miraOrb.animate(
+        [
+          {
+            transform: "scale(1)"
+          },
+          {
+            transform: "scale(1.16)"
+          },
+          {
+            transform: "scale(1)"
+          }
+        ],
         {
-            rootMargin:
-                "-40% 0px -50% 0px"
+          duration: 900,
+          easing: "ease-out"
         }
-    );
+      );
+
+      sessionStorage.setItem(
+        "miraIntroduced",
+        "true"
+      );
+
+    }
+
+  }, 1800);
 
 
-sections.forEach(
-    section =>
-        observer.observe(
-            section
-        )
-);
+  /* =======================================================
+     MIRA ORB MOUSE RESPONSE
+  ======================================================== */
+
+  miraOrb.addEventListener("mousemove", event => {
+
+    const rect =
+      miraOrb.getBoundingClientRect();
+
+    const x =
+      (event.clientX - rect.left) /
+      rect.width -
+      .5;
+
+    const y =
+      (event.clientY - rect.top) /
+      rect.height -
+      .5;
+
+    miraOrb.querySelector(".mira-orb").style.transform =
+      `translate(
+        ${x * 5}px,
+        ${y * 5}px
+      ) scale(1.05)`;
+
+  });
+
+
+  miraOrb.addEventListener("mouseleave", () => {
+
+    miraOrb.querySelector(".mira-orb").style.transform =
+      "";
+
+  });
+
+
+  /* =======================================================
+     SCROLL DEPTH
+  ======================================================== */
+
+  const goldGlowOne =
+    document.querySelector(".glow-one");
+
+  const goldGlowTwo =
+    document.querySelector(".glow-two");
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      const scroll =
+        window.scrollY;
+
+      if (goldGlowOne) {
+
+        goldGlowOne.style.transform =
+          `translateY(${scroll * .025}px)`;
+
+      }
+
+      if (goldGlowTwo) {
+
+        goldGlowTwo.style.transform =
+          `translateY(${-scroll * .018}px)`;
+
+      }
+
+    },
+    { passive: true }
+  );
+
+
+});

@@ -1,20 +1,37 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
-  const reduced=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  "use strict";
 
 
-  /* =====================================================
+  /* =========================================================
+     GLOBAL
+  ========================================================= */
+
+  const reduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+
+  /* =========================================================
      PERSONAL PROFILE
-  ===================================================== */
+  ========================================================= */
 
-  const profileTrigger=document.getElementById("profileTrigger");
-  const profileOverlay=document.getElementById("profileOverlay");
-  const profileClose=document.getElementById("profileClose");
-  const profileBackdrop=document.getElementById("profileBackdrop");
+  const profileTrigger =
+    document.getElementById("profileTrigger");
+
+  const profileOverlay =
+    document.getElementById("profileOverlay");
+
+  const profileClose =
+    document.getElementById("profileClose");
+
+  const profileBackdrop =
+    document.getElementById("profileBackdrop");
+
 
   function openProfile(){
 
-    if(!profileOverlay)return;
+    if(!profileOverlay) return;
 
     profileOverlay.classList.add("open");
 
@@ -28,19 +45,24 @@ document.addEventListener("DOMContentLoaded",()=>{
       "true"
     );
 
-    document.body.classList.add("locked");
+    document.body.classList.add(
+      "locked"
+    );
 
-    setTimeout(()=>{
+    window.setTimeout(() => {
       profileClose?.focus();
-    },100);
+    }, 120);
+
   }
 
 
   function closeProfile(){
 
-    if(!profileOverlay)return;
+    if(!profileOverlay) return;
 
-    profileOverlay.classList.remove("open");
+    profileOverlay.classList.remove(
+      "open"
+    );
 
     profileOverlay.setAttribute(
       "aria-hidden",
@@ -52,9 +74,12 @@ document.addEventListener("DOMContentLoaded",()=>{
       "false"
     );
 
-    document.body.classList.remove("locked");
+    document.body.classList.remove(
+      "locked"
+    );
 
     profileTrigger?.focus();
+
   }
 
 
@@ -74,69 +99,127 @@ document.addEventListener("DOMContentLoaded",()=>{
   );
 
 
-  /* =====================================================
+  /* =========================================================
      ARCHIVE
-  ===================================================== */
+  ========================================================= */
 
-  const art=[
+  const art = [
+
     "20260126_150411.jpg",
+
     "IMG-20250829-WA0008.jpg",
+
     "IMG_20251019_003614078_HDR.jpg",
+
     "IMG_20251019_003637605_HDR.jpg",
+
     "IMG_20251019_004046619_HDR~2.jpg",
+
     "IMG_20251117_032352_534.jpg",
+
     "IMG_20251117_032354_002.jpg",
+
     "IMG_20251117_032357_284.jpg",
+
     "IMG_20251117_032405_870.jpg",
+
     "IMG_20260607_184756768.jpg"
+
   ];
 
-  const poetry=[
+
+  const poetry = [
+
     "Screenshot_20261007-045758_Files by Google.png",
+
     "Screenshot_20261007-045745_Files by Google.png",
+
     "Screenshot_20261007-045733_Files by Google.png",
+
     "Screenshot_20261007-045720_Files by Google.png",
+
     "Screenshot_20261007-045706_Files by Google.png",
+
     "IMG_20261006_193525_532.webp",
+
     "IMG_20261006_193516_352.webp",
+
     "IMG_20261006_193503_673.webp",
+
     "IMG_20261005_012646332_HDR~2.jpg",
+
     "IMG_20260928_025833148_HDR~2.jpg",
+
     "IMG_20260928_025657503_HDR.jpg"
+
   ];
 
-  const path=f=>
-    "./"+f.split("/").map(encodeURIComponent).join("/");
+
+  function imagePath(file){
+
+    return "./" +
+      file
+        .split("/")
+        .map(
+          part => encodeURIComponent(part)
+        )
+        .join("/");
+
+  }
 
 
-  function gallery(id,list,type){
+  function gallery(
+    id,
+    list,
+    type
+  ){
 
-    const el=document.getElementById(id);
+    const element =
+      document.getElementById(id);
 
-    if(!el)return;
+    if(!element) return;
 
-    list.forEach((file,i)=>{
 
-      const button=document.createElement("button");
-      const img=document.createElement("img");
+    list.forEach((file,index) => {
 
-      button.type="button";
+      const button =
+        document.createElement("button");
 
-      img.src=path(file);
-      img.alt=`${type} ${i+1}`;
-      img.loading="lazy";
-      img.decoding="async";
+      const image =
+        document.createElement("img");
 
-      button.appendChild(img);
-      el.appendChild(button);
+
+      button.type = "button";
+
+      image.src =
+        imagePath(file);
+
+      image.alt =
+        `${type} ${index + 1}`;
+
+      image.loading =
+        "lazy";
+
+      image.decoding =
+        "async";
+
+
+      button.appendChild(image);
+
+      element.appendChild(button);
+
 
       button.addEventListener(
         "click",
-        ()=>{
+        () => {
+
           openLightbox(
-            img.src,
-            `${type.toUpperCase()} · ${String(i+1).padStart(2,"0")}`
+            image.src,
+            `${type.toUpperCase()} · ${String(
+              index + 1
+            ).padStart(2,"0")}`
           );
+
         }
       );
 
@@ -144,130 +227,233 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   }
 
-  gallery("artGallery",art,"Art");
-  gallery("poetryGallery",poetry,"Poetry");
+
+  gallery(
+    "artGallery",
+    art,
+    "Art"
+  );
+
+  gallery(
+    "poetryGallery",
+    poetry,
+    "Poetry"
+  );
 
 
-  /* =====================================================
-     REVEALS
-  ===================================================== */
+  /* =========================================================
+     REVEAL ANIMATIONS
+  ========================================================= */
 
-  const reveals=[
+  const reveals = [
     ...document.querySelectorAll(".reveal")
   ];
+
 
   if(
     !reduced &&
     "IntersectionObserver" in window
   ){
 
-    const observer=new IntersectionObserver(
-      entries=>{
+    const observer =
+      new IntersectionObserver(
+        entries => {
 
-        entries.forEach(entry=>{
+          entries.forEach(entry => {
 
-          if(!entry.isIntersecting)return;
+            if(!entry.isIntersecting){
+              return;
+            }
 
-          const siblings=[
-            ...entry.target.parentElement.children
-          ].filter(
-            x=>x.classList.contains("reveal")
-          );
 
-          const index=Math.max(
-            0,
-            siblings.indexOf(entry.target)
-          );
+            const siblings = [
+              ...entry
+                .target
+                .parentElement
+                .children
+            ]
+            .filter(
+              element =>
+                element.classList.contains(
+                  "reveal"
+                )
+            );
 
-          entry.target.style.transitionDelay=
-            `${Math.min(index*55,240)}ms`;
 
-          entry.target.classList.add("visible");
+            const index =
+              Math.max(
+                0,
+                siblings.indexOf(
+                  entry.target
+                )
+              );
 
-          observer.unobserve(entry.target);
 
-        });
+            entry.target.style.transitionDelay =
+              `${Math.min(
+                index * 55,
+                240
+              )}ms`;
 
-      },
-      {
-        threshold:.08,
-        rootMargin:"0px 0px -45px"
-      }
-    );
+
+            entry.target.classList.add(
+              "visible"
+            );
+
+
+            observer.unobserve(
+              entry.target
+            );
+
+          });
+
+        },
+        {
+          threshold:.08,
+
+          rootMargin:
+            "0px 0px -45px 0px"
+        }
+      );
+
 
     reveals.forEach(
-      x=>observer.observe(x)
+      element =>
+        observer.observe(element)
     );
 
   }else{
 
     reveals.forEach(
-      x=>x.classList.add("visible")
+      element =>
+        element.classList.add(
+          "visible"
+        )
     );
 
   }
 
 
-  /* =====================================================
-     MOBILE NAV
-  ===================================================== */
+  /* =========================================================
+     MOBILE NAVIGATION
+  ========================================================= */
 
-  const menu=document.getElementById("menu");
-  const mobile=document.getElementById("mobileMenu");
+  const menu =
+    document.getElementById("menu");
+
+  const mobile =
+    document.getElementById(
+      "mobileMenu"
+    );
+
 
   function closeMenu(){
-    mobile?.classList.remove("open");
+
+    mobile?.classList.remove(
+      "open"
+    );
+
+    menu?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
   }
+
+
+  function toggleMenu(){
+
+    if(!mobile) return;
+
+    const open =
+      mobile.classList.toggle(
+        "open"
+      );
+
+
+    menu?.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
+
+  }
+
 
   menu?.addEventListener(
     "click",
-    ()=>{
-      mobile?.classList.toggle("open");
-    }
+    toggleMenu
   );
 
-  mobile?.querySelectorAll("a").forEach(a=>{
-    a.addEventListener(
-      "click",
-      closeMenu
-    );
-  });
+
+  mobile
+    ?.querySelectorAll("a")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        closeMenu
+      );
+
+    });
 
 
-  /* =====================================================
-     ACTIVE NAV
-  ===================================================== */
+  /* =========================================================
+     ACTIVE NAVIGATION
+  ========================================================= */
 
-  const nav=[
-    ...document.querySelectorAll(".nav-links a")
+  const navLinks = [
+    ...document.querySelectorAll(
+      ".nav-links a"
+    )
   ];
 
-  if("IntersectionObserver" in window){
 
-    const io=new IntersectionObserver(
-      entries=>{
+  if(
+    "IntersectionObserver" in window
+  ){
 
-        entries.forEach(entry=>{
+    const navObserver =
+      new IntersectionObserver(
+        entries => {
 
-          if(!entry.isIntersecting)return;
+          entries.forEach(entry => {
 
-          nav.forEach(
-            x=>x.classList.remove("active")
-          );
+            if(!entry.isIntersecting){
+              return;
+            }
 
-          const link=nav.find(
-            x=>x.getAttribute("href")===`#${entry.target.id}`
-          );
 
-          link?.classList.add("active");
+            navLinks.forEach(
+              link =>
+                link.classList.remove(
+                  "active"
+                )
+            );
 
-        });
 
-      },
-      {
-        rootMargin:"-38% 0px -55% 0px"
-      }
-    );
+            const active =
+              navLinks.find(
+                link =>
+                  link.getAttribute(
+                    "href"
+                  ) ===
+                  `#${entry.target.id}`
+              );
+
+
+            active?.classList.add(
+              "active"
+            );
+
+          });
+
+        },
+        {
+          rootMargin:
+            "-38% 0px -55% 0px"
+        }
+      );
+
 
     [
       "about",
@@ -276,58 +462,93 @@ document.addEventListener("DOMContentLoaded",()=>{
       "thinking",
       "contact"
     ]
-      .map(id=>document.getElementById(id))
-      .filter(Boolean)
-      .forEach(x=>io.observe(x));
+    .map(
+      id =>
+        document.getElementById(id)
+    )
+    .filter(Boolean)
+    .forEach(
+      section =>
+        navObserver.observe(section)
+    );
 
   }
 
 
-  /* =====================================================
+  /* =========================================================
      CURSOR LIGHT
-  ===================================================== */
+  ========================================================= */
 
-  const cursor=
-    document.querySelector(".cursor-light");
+  const cursor =
+    document.querySelector(
+      ".cursor-light"
+    );
+
 
   if(
     cursor &&
     !reduced &&
-    matchMedia("(pointer:fine)").matches
+    window.matchMedia(
+      "(pointer:fine)"
+    ).matches
   ){
 
-    let tx=0;
-    let ty=0;
-    let x=0;
-    let y=0;
-    let frame=false;
+    let targetX = 0;
+    let targetY = 0;
 
-    addEventListener(
+    let currentX = 0;
+    let currentY = 0;
+
+    let frameRunning = false;
+
+
+    window.addEventListener(
       "pointermove",
-      e=>{
+      event => {
 
-        tx=e.clientX;
-        ty=e.clientY;
+        targetX =
+          event.clientX;
+
+        targetY =
+          event.clientY;
+
 
         document.body.classList.add(
           "pointer"
         );
 
-        if(frame)return;
 
-        frame=true;
+        if(frameRunning){
+          return;
+        }
 
-        requestAnimationFrame(()=>{
 
-          x+=(tx-x)*.16;
-          y+=(ty-y)*.16;
+        frameRunning = true;
 
-          cursor.style.left=`${x}px`;
-          cursor.style.top=`${y}px`;
 
-          frame=false;
+        requestAnimationFrame(
+          () => {
 
-        });
+            currentX +=
+              (targetX - currentX)
+              * .16;
+
+            currentY +=
+              (targetY - currentY)
+              * .16;
+
+
+            cursor.style.left =
+              `${currentX}px`;
+
+            cursor.style.top =
+              `${currentY}px`;
+
+
+            frameRunning = false;
+
+          }
+        );
 
       },
       {
@@ -338,68 +559,91 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 
-  /* =====================================================
+  /* =========================================================
      PROJECT TILT
-  ===================================================== */
+  ========================================================= */
 
   if(
     !reduced &&
-    matchMedia("(pointer:fine)").matches
+    window.matchMedia(
+      "(pointer:fine)"
+    ).matches
   ){
 
     document
       .querySelectorAll(".project")
-      .forEach(project=>{
+      .forEach(project => {
 
-        const visual=
+        const visual =
           project.querySelector(
             ".project-visual"
           );
 
-        if(!visual)return;
+
+        if(!visual){
+          return;
+        }
+
 
         project.addEventListener(
           "pointermove",
-          e=>{
+          event => {
 
-            const r=
+            const rect =
               project.getBoundingClientRect();
 
-            const px=
-              (e.clientX-r.left)/r.width;
 
-            const py=
-              (e.clientY-r.top)/r.height;
+            const px =
+              (event.clientX - rect.left)
+              / rect.width;
 
-            visual.style.transform=
+
+            const py =
+              (event.clientY - rect.top)
+              / rect.height;
+
+
+            const rotateX =
+              (0.5 - py) * 4;
+
+            const rotateY =
+              (px - 0.5) * 4;
+
+
+            visual.style.transform =
               `perspective(1400px)
-               rotateX(${(0.5-py)*4}deg)
-               rotateY(${(px-0.5)*4}deg)`;
+               rotateX(${rotateX}deg)
+               rotateY(${rotateY}deg)`;
+
 
             visual.style.setProperty(
               "--x",
-              `${px*100}%`
+              `${px * 100}%`
             );
+
 
             visual.style.setProperty(
               "--y",
-              `${py*100}%`
+              `${py * 100}%`
             );
 
           }
         );
 
+
         project.addEventListener(
           "pointerleave",
-          ()=>{
+          () => {
 
-            visual.style.transform=
+            visual.style.transform =
               "perspective(1400px) rotateX(0deg) rotateY(0deg)";
+
 
             visual.style.setProperty(
               "--x",
               "50%"
             );
+
 
             visual.style.setProperty(
               "--y",
@@ -414,34 +658,65 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 
-  /* =====================================================
+  /* =========================================================
      LIGHTBOX
-  ===================================================== */
+  ========================================================= */
 
-  const lightbox=
-    document.getElementById("lightbox");
+  const lightbox =
+    document.getElementById(
+      "lightbox"
+    );
 
-  const lightboxImage=
-    document.getElementById("lightboxImage");
+  const lightboxImage =
+    document.getElementById(
+      "lightboxImage"
+    );
 
-  const caption=
-    document.getElementById("lightboxCaption");
+  const lightboxCaption =
+    document.getElementById(
+      "lightboxCaption"
+    );
 
 
-  function openLightbox(src,text){
+  function openLightbox(
+    src,
+    text
+  ){
 
-    lightbox?.classList.add("open");
+    if(!lightbox){
+      return;
+    }
+
+
+    lightbox.classList.add(
+      "open"
+    );
+
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
 
     document.body.classList.add(
       "locked"
     );
 
+
     if(lightboxImage){
-      lightboxImage.src=src;
+
+      lightboxImage.src =
+        src;
+
     }
 
-    if(caption){
-      caption.textContent=text;
+
+    if(lightboxCaption){
+
+      lightboxCaption.textContent =
+        text;
+
     }
 
   }
@@ -449,9 +724,21 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   function closeLightbox(){
 
-    lightbox?.classList.remove(
+    if(!lightbox){
+      return;
+    }
+
+
+    lightbox.classList.remove(
       "open"
     );
+
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
 
     document.body.classList.remove(
       "locked"
@@ -461,7 +748,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
   document
-    .getElementById("lightboxClose")
+    .getElementById(
+      "lightboxClose"
+    )
     ?.addEventListener(
       "click",
       closeLightbox
@@ -470,46 +759,73 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   lightbox?.addEventListener(
     "click",
-    e=>{
-      if(e.target===lightbox){
+    event => {
+
+      if(
+        event.target === lightbox
+      ){
+
         closeLightbox();
+
       }
+
     }
   );
 
 
-  /* =====================================================
+  /* =========================================================
      MIRA
-  ===================================================== */
+  ========================================================= */
 
-  const miraButton=
-    document.getElementById("miraButton");
+  const miraButton =
+    document.getElementById(
+      "miraButton"
+    );
 
-  const miraPanel=
-    document.getElementById("miraPanel");
+  const miraPanel =
+    document.getElementById(
+      "miraPanel"
+    );
 
-  const miraClose=
-    document.getElementById("miraClose");
+  const miraClose =
+    document.getElementById(
+      "miraClose"
+    );
 
-  const messages=
-    document.getElementById("messages");
+  const messages =
+    document.getElementById(
+      "messages"
+    );
 
-  const typing=
-    document.getElementById("typing");
+  const typing =
+    document.getElementById(
+      "typing"
+    );
 
-  const form=
-    document.getElementById("miraForm");
+  const miraForm =
+    document.getElementById(
+      "miraForm"
+    );
 
-  const input=
-    document.getElementById("miraInput");
+  const miraInput =
+    document.getElementById(
+      "miraInput"
+    );
 
-  let miraOpen=false;
-  let timer=null;
+
+  let miraOpen = false;
+
+  let responseTimer = null;
 
 
-  const knowledge={
+  /* =========================================================
+     MIRA KNOWLEDGE
+  ========================================================= */
 
-    projects:{
+  const knowledge = {
+
+    projects: {
+
       keys:[
         "project",
         "projects",
@@ -517,13 +833,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "work",
         "portfolio"
       ],
+
       text:
         "There are three featured projects. The Hand-Gesture 3D Particle System is the strongest representation of the current direction, using Three.js, MediaPipe Hands and WebGL. Camlab explores interface and motion design, while the Unity project explores 3D game systems and physics.",
+
       target:"#work",
+
       label:"View selected work"
+
     },
 
-    particle:{
+
+    particle: {
+
       keys:[
         "particle",
         "gesture",
@@ -532,13 +854,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "webgl",
         "mediapipe"
       ],
+
       text:
         "The Hand-Gesture 3D Particle System turns webcam hand movement into real-time interaction with a Three.js particle environment.",
+
       target:"#work",
+
       label:"View project"
+
     },
 
-    camlab:{
+
+    camlab: {
+
       keys:[
         "camlab",
         "interface",
@@ -546,13 +874,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "ux",
         "frontend"
       ],
+
       text:
         "Camlab is an experimental frontend project focused on interaction, smooth motion and visual presentation.",
+
       target:"#work",
+
       label:"View Camlab"
+
     },
 
-    skills:{
+
+    skills: {
+
       keys:[
         "skill",
         "skills",
@@ -561,13 +895,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "programming",
         "language"
       ],
+
       text:
         "The portfolio covers HTML, CSS, JavaScript, Python, Three.js, WebGL, UI/UX, physics, mathematics, writing and sketching. The biggest technical growth area is advanced 3D web development.",
+
       target:"#capabilities",
+
       label:"View capabilities"
+
     },
 
-    creative:{
+
+    creative: {
+
       keys:[
         "art",
         "drawing",
@@ -578,13 +918,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "poetry",
         "writing"
       ],
+
       text:
         "The creative archive contains visual art and poetry. It represents the side of the work that is less about solving a problem and more about observing, expressing and experimenting.",
+
       target:"#archive",
+
       label:"Open creative archive"
+
     },
 
-    thinking:{
+
+    thinking: {
+
       keys:[
         "think",
         "thinking",
@@ -593,13 +939,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         "fundamental",
         "approach"
       ],
+
       text:
         "The preferred approach is to break complicated problems down to fundamentals instead of brute-forcing them. Understanding why something works matters as much as making it work.",
+
       target:"#thinking",
+
       label:"See how he thinks"
+
     },
 
-    future:{
+
+    future: {
+
       keys:[
         "future",
         "goal",
@@ -609,26 +961,38 @@ document.addEventListener("DOMContentLoaded",()=>{
         "engineering",
         "next"
       ],
+
       text:
         "The long-term direction combines engineering with creative technology: advanced 3D web development, shaders, high-performance interfaces and immersive digital experiences.",
+
       target:"#future",
+
       label:"See the direction"
+
     },
 
-    about:{
+
+    about: {
+
       keys:[
         "about",
         "who",
         "shreeyans",
         "person"
       ],
+
       text:
         "Shreeyans is an engineering aspirant interested in front-end development, coding, interactive experiences, physics, visual art, writing and music.",
+
       target:"#about",
+
       label:"Read about"
+
     },
 
-    contact:{
+
+    contact: {
+
       keys:[
         "contact",
         "email",
@@ -637,27 +1001,43 @@ document.addEventListener("DOMContentLoaded",()=>{
         "opportunity",
         "collaboration"
       ],
+
       text:
         "For opportunities, collaborations or interesting projects, the contact section contains the direct email address.",
+
       target:"#contact",
+
       label:"Go to contact"
+
     }
 
   };
 
 
+  /* =========================================================
+     MIRA OPEN / CLOSE
+  ========================================================= */
+
   function openMira(){
 
-    miraOpen=true;
+    if(!miraPanel){
+      return;
+    }
 
-    miraPanel?.classList.add(
+
+    miraOpen = true;
+
+
+    miraPanel.classList.add(
       "open"
     );
+
 
     miraButton?.setAttribute(
       "aria-expanded",
       "true"
     );
+
 
     if(!reduced){
 
@@ -666,24 +1046,28 @@ document.addEventListener("DOMContentLoaded",()=>{
           {
             transform:"scale(1)"
           },
+
           {
             transform:"scale(1.08)"
           },
+
           {
             transform:"scale(1)"
           }
         ],
         {
-          duration:500,
+          duration:450,
+
           easing:"ease-out"
         }
       );
 
     }
 
-    setTimeout(
-      ()=>input?.focus(),
-      300
+
+    window.setTimeout(
+      () => miraInput?.focus(),
+      250
     );
 
   }
@@ -691,11 +1075,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   function closeMira(){
 
-    miraOpen=false;
+    miraOpen = false;
+
 
     miraPanel?.classList.remove(
       "open"
     );
+
 
     miraButton?.setAttribute(
       "aria-expanded",
@@ -705,92 +1091,138 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 
+  /* =========================================================
+     MIRA MESSAGE
+  ========================================================= */
+
   function addMessage(
     text,
-    type="bot",
-    source=null
+    type = "bot",
+    source = null
   ){
 
-    if(!messages)return;
+    if(!messages){
+      return;
+    }
 
-    const box=
-      document.createElement("div");
 
-    box.className=
+    const box =
+      document.createElement(
+        "div"
+      );
+
+
+    box.className =
       `message ${type}`;
 
-    box.textContent=text;
+
+    box.textContent =
+      text;
+
 
     if(source){
 
-      const br=
-        document.createElement("br");
+      const breakLine =
+        document.createElement(
+          "br"
+        );
 
-      const button=
-        document.createElement("button");
 
-      button.className="source";
-      button.type="button";
-      button.textContent=
+      const sourceButton =
+        document.createElement(
+          "button"
+        );
+
+
+      sourceButton.type =
+        "button";
+
+
+      sourceButton.className =
+        "source";
+
+
+      sourceButton.textContent =
         source.label;
 
-      button.onclick=()=>{
 
-        closeMira();
+      sourceButton.addEventListener(
+        "click",
+        () => {
 
-        const target=
-          document.querySelector(
-            source.target
-          );
+          closeMira();
 
-        target?.scrollIntoView({
-          behavior:
-            reduced
-              ? "auto"
-              : "smooth",
-          block:"start"
-        });
 
-        if(
-          target &&
-          !reduced
-        ){
+          const target =
+            document.querySelector(
+              source.target
+            );
 
-          target.animate(
-            [
+
+          if(!target){
+            return;
+          }
+
+
+          target.scrollIntoView({
+            behavior:
+              reduced
+                ? "auto"
+                : "smooth",
+
+            block:"start"
+          });
+
+
+          if(
+            !reduced &&
+            target.animate
+          ){
+
+            target.animate(
+              [
+                {
+                  boxShadow:
+                    "inset 0 0 0 rgba(184,154,90,0)"
+                },
+
+                {
+                  boxShadow:
+                    "inset 0 0 100px rgba(184,154,90,.08)"
+                },
+
+                {
+                  boxShadow:
+                    "inset 0 0 0 rgba(184,154,90,0)"
+                }
+              ],
               {
-                boxShadow:
-                  "inset 0 0 0 rgba(184,154,90,0)"
-              },
-              {
-                boxShadow:
-                  "inset 0 0 100px rgba(184,154,90,.08)"
-              },
-              {
-                boxShadow:
-                  "inset 0 0 0 rgba(184,154,90,0)"
+                duration:1100
               }
-            ],
-            {
-              duration:1100
-            }
-          );
+            );
+
+          }
 
         }
+      );
 
-      };
 
       box.append(
-        br,
-        button
+        breakLine,
+        sourceButton
       );
 
     }
 
-    messages.appendChild(box);
+
+    messages.appendChild(
+      box
+    );
+
 
     messages.scrollTo({
       top:messages.scrollHeight,
+
       behavior:
         reduced
           ? "auto"
@@ -800,10 +1232,16 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 
-  function response(question){
+  /* =========================================================
+     MIRA RESPONSE ENGINE
+  ========================================================= */
 
-    const q=
-      question.toLowerCase();
+  function getResponse(question){
+
+    const q =
+      question
+        .toLowerCase()
+        .trim();
 
 
     if(
@@ -813,39 +1251,46 @@ document.addEventListener("DOMContentLoaded",()=>{
     ){
 
       return {
+
         text:
           "Hey. I'm Mira. Think of me as a small guide to the portfolio. What would you like to explore?"
+
       };
 
     }
 
 
-    let best=null;
-    let score=0;
+    let best = null;
+
+    let bestScore = 0;
 
 
     Object.values(
       knowledge
-    ).forEach(item=>{
+    ).forEach(item => {
 
-      let current=0;
+      let score = 0;
 
-      item.keys.forEach(key=>{
+
+      item.keys.forEach(key => {
 
         if(q.includes(key)){
-          current+=
-            key.length>5
+
+          score +=
+            key.length > 5
               ? 2
               : 1;
+
         }
 
       });
 
 
-      if(current>score){
+      if(score > bestScore){
 
-        score=current;
-        best=item;
+        bestScore = score;
+
+        best = item;
 
       }
 
@@ -853,89 +1298,132 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
     return best || {
+
       text:
         "I don't have a specific answer for that yet. Try asking about projects, skills, creative work, thinking or future direction."
+
     };
 
   }
 
 
-  function ask(question){
+  /* =========================================================
+     ASK MIRA
+  ========================================================= */
 
-    if(!question.trim())return;
+  function askMira(question){
+
+    const cleanQuestion =
+      question.trim();
+
+
+    if(!cleanQuestion){
+      return;
+    }
+
 
     if(!miraOpen){
       openMira();
     }
 
+
     addMessage(
-      question,
+      cleanQuestion,
       "user"
     );
+
 
     typing?.classList.add(
       "show"
     );
 
+
     miraButton?.classList.add(
       "thinking"
     );
 
-    const result=
-      response(question);
 
-    clearTimeout(timer);
+    const result =
+      getResponse(
+        cleanQuestion
+      );
 
-    timer=setTimeout(
-      ()=>{
 
-        typing?.classList.remove(
-          "show"
-        );
-
-        miraButton?.classList.remove(
-          "thinking"
-        );
-
-        miraButton?.classList.add(
-          "responding"
-        );
-
-        addMessage(
-          result.text,
-          "bot",
-          result.target
-            ? {
-                target:result.target,
-                label:result.label
-              }
-            : null
-        );
-
-        setTimeout(
-          ()=>{
-            miraButton?.classList.remove(
-              "responding"
-            );
-          },
-          700
-        );
-
-      },
-      reduced
-        ? 100
-        : 500+Math.random()*400
+    window.clearTimeout(
+      responseTimer
     );
+
+
+    responseTimer =
+      window.setTimeout(
+        () => {
+
+          typing?.classList.remove(
+            "show"
+          );
+
+
+          miraButton?.classList.remove(
+            "thinking"
+          );
+
+
+          miraButton?.classList.add(
+            "responding"
+          );
+
+
+          addMessage(
+            result.text,
+
+            "bot",
+
+            result.target
+              ? {
+                  target:
+                    result.target,
+
+                  label:
+                    result.label
+                }
+
+              : null
+          );
+
+
+          window.setTimeout(
+            () => {
+
+              miraButton?.classList.remove(
+                "responding"
+              );
+
+            },
+            700
+          );
+
+
+        },
+
+        reduced
+          ? 100
+          : 500 +
+            Math.random() * 400
+      );
 
   }
 
 
   miraButton?.addEventListener(
     "click",
-    ()=>{
-      miraOpen
-        ? closeMira()
-        : openMira();
+    () => {
+
+      if(miraOpen){
+        closeMira();
+      }else{
+        openMira();
+      }
+
     }
   );
 
@@ -946,68 +1434,109 @@ document.addEventListener("DOMContentLoaded",()=>{
   );
 
 
-  form?.addEventListener(
+  miraForm?.addEventListener(
     "submit",
-    e=>{
+    event => {
 
-      e.preventDefault();
+      event.preventDefault();
 
-      const q=
-        input?.value.trim();
 
-      if(!q)return;
+      const question =
+        miraInput?.value.trim();
 
-      input.value="";
 
-      ask(q);
+      if(!question){
+        return;
+      }
+
+
+      if(miraInput){
+        miraInput.value = "";
+      }
+
+
+      askMira(
+        question
+      );
 
     }
   );
 
 
+  /* =========================================================
+     MIRA QUICK BUTTONS
+  ========================================================= */
+
   document
-    .querySelectorAll(".quick button")
-    .forEach(button=>{
+    .querySelectorAll(
+      ".quick button"
+    )
+    .forEach(button => {
 
       button.addEventListener(
         "click",
-        ()=>{
-          ask(button.dataset.q);
+        () => {
+
+          const question =
+            button.dataset.q;
+
+
+          if(question){
+            askMira(question);
+          }
+
         }
       );
 
     });
 
 
-  /* MIRA POINTER */
+  /* =========================================================
+     MIRA POINTER EFFECT
+  ========================================================= */
 
   if(
     !reduced &&
-    matchMedia("(pointer:fine)").matches
+    window.matchMedia(
+      "(pointer:fine)"
+    ).matches
   ){
 
     miraButton?.addEventListener(
       "pointermove",
-      e=>{
+      event => {
 
-        const r=
+        const rect =
           miraButton.getBoundingClientRect();
 
-        const x=
-          ((e.clientX-r.left)/r.width-.5)*8;
 
-        const y=
-          ((e.clientY-r.top)/r.height-.5)*8;
+        const x =
+          (
+            (event.clientX - rect.left)
+            / rect.width
+            - .5
+          ) * 7;
 
-        const orb=
+
+        const y =
+          (
+            (event.clientY - rect.top)
+            / rect.height
+            - .5
+          ) * 7;
+
+
+        const orb =
           miraButton.querySelector(
             ".mira-orb"
           );
+
 
         orb?.style.setProperty(
           "--mx",
           `${x}px`
         );
+
 
         orb?.style.setProperty(
           "--my",
@@ -1020,17 +1549,19 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     miraButton?.addEventListener(
       "pointerleave",
-      ()=>{
+      () => {
 
-        const orb=
+        const orb =
           miraButton.querySelector(
             ".mira-orb"
           );
+
 
         orb?.style.setProperty(
           "--mx",
           "0px"
         );
+
 
         orb?.style.setProperty(
           "--my",
@@ -1043,58 +1574,74 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 
-  /* =====================================================
+  /* =========================================================
      KEYBOARD
-  ===================================================== */
+  ========================================================= */
 
   document.addEventListener(
     "keydown",
-    e=>{
+    event => {
 
-      if(e.key!=="Escape")return;
+      if(
+        event.key !== "Escape"
+      ){
+        return;
+      }
+
 
       closeLightbox();
+
       closeMira();
+
       closeMenu();
+
       closeProfile();
 
     }
   );
 
 
-  /* =====================================================
-     FIRST VISIT MIRA PULSE
-  ===================================================== */
+  /* =========================================================
+     FIRST VISIT MIRA
+  ========================================================= */
 
   try{
 
-    if(
-      !sessionStorage.getItem(
+    const seen =
+      sessionStorage.getItem(
         "mira-presence"
-      ) &&
+      );
+
+
+    if(
+      !seen &&
       !reduced
     ){
 
-      setTimeout(
-        ()=>{
+      window.setTimeout(
+        () => {
 
           miraButton?.animate(
             [
               {
                 transform:"scale(1)"
               },
+
               {
-                transform:"scale(1.12)"
+                transform:"scale(1.1)"
               },
+
               {
                 transform:"scale(1)"
               }
             ],
             {
-              duration:900,
+              duration:800,
+
               easing:"ease-in-out"
             }
           );
+
 
           sessionStorage.setItem(
             "mira-presence",
@@ -1107,25 +1654,35 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     }
 
-  }catch(e){}
+  }catch(error){
+
+    /* Storage may be blocked. */
+
+  }
 
 
-  /* =====================================================
+  /* =========================================================
      SCROLL AMBIENCE
-  ===================================================== */
+  ========================================================= */
 
-  const a=
-    document.querySelector(".glow-a");
+  const glowA =
+    document.querySelector(
+      ".glow-a"
+    );
 
-  const b=
-    document.querySelector(".glow-b");
+  const glowB =
+    document.querySelector(
+      ".glow-b"
+    );
 
-  let scrollFrame=false;
+
+  let scrollFrame =
+    false;
 
 
-  addEventListener(
+  window.addEventListener(
     "scroll",
-    ()=>{
+    () => {
 
       if(
         reduced ||
@@ -1134,31 +1691,44 @@ document.addEventListener("DOMContentLoaded",()=>{
         return;
       }
 
-      scrollFrame=true;
+
+      scrollFrame =
+        true;
+
 
       requestAnimationFrame(
-        ()=>{
+        () => {
 
-          const max=
-            document.documentElement.scrollHeight-
-            innerHeight;
+          const max =
+            document.documentElement
+              .scrollHeight
+            - window.innerHeight;
 
-          const progress=
-            max
-              ? scrollY/max
+
+          const progress =
+            max > 0
+              ? window.scrollY / max
               : 0;
 
-          if(a){
-            a.style.transform=
-              `translateY(${progress*100}px)`;
+
+          if(glowA){
+
+            glowA.style.transform =
+              `translateY(${progress * 100}px)`;
+
           }
 
-          if(b){
-            b.style.transform=
-              `translateY(${-progress*130}px)`;
+
+          if(glowB){
+
+            glowB.style.transform =
+              `translateY(${-progress * 130}px)`;
+
           }
 
-          scrollFrame=false;
+
+          scrollFrame =
+            false;
 
         }
       );
@@ -1170,19 +1740,24 @@ document.addEventListener("DOMContentLoaded",()=>{
   );
 
 
-  /* =====================================================
+  /* =========================================================
      IMAGE FALLBACK
-  ===================================================== */
+  ========================================================= */
 
   document.addEventListener(
     "error",
-    e=>{
+    event => {
+
+      const target =
+        event.target;
+
 
       if(
-        e.target?.tagName==="IMG"
+        target &&
+        target.tagName === "IMG"
       ){
 
-        e.target.style.background=
+        target.style.background =
           "#111015";
 
       }
@@ -1190,5 +1765,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     },
     true
   );
+
 
 });

@@ -2,6 +2,86 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   const reduced=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
+    /* =====================================================
+     PERSONAL PROFILE
+     Added without changing existing functionality
+  ===================================================== */
+
+  const profileTrigger=document.getElementById("profileTrigger");
+  const profileOverlay=document.getElementById("profileOverlay");
+  const profileClose=document.getElementById("profileClose");
+  const profileBackdrop=document.getElementById("profileBackdrop");
+
+  let profileOpen=false;
+
+  function openProfile(){
+
+    if(!profileOverlay)return;
+
+    profileOpen=true;
+
+    profileOverlay.classList.add("open");
+
+    profileOverlay.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    profileTrigger?.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    document.body.classList.add("locked");
+
+    setTimeout(()=>{
+      profileClose?.focus();
+    },100);
+
+  }
+
+
+  function closeProfile(){
+
+    if(!profileOverlay)return;
+
+    profileOpen=false;
+
+    profileOverlay.classList.remove("open");
+
+    profileOverlay.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    profileTrigger?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+    document.body.classList.remove("locked");
+
+    profileTrigger?.focus();
+
+  }
+
+
+  profileTrigger?.addEventListener(
+    "click",
+    openProfile
+  );
+
+
+  profileClose?.addEventListener(
+    "click",
+    closeProfile
+  );
+
+
+  profileBackdrop?.addEventListener(
+    "click",
+    closeProfile
+  );
 
   /* =====================================================
      ARCHIVE
